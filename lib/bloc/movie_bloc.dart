@@ -1,9 +1,8 @@
 import 'package:knu_movie_web/api/API.dart';
-import 'package:knu_movie_web/model/User.dart';
 import 'package:knu_movie_web/model/movie.dart';
 import 'package:rxdart/rxdart.dart';
 
-class SelectBloc {
+class MovieBloc {
   final _api = API();
   final _fetcherHR = PublishSubject<List<Movie>>();
   final _fetcherKR = PublishSubject<List<Movie>>();
@@ -13,23 +12,23 @@ class SelectBloc {
   Observable<List<Movie>> get hotKoreaList => _fetcherKR.stream;
   Observable<List<Movie>> get classicList => _fetcherCS.stream;
 
-  fetchHRList(String uid) async {
+  fetchHRList(int uid) async {
     List<Movie> fetchedHRList = await _api.selectMovie(
-      User.uid,
+      uid,
     );
     _fetcherHR.sink.add(fetchedHRList);
   }
 
-  fetchKRList(String uid) async {
+  fetchKRList(int uid) async {
     List<Movie> fetchedKRList = await _api.selectMovie(
-      User.uid,
+      uid,
     );
     _fetcherKR.sink.add(fetchedKRList);
   }
 
-  fetchCSList(String uid) async {
+  fetchCSList(int uid) async {
     List<Movie> fetchedCSList = await _api.selectMovie(
-      User.uid,
+      uid,
     );
     _fetcherCS.sink.add(fetchedCSList);
   }

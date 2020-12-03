@@ -50,6 +50,7 @@ class _NavBarState extends State<NavBar> {
       return Padding(
         padding: EdgeInsets.only(left: 10),
         child: RaisedButton(
+          elevation: 7,
           color: redColor,
           onPressed: () {
             if (icon == Icons.home_rounded) {}
@@ -68,31 +69,34 @@ class _NavBarState extends State<NavBar> {
             horizontal: ResponsiveLayout.isLargeScreen(context)
                 ? MyPadding.mediaWidth(context)
                 : MyPadding.normalHorizontal,
-            vertical: 30),
+            vertical: ResponsiveLayout.isSmallScreen(context) ? 10 : 30),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             InkWell(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 0.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
                       Icon(
                         Icons.movie,
                         color: redColor,
-                        size: 45,
+                        size: ResponsiveLayout.isSmallScreen(context) ? 30 : 45,
                       ),
-                      Text("KNU",
+                      Text("KNU ",
                           style: GoogleFonts.prompt(
                             textStyle: TextStyle(
-                                fontSize: 30,
+                                fontSize:
+                                    ResponsiveLayout.isSmallScreen(context)
+                                        ? 20
+                                        : 30,
                                 color: redColor,
                                 shadows: [
                                   Shadow(
-                                      offset: Offset(1.0, 1.0),
+                                      offset: Offset(3.0, 3.0),
                                       color: Colors.black26,
-                                      blurRadius: 3.0)
+                                      blurRadius: 5.0)
                                 ]),
                           ))
                     ],

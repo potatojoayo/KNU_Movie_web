@@ -19,6 +19,22 @@ class API {
   //
   //
   // 영화 제목으로 db에서 fetch
+  Future<List<Movie>> tvSeries(int uid) async {
+    final url = _baseURL + 'movie/popular_tv_series';
+    final response = await http.post(url, headers: <String, String>{
+      'Content_Type': 'application/x-www-form-urlencoded',
+    }, body: <String, String>{
+      'uid': uid.toString()
+    });
+
+    List<Movie> _parseMovie(String responseBody) {
+      final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+      return parsed.map<Movie>((json) => Movie.fromJson(json)).toList();
+    }
+
+    return compute(_parseMovie, response.body);
+  }
+
   Future<List<Movie>> classics(int uid) async {
     final url = _baseURL + 'movie/classic';
     final response = await http.post(url, headers: <String, String>{
