@@ -3,6 +3,7 @@ import 'package:knu_movie_web/model/item.dart';
 import 'package:knu_movie_web/utils/padding.dart';
 import '../utils/responsive_layout.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../utils/shadow.dart';
 
 class NavBar extends StatefulWidget {
   static const Color menuIconColor = Color(0xFFEF9A9A);
@@ -50,7 +51,7 @@ class _NavBarState extends State<NavBar> {
       return Padding(
         padding: EdgeInsets.only(left: 10),
         child: RaisedButton(
-          elevation: 7,
+          elevation: 5,
           color: redColor,
           onPressed: () {
             if (icon == Icons.home_rounded) {}
@@ -92,12 +93,7 @@ class _NavBarState extends State<NavBar> {
                                         ? 20
                                         : 30,
                                 color: redColor,
-                                shadows: [
-                                  Shadow(
-                                      offset: Offset(3.0, 3.0),
-                                      color: Colors.black26,
-                                      blurRadius: 5.0)
-                                ]),
+                                shadows: [TextShadow.textShadow()]),
                           ))
                     ],
                   ),
