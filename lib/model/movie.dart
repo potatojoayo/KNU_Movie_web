@@ -10,7 +10,8 @@ class Movie {
       this.region,
       this.director,
       this.type,
-      this.directorImage});
+      this.directorImage,
+      this.rating});
   final int movieId;
   final String originalTitle;
   final String postImage;
@@ -25,6 +26,7 @@ class Movie {
   final String director;
   final String type;
   final String directorImage;
+  final double rating;
 
   factory Movie.fromJson(Map<String, dynamic> json) {
     return Movie(
@@ -38,6 +40,7 @@ class Movie {
         region: json['region'] as String,
         type: json['type'] as String,
         director: json['director_name'] as String,
-        directorImage: json['director_image'] as String);
+        directorImage: json['director_image'] as String,
+        rating: json['rating'] as double);
   }
 }

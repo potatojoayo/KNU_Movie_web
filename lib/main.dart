@@ -1,28 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:knu_movie_web/bloc/page_bloc.dart';
 import 'package:knu_movie_web/page/landing_page.dart';
-import 'package:knu_movie_web/widget/movie_list_view.dart';
-
-import 'api/API.dart';
 import 'nav/nav_bar.dart';
 
-MovieListView highRatingListView;
-MovieListView hotInKoreaListView;
-MovieListView classicListView;
-MovieListView tvSeriesListView;
-List<MovieListView> list = [
-  highRatingListView,
-  hotInKoreaListView,
-  classicListView,
-  tvSeriesListView
-];
+PageBloc pageBloc;
 
 void main() async {
-  final api = API();
-  highRatingListView = MovieListView(api.highRatings(1));
-  hotInKoreaListView = MovieListView(api.hotInKorea(1));
-  classicListView = MovieListView(api.classics(1));
-  tvSeriesListView = MovieListView(api.tvSeries(1));
+  pageBloc = PageBloc();
   runApp(KnuMovieWeb());
 }
 
@@ -42,23 +26,23 @@ class KnuMovieWeb extends StatelessWidget {
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final pageBloc = PageBloc();
     return Container(
       child: Scaffold(
         backgroundColor: Colors.grey[300],
+        appBar: AppBar(
+          actions: <Widget>[],
+        ),
         body: SingleChildScrollView(
           child: StreamBuilder<Widget>(
             stream: null,
             builder: (context, snapshot) {
               return SafeArea(
                 child: StreamBuilder<Widget>(
-                    initialData: LandingPage(
-                      listView: list,
-                    ),
+                    initialData: LandingPage(),
                     stream: pageBloc.page,
                     builder: (context, AsyncSnapshot<Widget> snapshot) {
                       return Column(
-                        children: <Widget>[NavBar(), snapshot.data],
+                        children: <Widget>[NavBar(pageBloc), snapshot.data],
                       );
                     }),
               );

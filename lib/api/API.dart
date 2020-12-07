@@ -433,6 +433,26 @@ class API {
     return compute(_parseLog, response.body);
   }
 
+  Future<Log> aMovieRating({String email, int mid}) async {
+    final updateURL = _baseURL + "account/rating/movie";
+    String emailAdd;
+    if (email != null)
+      emailAdd = email;
+    else
+      emailAdd = "";
+    http.Response response = await http.post(
+      updateURL,
+      headers: <String, String>{
+        'Content_Type': 'application/x-www-form-urlencoded',
+      },
+      body: <String, String>{'email_add': emailAdd, 'mid': mid.toString()},
+    );
+    // Json 파싱해서 리스트로 저장
+    final parsed = json.decode(response.body);
+    final log = Log.fromJson(parsed);
+    return log;
+  }
+
   // 어드민 체크
   Future<bool> isAdmin(int uid) async {
     final adminURL = _baseURL + "admin";

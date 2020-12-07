@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:knu_movie_web/bloc/page_bloc.dart';
+import 'package:knu_movie_web/model/movie.dart';
 
 class MovieListView extends StatelessWidget {
   final list;
-  const MovieListView(this.list, {Key key}) : super(key: key);
+  final PageBloc bloc;
+  const MovieListView(this.list, this.bloc, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: list,
-      builder: (context, snapshot) {
+      builder: (context, AsyncSnapshot<List<Movie>> snapshot) {
         if (!snapshot.hasData)
           return Container();
         else
@@ -21,7 +24,9 @@ class MovieListView extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 5.0),
                 child: InkWell(
                   onHover: (value) {},
-                  onTap: () {},
+                  onTap: () {
+                    bloc.goToMoviePage(snapshot.data[index].movieId);
+                  },
                   child: Card(
                     clipBehavior: Clip.antiAliasWithSaveLayer,
                     elevation: 5.0,

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:knu_movie_web/api/API.dart';
+import 'package:knu_movie_web/main.dart';
 import 'package:knu_movie_web/widget/my_container.dart';
 import 'package:knu_movie_web/utils/padding.dart';
 import 'package:knu_movie_web/utils/responsive_layout.dart';
@@ -6,12 +8,21 @@ import 'package:knu_movie_web/widget/movie_list_view.dart';
 import 'package:knu_movie_web/widget/texts.dart';
 
 class LandingPage extends StatelessWidget {
-  const LandingPage({Key key, this.listView}) : super(key: key);
-  final List<MovieListView> listView;
+  const LandingPage({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final api = API();
+    var highRatingListView = MovieListView(api.highRatings(1), pageBloc);
+    var hotInKoreaListView = MovieListView(api.hotInKorea(1), pageBloc);
+    var classicListView = MovieListView(api.classics(1), pageBloc);
+    var tvSeriesListView = MovieListView(api.tvSeries(1), pageBloc);
+    final listView = [
+      highRatingListView,
+      hotInKoreaListView,
+      classicListView,
+      tvSeriesListView
+    ];
     final myText = MyText();
-    final homeContainer = MyContainer();
     bool isLarge = ResponsiveLayout.isLargeScreen(context);
     Size size = MediaQuery.of(context).size;
     Widget verticalSizedBox() {
@@ -33,8 +44,11 @@ class LandingPage extends StatelessWidget {
               myText.subTitleText("High ratings  ", context)
             ]),
             verticalSizedBox(),
-            homeContainer.homeContainer(
-                size.width, size.height / 4, listView[0], context),
+            MyContainer(
+                width: size.width,
+                height: size.height / 4,
+                child: listView[0],
+                context: context),
             verticalSizedBox(),
             Row(mainAxisAlignment: MainAxisAlignment.start, children: [
               SizedBox(
@@ -43,8 +57,11 @@ class LandingPage extends StatelessWidget {
               myText.subTitleText("Hot in Korea  ", context)
             ]),
             verticalSizedBox(),
-            homeContainer.homeContainer(
-                size.width, size.height / 4, listView[1], context),
+            MyContainer(
+                width: size.width,
+                height: size.height / 4,
+                child: listView[1],
+                context: context),
             verticalSizedBox(),
             Row(mainAxisAlignment: MainAxisAlignment.start, children: [
               SizedBox(
@@ -53,8 +70,11 @@ class LandingPage extends StatelessWidget {
               myText.subTitleText("Classics  ", context)
             ]),
             verticalSizedBox(),
-            homeContainer.homeContainer(
-                size.width, size.height / 4, listView[2], context),
+            MyContainer(
+                width: size.width,
+                height: size.height / 4,
+                child: listView[2],
+                context: context),
             verticalSizedBox(),
             Row(mainAxisAlignment: MainAxisAlignment.start, children: [
               SizedBox(
@@ -63,8 +83,11 @@ class LandingPage extends StatelessWidget {
               myText.subTitleText("TvSeries  ", context)
             ]),
             verticalSizedBox(),
-            homeContainer.homeContainer(
-                size.width, size.height / 4, listView[3], context),
+            MyContainer(
+                width: size.width,
+                height: size.height / 4,
+                child: listView[3],
+                context: context),
             verticalSizedBox(),
             verticalSizedBox(),
             verticalSizedBox(),

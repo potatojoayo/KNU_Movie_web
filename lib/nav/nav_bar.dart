@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:knu_movie_web/bloc/page_bloc.dart';
 import 'package:knu_movie_web/model/item.dart';
 import 'package:knu_movie_web/utils/padding.dart';
 import '../utils/responsive_layout.dart';
@@ -7,6 +8,9 @@ import '../utils/shadow.dart';
 
 class NavBar extends StatefulWidget {
   static const Color menuIconColor = Color(0xFFEF9A9A);
+  final PageBloc bloc;
+
+  NavBar(this.bloc);
 
   @override
   _NavBarState createState() => _NavBarState();
@@ -54,7 +58,7 @@ class _NavBarState extends State<NavBar> {
           elevation: 5,
           color: redColor,
           onPressed: () {
-            if (icon == Icons.home_rounded) {}
+            if (icon == Icons.home_rounded) widget.bloc.goToLandingPage();
           },
           child: Icon(icon, color: whiteColor),
         ),
@@ -99,7 +103,9 @@ class _NavBarState extends State<NavBar> {
                   ),
                 ),
                 borderRadius: BorderRadius.circular(10.0),
-                onTap: () {}),
+                onTap: () {
+                  widget.bloc.goToLandingPage();
+                }),
             if (!ResponsiveLayout.isSmallScreen(context))
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -111,6 +117,8 @@ class _NavBarState extends State<NavBar> {
                   iconEnabledColor: redColor,
                   onChanged: (Item choosen) {
                     selectedMenu = choosen;
+                    if (selectedMenu.name == 'Home')
+                      widget.bloc.goToLandingPage();
                   },
                   items: naviMenu.map((Item menu) {
                     return DropdownMenuItem<Item>(

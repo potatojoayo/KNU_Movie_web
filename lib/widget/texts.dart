@@ -13,4 +13,24 @@ class MyText {
               fontSize: ResponsiveLayout.isSmallScreen(context) ? 20 : 30),
         ));
   }
+
+  Widget subTitleBoldText(text, context) {
+    return Text(text,
+        style: GoogleFonts.graduate(
+          textStyle: TextStyle(
+              color: Colors.red[200],
+              fontWeight: FontWeight.bold,
+              fontSize: ResponsiveLayout.isSmallScreen(context) ? 20 : 30),
+        ));
+  }
+
+  Widget smallText(text, context) {
+    return Text(text,
+        style: GoogleFonts.graduate(
+          textStyle: TextStyle(
+              color: Colors.red[200],
+              fontWeight: FontWeight.normal,
+              fontSize: ResponsiveLayout.isSmallScreen(context) ? 10 : 20),
+        ));
+  }
 }
