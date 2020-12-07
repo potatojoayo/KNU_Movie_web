@@ -24,13 +24,15 @@ class MyText {
         ));
   }
 
-  Widget smallText(text, context) {
+  Widget smallText(text, context, {fontSize}) {
     return Text(text,
         style: GoogleFonts.graduate(
           textStyle: TextStyle(
               color: Colors.red[200],
               fontWeight: FontWeight.normal,
-              fontSize: ResponsiveLayout.isSmallScreen(context) ? 10 : 20),
+              fontSize: fontSize == null
+                  ? (ResponsiveLayout.isSmallScreen(context) ? 10 : 20)
+                  : fontSize),
         ));
   }
 }

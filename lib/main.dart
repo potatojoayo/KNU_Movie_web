@@ -29,9 +29,6 @@ class HomePage extends StatelessWidget {
     return Container(
       child: Scaffold(
         backgroundColor: Colors.grey[300],
-        appBar: AppBar(
-          actions: <Widget>[],
-        ),
         body: SingleChildScrollView(
           child: StreamBuilder<Widget>(
             stream: null,

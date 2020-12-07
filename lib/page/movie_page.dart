@@ -41,10 +41,8 @@ class MoviePage extends StatelessWidget {
             bottom: MediaQuery.of(context).size.height / 10),
         child: MyContainer(
           width: size.width,
-          height: size.height >= 790 ? size.height : size.height / 0.8,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
+          height: size.height / 1.2,
+          child: ListView(
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -180,13 +178,16 @@ class MoviePage extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
-              Expanded(
+              Container(
+                height: ResponsiveLayout.isSmallScreen(context) ? 200 : 260,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: movie.actor.length,
                   itemBuilder: (context, index) {
-                    String actorImage = movie.actorImage[index];
-                    String actorName = movie.actor[index];
+                    final images = [movie.directorImage, ...movie.actorImage];
+                    final names = [movie.director, ...movie.actor];
+                    String img = images[index];
+                    String name = names[index];
                     return Padding(
                         padding: const EdgeInsets.only(right: 5.0),
                         child: Column(
@@ -196,8 +197,8 @@ class MoviePage extends StatelessWidget {
                                 height: ResponsiveLayout.isSmallScreen(context)
                                     ? 150
                                     : 230,
-                                child: MyPhotoCard(image: actorImage)),
-                            MyText().smallText(actorName, context)
+                                child: MyPhotoCard(image: img)),
+                            SizedBox(child: MyText().smallText(name, context))
                           ],
                         ));
                   },
@@ -230,25 +231,5 @@ class MyPhotoCard extends StatelessWidget {
         fit: BoxFit.fill,
       ),
     );
-  }
-}
-
-class MyTextCard extends StatelessWidget {
-  const MyTextCard({
-    Key key,
-    @required this.text,
-  }) : super(key: key);
-
-  final Text text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        elevation: 5.0,
-        semanticContainer: true,
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-        child: text);
   }
 }
