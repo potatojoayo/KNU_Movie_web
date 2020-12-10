@@ -3,6 +3,7 @@ import 'package:knu_movie_web/api/API.dart';
 import 'package:knu_movie_web/model/User.dart';
 import 'package:knu_movie_web/page/landing_page.dart';
 import 'package:knu_movie_web/page/movie_page.dart';
+import 'package:knu_movie_web/page/search_page.dart';
 import 'package:rxdart/rxdart.dart';
 
 class PageBloc {
@@ -12,6 +13,10 @@ class PageBloc {
 
   goToLandingPage() {
     _page.sink.add(LandingPage());
+  }
+
+  goToSearchPage(title, pageBloc) {
+    _page.sink.add(SearchPage(title, pageBloc));
   }
 
   goToMoviePage(movieId) async {
