@@ -3,6 +3,7 @@ import 'package:knu_movie_web/api/API.dart';
 import 'package:knu_movie_web/bloc/page_bloc.dart';
 import 'package:knu_movie_web/model/item.dart';
 import 'package:knu_movie_web/utils/padding.dart';
+import 'package:knu_movie_web/widget/inputText.dart';
 import '../utils/responsive_layout.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../utils/shadow.dart';
@@ -114,10 +115,16 @@ class _NavBarState extends State<NavBar> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
+                AnimatedOpacity(
+                    opacity: isSearchOpen ? 1.0 : 0.0,
+                    duration: Duration(milliseconds: 500),
+                    child: InputText()),
                 InkWell(
                     borderRadius: BorderRadius.circular(10.0),
                     onTap: () {
-                      isSearchOpen = true;
+                      setState(() {
+                        isSearchOpen = !isSearchOpen;
+                      });
                     },
                     child: Icon(
                       Icons.search_rounded,
