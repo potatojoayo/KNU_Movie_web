@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:knu_movie_web/api/API.dart';
+import 'package:knu_movie_web/bloc/visiblilit_bloc.dart';
 import 'package:knu_movie_web/model/User.dart';
 import 'package:knu_movie_web/model/movie.dart';
 import 'package:knu_movie_web/utils/padding.dart';
@@ -19,19 +20,19 @@ class MoviePage extends StatelessWidget {
     bool isLarge = ResponsiveLayout.isLargeScreen(context);
     Size size = MediaQuery.of(context).size;
     final api = API();
+    final visibilityBloc = VisibilityBloc();
     final genres = movie.genre
         .map((genre) => MyText().smallText(genre + ", ", context))
         .toList();
-    genres[genres.length - 1] =
-        MyText().smallText(movie.genre[genres.length - 1], context);
+    if (genres.length >= 1)
+      genres[genres.length - 1] =
+          MyText().smallText(movie.genre[genres.length - 1], context);
     final actors = movie.actor
         .map((actor) => MyText().smallText(actor + ", ", context))
         .toList();
-    actors[actors.length - 1] =
-        MyText().smallText(movie.actor[actors.length - 1], context);
-
-    print(movie.startYear);
-    print(movie.startYear);
+    if (actors.length >= 1)
+      actors[actors.length - 1] =
+          MyText().smallText(movie.actor[actors.length - 1], context);
 
     return Padding(
         padding: EdgeInsets.only(
@@ -122,7 +123,8 @@ class MoviePage extends StatelessWidget {
                         SizedBox(
                           height: 10,
                         ),
-                        MyText().smallText("Actors:", context),
+                        if (actors.length > 0)
+                          MyText().smallText("Actors:", context),
                         Wrap(
                           children: actors,
                         ),
@@ -170,10 +172,18 @@ class MoviePage extends StatelessWidget {
                                     }
                                   : null),
                         ),
-                        Visibility(
-                            visible: true,
-                            child: MyText()
-                                .smallText("Please login first", context))
+                        SizedBox(
+                          height: 10,
+                        ),
+                        StreamBuilder<bool>(
+                            initialData: true,
+                            stream: visibilityBloc.visiblity,
+                            builder: (context, snapshot) {
+                              return Visibility(
+                                  visible: snapshot.data,
+                                  child: MyText().smallText(
+                                      "(Please login to rate)", context));
+                            })
                       ],
                     ),
                   )

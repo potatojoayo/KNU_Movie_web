@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:knu_movie_web/api/API.dart';
 import 'package:knu_movie_web/bloc/page_bloc.dart';
 import 'package:knu_movie_web/model/item.dart';
 import 'package:knu_movie_web/utils/padding.dart';
@@ -22,6 +23,10 @@ class _NavBarState extends State<NavBar> {
   final whiteColor = Colors.grey[300];
 
   final font = GoogleFonts.prompt();
+
+  final api = API();
+
+  var isSearchOpen = false;
 
   final navLinks = [
     Icons.home_rounded,
@@ -70,73 +75,88 @@ class _NavBarState extends State<NavBar> {
   Widget build(BuildContext context) {
     Item selectedMenu = naviMenu[0];
     return Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: ResponsiveLayout.isLargeScreen(context)
-                ? MyPadding.mediaWidth(context)
-                : MyPadding.normalHorizontal,
-            vertical: ResponsiveLayout.isSmallScreen(context) ? 10 : 30),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            InkWell(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 0.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      Icon(
-                        Icons.movie,
-                        color: redColor,
-                        size: ResponsiveLayout.isSmallScreen(context) ? 30 : 45,
-                      ),
-                      Text("KNU ",
-                          style: GoogleFonts.prompt(
-                            textStyle: TextStyle(
-                                fontSize:
-                                    ResponsiveLayout.isSmallScreen(context)
-                                        ? 20
-                                        : 30,
-                                color: redColor,
-                                shadows: [TextShadow.textShadow()]),
-                          ))
-                    ],
-                  ),
+      padding: EdgeInsets.symmetric(
+          horizontal: ResponsiveLayout.isLargeScreen(context)
+              ? MyPadding.mediaWidth(context)
+              : MyPadding.normalHorizontal,
+          vertical: ResponsiveLayout.isSmallScreen(context) ? 10 : 30),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          InkWell(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 0.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    Icon(
+                      Icons.movie,
+                      color: redColor,
+                      size: ResponsiveLayout.isSmallScreen(context) ? 30 : 45,
+                    ),
+                    Text("KNU ",
+                        style: GoogleFonts.prompt(
+                          textStyle: TextStyle(
+                              fontSize: ResponsiveLayout.isSmallScreen(context)
+                                  ? 20
+                                  : 30,
+                              color: redColor,
+                              shadows: [TextShadow.textShadow()]),
+                        ))
+                  ],
                 ),
-                borderRadius: BorderRadius.circular(10.0),
-                onTap: () {
-                  widget.bloc.goToLandingPage();
-                }),
-            if (!ResponsiveLayout.isSmallScreen(context))
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[...navItem()],
-              )
-            else
-              DropdownButton<Item>(
-                  value: selectedMenu,
-                  iconEnabledColor: redColor,
-                  onChanged: (Item choosen) {
-                    selectedMenu = choosen;
-                    if (selectedMenu.name == 'Home')
-                      widget.bloc.goToLandingPage();
-                  },
-                  items: naviMenu.map((Item menu) {
-                    return DropdownMenuItem<Item>(
-                        value: menu,
-                        child: Row(
-                          children: [
-                            menu.icon,
-                            SizedBox(width: 5),
-                            Text(menu.name,
-                                style: GoogleFonts.prompt(
-                                    textStyle: TextStyle(
-                                  fontSize: 17,
-                                  color: redColor,
-                                )))
-                          ],
-                        ));
-                  }).toList())
-          ],
-        ));
+              ),
+              borderRadius: BorderRadius.circular(10.0),
+              onTap: () {
+                widget.bloc.goToLandingPage();
+              }),
+          if (!ResponsiveLayout.isSmallScreen(context))
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                InkWell(
+                    borderRadius: BorderRadius.circular(10.0),
+                    onTap: () {
+                      isSearchOpen = true;
+                    },
+                    child: Icon(
+                      Icons.search_rounded,
+                      color: redColor,
+                      size: 30,
+                    )),
+                SizedBox(
+                  width: 10,
+                ),
+                ...navItem()
+              ],
+            )
+          else
+            DropdownButton<Item>(
+                value: selectedMenu,
+                iconEnabledColor: redColor,
+                onChanged: (Item choosen) {
+                  selectedMenu = choosen;
+                  if (selectedMenu.name == 'Home')
+                    widget.bloc.goToLandingPage();
+                },
+                items: naviMenu.map((Item menu) {
+                  return DropdownMenuItem<Item>(
+                      value: menu,
+                      child: Row(
+                        children: [
+                          menu.icon,
+                          SizedBox(width: 5),
+                          Text(menu.name,
+                              style: GoogleFonts.prompt(
+                                  textStyle: TextStyle(
+                                fontSize: 17,
+                                color: redColor,
+                              )))
+                        ],
+                      ));
+                }).toList())
+        ],
+      ),
+    );
   }
 }
