@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:knu_movie_web/bloc/page_bloc.dart';
 import 'package:knu_movie_web/page/landing_page.dart';
+import 'package:knu_movie_web/page/search_page.dart';
 
 import 'nav/nav_bar.dart';
 
@@ -8,7 +9,6 @@ PageBloc pageBloc;
 
 void main() async {
   pageBloc = PageBloc();
-
   runApp(KnuMovieWeb());
 }
 
@@ -37,7 +37,7 @@ class HomePage extends StatelessWidget {
             builder: (context, snapshot) {
               return SafeArea(
                 child: StreamBuilder<Widget>(
-                    initialData: LandingPage(),
+                    initialData: SearchPage('night', pageBloc),
                     stream: pageBloc.page,
                     builder: (context, AsyncSnapshot<Widget> snapshot) {
                       return Column(

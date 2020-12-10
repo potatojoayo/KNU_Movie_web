@@ -94,7 +94,9 @@ class MoviePage extends StatelessWidget {
                         ),
                         Container(
                             child: RatingBar.builder(
-                          initialRating: movie.rating / 2 - 1,
+                          initialRating:
+                              (((movie.rating / 2) * 10.round()) / 10)
+                                  .toDouble(),
                           itemSize:
                               ResponsiveLayout.isSmallScreen(context) ? 15 : 40,
                           allowHalfRating: true,
