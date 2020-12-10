@@ -30,6 +30,9 @@ class MoviePage extends StatelessWidget {
     actors[actors.length - 1] =
         MyText().smallText(movie.actor[actors.length - 1], context);
 
+    print(movie.startYear);
+    print(movie.startYear);
+
     return Padding(
         padding: EdgeInsets.only(
             left: isLarge
@@ -58,7 +61,7 @@ class MoviePage extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                      width: ResponsiveLayout.isLargeScreen(context) ? 40 : 10),
+                      width: ResponsiveLayout.isLargeScreen(context) ? 40 : 20),
                   Flexible(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -105,14 +108,17 @@ class MoviePage extends StatelessWidget {
                         SizedBox(
                           height: 10,
                         ),
-                        MyText().smallText(
-                            "Average rating: " + movie.rating.toString(),
-                            context),
+                        if (movie.runningTime != null)
+                          MyText().smallText(
+                              "Average rating: " + movie.rating.toString(),
+                              context),
                         SizedBox(
                           height: 10,
                         ),
-                        MyText().smallText("Director:", context),
-                        MyText().smallText(movie.director, context),
+                        if (movie.director != null)
+                          MyText().smallText("Director:", context),
+                        if (movie.director != null)
+                          MyText().smallText(movie.director, context),
                         SizedBox(
                           height: 10,
                         ),
@@ -132,14 +138,6 @@ class MoviePage extends StatelessWidget {
                             SizedBox(
                               width: 1,
                             ),
-                            // Container(
-                            //     width: ResponsiveLayout.isSmallScreen(context)
-                            //         ? 100
-                            //         : 150,
-                            //     child: AspectRatio(
-                            //         aspectRatio: 2 / 3,
-                            //         child: MyPhotoCard(
-                            //             image: movie.directorImage))),
                           ],
                         ),
                         SizedBox(
@@ -161,15 +159,21 @@ class MoviePage extends StatelessWidget {
                                   EdgeInsets.symmetric(horizontal: 2.0),
                               itemBuilder: (context, _) =>
                                   Icon(Icons.star, color: Colors.amber),
-                              onRatingUpdate: (rating) {
-                                _rating = rating;
-                                if (User.email != null)
-                                  api.rating(
-                                      User.uid.toString(),
-                                      movie.movieId.toString(),
-                                      _rating.toString());
-                              }),
-                        )
+                              onRatingUpdate: User.uid != null
+                                  ? (rating) {
+                                      _rating = rating;
+                                      if (User.email != null)
+                                        api.rating(
+                                            User.uid.toString(),
+                                            movie.movieId.toString(),
+                                            _rating.toString());
+                                    }
+                                  : null),
+                        ),
+                        Visibility(
+                            visible: true,
+                            child: MyText()
+                                .smallText("Please login first", context))
                       ],
                     ),
                   )
@@ -184,8 +188,12 @@ class MoviePage extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   itemCount: movie.actor.length,
                   itemBuilder: (context, index) {
-                    final images = [movie.directorImage, ...movie.actorImage];
-                    final names = [movie.director, ...movie.actor];
+                    final images = movie.directorImage == null
+                        ? movie.actorImage
+                        : [movie.directorImage, ...movie.actorImage];
+                    final names = movie.director == null
+                        ? movie.actor
+                        : [movie.director, ...movie.actor];
                     String img = images[index];
                     String name = names[index];
                     return Padding(
@@ -196,9 +204,9 @@ class MoviePage extends StatelessWidget {
                             SizedBox(
                                 height: ResponsiveLayout.isSmallScreen(context)
                                     ? 150
-                                    : 230,
+                                    : 220,
                                 child: MyPhotoCard(image: img)),
-                            SizedBox(child: MyText().smallText(name, context))
+                            SizedBox(child: MyText().smallText(name, context)),
                           ],
                         ));
                   },
@@ -212,12 +220,12 @@ class MoviePage extends StatelessWidget {
 }
 
 class MyPhotoCard extends StatelessWidget {
+  final String image;
+
   const MyPhotoCard({
     Key key,
     @required this.image,
   }) : super(key: key);
-
-  final String image;
 
   @override
   Widget build(BuildContext context) {

@@ -1,0 +1,16 @@
+
+Changing current working directory to: /Users/hyobeomhan/project/flutter/KNU_Movie_web
+
+Running "flutter pub get" in KNU_Movie_web...                       3.2s
+
+
+Launching lib/main.dart on Chrome in debug mode...
+
+Syncing files to device Chrome...                                  41.3s
+
+
+Failed to establish connection with the application instance in Chrome.
+This can happen if the websocket connection used by the web tooling is unable to correctly establish a connection, for example due to a firewall.
+
+
+
