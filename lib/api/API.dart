@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:knu_movie_web/model/conditionValue.dart';
 import 'package:knu_movie_web/model/director.dart';
 import 'package:knu_movie_web/model/movie.dart';
 import 'package:http/http.dart' as http;
@@ -99,10 +100,17 @@ class API {
     String actor,
     String director,
     String isAdmin,
+    List<ConditionValue> conditionValue,
   }) async {
-    /// uid는 필수로 입력
     var movieURL = _baseURL + "movie?uid=" + uid.toString();
+    if (conditionValue.isNotEmpty) {
+      for (ConditionValue c in conditionValue) {
+        movieURL += "&" + c.condition + "=" + c.value;
+      }
+      conditionValue.clear();
+    }
 
+    /// uid는 필수로 입력
     if (title == null) {
       movieURL += "&title=any";
     } else {

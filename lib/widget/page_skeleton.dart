@@ -4,8 +4,13 @@ import 'package:knu_movie_web/utils/responsive_layout.dart';
 
 import 'my_container.dart';
 
+<<<<<<< HEAD
 class SkeletonWidget extends StatelessWidget {
   SkeletonWidget({Key key, @required this.child}) : super(key: key);
+=======
+class SkeltonWidget extends StatelessWidget {
+  SkeltonWidget({Key key, @required this.child}) : super(key: key);
+>>>>>>> 9d0f03d93f9288ede66846b7829168fd96e5bb4f
 
   final child;
 

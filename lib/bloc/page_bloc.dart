@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:knu_movie_web/api/API.dart';
 import 'package:knu_movie_web/model/User.dart';
+import 'package:knu_movie_web/model/conditionValue.dart';
+import 'package:knu_movie_web/page/account_page.dart';
 import 'package:knu_movie_web/page/landing_page.dart';
 import 'package:knu_movie_web/page/login_page.dart';
 import 'package:knu_movie_web/page/movie_page.dart';
@@ -17,16 +19,16 @@ class PageBloc {
     _page.sink.add(LandingPage());
   }
 
+  goToSearchPage(value, pageBloc, List<ConditionValue> conditionValue) {
+    _page.sink.add(SearchPage(value, pageBloc, conditionValue));
+  }
+
   goTOLoginPage(pageBloc) {
     _page.sink.add(LoginPage(pageBloc));
   }
 
   goToSignupPage(pageBloc) {
     _page.sink.add(RegisterPage(pageBloc));
-  }
-
-  goToSearchPage(title, pageBloc) {
-    _page.sink.add(SearchPage(title, pageBloc));
   }
 
   goToMoviePage(movieId) async {
@@ -47,6 +49,10 @@ class PageBloc {
       rating = 0;
 
     _page.sink.add(MoviePage(movie, rating));
+  }
+
+  goToAccountPage() {
+    _page.sink.add(AccountPage());
   }
 
   dispose() {
