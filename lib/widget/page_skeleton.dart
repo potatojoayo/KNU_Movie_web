@@ -6,7 +6,6 @@ import 'my_container.dart';
 
 class SkeletonWidget extends StatelessWidget {
   SkeletonWidget({Key key, @required this.child}) : super(key: key);
-
   final child;
 
   @override

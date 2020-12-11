@@ -81,7 +81,7 @@ RaisedButton signinButton(BuildContext context) {
     disabledColor: MyColor.red,
     color: MyColor.red,
     onPressed: () {
-      pageBloc.goTOLoginPage(pageBloc);
+      pageBloc.goToLoginPage(pageBloc);
     },
   );
 }

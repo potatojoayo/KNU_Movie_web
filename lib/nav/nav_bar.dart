@@ -93,7 +93,7 @@ class _NavBarState extends State<NavBar> {
                         ],
                       ),
                     )
-                  : widget.pageBloc.goTOLoginPage(widget.pageBloc);
+                  : widget.pageBloc.goToLoginPage(widget.pageBloc);
             else if (icon == Icons.account_box) {
               User.email == null
                   ? showDialog(
@@ -110,7 +110,7 @@ class _NavBarState extends State<NavBar> {
                           TextButton(
                             onPressed: () {
                               Navigator.of(context).pop();
-                              widget.pageBloc.goTOLoginPage(pageBloc);
+                              widget.pageBloc.goToLoginPage(pageBloc);
                             },
                             child: Text('Cancel'),
                           )
@@ -212,34 +212,34 @@ class _NavBarState extends State<NavBar> {
                                           ),
                                         )
                                       : widget.pageBloc
-                                          .goTOLoginPage(widget.pageBloc);
+                                          .goToLoginPage(widget.pageBloc);
                                 else if (selectedMenu.name == 'Account') {
-                                  User.email == null
-                                      ? showDialog(
-                                          context: context,
-                                          barrierDismissible: false,
-                                          builder: (context) => AlertDialog(
-                                            title: Text('로그인하세요'),
-                                            content: SingleChildScrollView(
-                                              child: ListBody(
-                                                children: <Widget>[
-                                                  Text('안하면 안됨')
-                                                ],
-                                              ),
-                                            ),
-                                            actions: <Widget>[
-                                              TextButton(
-                                                onPressed: () {
-                                                  Navigator.of(context).pop();
-                                                  widget.pageBloc
-                                                      .goTOLoginPage(pageBloc);
-                                                },
-                                                child: Text('Cancel'),
-                                              )
-                                            ],
-                                          ),
-                                        )
-                                      : pageBloc.goToAccountPage();
+                                  // User.email == null
+                                  //     ? showDialog(
+                                  //         context: context,
+                                  //         barrierDismissible: false,
+                                  //         builder: (context) => AlertDialog(
+                                  //           title: Text('로그인하세요'),
+                                  //           content: SingleChildScrollView(
+                                  //             child: ListBody(
+                                  //               children: <Widget>[
+                                  //                 Text('안하면 안됨')
+                                  //               ],
+                                  //             ),
+                                  //           ),
+                                  //           actions: <Widget>[
+                                  //             TextButton(
+                                  //               onPressed: () {
+                                  //                 Navigator.of(context).pop();
+                                  //                 widget.pageBloc
+                                  //                     .goToLoginPage(pageBloc);
+                                  //               },
+                                  //               child: Text('Cancel'),
+                                  //             )
+                                  //           ],
+                                  //         ),
+                                  //       )
+                                  pageBloc.goToAccountPage();
                                 }
                               },
                               //

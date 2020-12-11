@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:knu_movie_web/api/API.dart';
+import 'package:knu_movie_web/main.dart';
 import 'package:knu_movie_web/model/User.dart';
 import 'package:knu_movie_web/model/conditionValue.dart';
 import 'package:knu_movie_web/page/account_page.dart';
@@ -24,7 +25,7 @@ class PageBloc {
     _page.sink.add(SearchPage(pageBloc, conditionValue));
   }
 
-  goTOLoginPage(pageBloc) {
+  goToLoginPage(pageBloc) {
     _page.sink.add(LoginPage(pageBloc));
   }
 
@@ -57,7 +58,7 @@ class PageBloc {
   }
 
   goToAccountPage() {
-    _page.sink.add(AccountPage());
+    _page.sink.add(AccountPage(pageBloc));
   }
 
   dispose() {
