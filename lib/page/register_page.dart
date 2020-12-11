@@ -5,10 +5,11 @@ import 'package:knu_movie_web/utils/padding.dart';
 import 'package:knu_movie_web/utils/responsive_layout.dart';
 import 'package:knu_movie_web/widget/my_container.dart';
 import 'package:knu_movie_web/widget/login_form.dart';
+import 'package:knu_movie_web/widget/signup_form.dart';
 import 'package:knu_movie_web/widget/texts.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage(this.pageBloc, {Key key}) : super(key: key);
+class RegisterPage extends StatelessWidget {
+  const RegisterPage(this.pageBloc, {Key key}) : super(key: key);
   final pageBloc;
 
   @override
@@ -39,7 +40,7 @@ class LoginPage extends StatelessWidget {
                   Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.login,
+                        Icon(Icons.app_registration,
                             size: ResponsiveLayout.isSmallScreen(context)
                                 ? 100
                                 : 150,
@@ -48,12 +49,12 @@ class LoginPage extends StatelessWidget {
                             height: ResponsiveLayout.isSmallScreen(context)
                                 ? 20
                                 : 50),
-                        MyText().subTitleText("signin", context),
+                        MyText().subTitleText("signup", context),
                         SizedBox(
                             height: ResponsiveLayout.isSmallScreen(context)
                                 ? 20
                                 : 50),
-                        signupButton(context)
+                        signinButton(context)
                       ]),
                   SizedBox(
                     width: ResponsiveLayout.isLargeScreen(context)
@@ -64,7 +65,7 @@ class LoginPage extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        LoginForm(pageBloc),
+                        SignUpForm(pageBloc),
                       ],
                     ),
                   ),
@@ -75,13 +76,13 @@ class LoginPage extends StatelessWidget {
   }
 }
 
-RaisedButton signupButton(BuildContext context) {
+RaisedButton signinButton(BuildContext context) {
   return RaisedButton(
-    child: MyText().smallTextGrey("signup", context),
+    child: MyText().smallTextGrey("signin", context),
     disabledColor: MyColor.red,
     color: MyColor.red,
     onPressed: () {
-      pageBloc.goToSignupPage(pageBloc);
+      pageBloc.goTOLoginPage(pageBloc);
     },
   );
 }

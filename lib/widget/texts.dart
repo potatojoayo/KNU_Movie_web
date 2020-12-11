@@ -47,4 +47,16 @@ class MyText {
                   : fontSize),
         ));
   }
+
+  Widget smallTextSelectColor(text, context, color, {fontSize}) {
+    return Text(text,
+        style: GoogleFonts.graduate(
+          textStyle: TextStyle(
+              color: color,
+              fontWeight: FontWeight.normal,
+              fontSize: fontSize == null
+                  ? (ResponsiveLayout.isSmallScreen(context) ? 13 : 20)
+                  : fontSize),
+        ));
+  }
 }

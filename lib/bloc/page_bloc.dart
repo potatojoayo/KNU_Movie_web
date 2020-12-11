@@ -4,6 +4,7 @@ import 'package:knu_movie_web/model/User.dart';
 import 'package:knu_movie_web/page/landing_page.dart';
 import 'package:knu_movie_web/page/login_page.dart';
 import 'package:knu_movie_web/page/movie_page.dart';
+import 'package:knu_movie_web/page/register_page.dart';
 import 'package:knu_movie_web/page/search_page.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -18,6 +19,10 @@ class PageBloc {
 
   goTOLoginPage(pageBloc) {
     _page.sink.add(LoginPage(pageBloc));
+  }
+
+  goToSignupPage(pageBloc) {
+    _page.sink.add(RegisterPage(pageBloc));
   }
 
   goToSearchPage(title, pageBloc) {

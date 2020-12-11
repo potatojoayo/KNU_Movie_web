@@ -41,7 +41,7 @@ class _LoginFormState extends State<LoginForm> {
 
   RaisedButton submitButton(BuildContext context) {
     return RaisedButton(
-      child: MyText().smallTextGrey("Login", context),
+      child: MyText().smallTextGrey("submit", context),
       disabledColor: MyColor.red,
       color: MyColor.red,
       onPressed: () {
@@ -62,6 +62,7 @@ class _LoginFormState extends State<LoginForm> {
               User.phone = value.phone;
               User.sex = value.sex;
               Scaffold.of(context)
+                  // ignore: deprecated_member_use
                   .showSnackBar(SnackBar(content: Text('Login success!')));
               widget.pageBloc.goToLandingPage();
             }
