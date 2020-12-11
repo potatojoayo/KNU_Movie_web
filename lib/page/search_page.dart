@@ -10,8 +10,7 @@ import 'package:knu_movie_web/widget/my_container.dart';
 import 'package:knu_movie_web/widget/texts.dart';
 
 class SearchPage extends StatelessWidget {
-  SearchPage(this.value, this.pageBloc, this.conditionValue);
-  final value;
+  SearchPage(this.pageBloc, this.conditionValue);
   final PageBloc pageBloc;
   final List<ConditionValue> conditionValue;
   @override

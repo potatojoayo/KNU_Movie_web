@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:knu_movie_web/api/API.dart';
+import 'package:knu_movie_web/bloc/page_bloc.dart';
 import 'package:knu_movie_web/color/color.dart';
 import 'package:knu_movie_web/model/User.dart';
+import 'package:knu_movie_web/model/conditionValue.dart';
 import 'package:knu_movie_web/utils/validation.dart';
 import 'package:knu_movie_web/widget/my_text_form_field.dart';
 import 'package:knu_movie_web/widget/texts.dart';
 import 'package:numberpicker/numberpicker.dart';
 
 class DetailSearchForm extends StatefulWidget {
-  final pageBloc;
+  final PageBloc pageBloc;
   DetailSearchForm(this.pageBloc);
   @override
   _DetailSearchFormState createState() => _DetailSearchFormState();
@@ -77,20 +79,29 @@ class _DetailSearchFormState extends State<DetailSearchForm> {
       child: MyText().smallTextGrey("submit", context),
       disabledColor: MyColor.red,
       color: MyColor.red,
-      onPressed: () async {
-        final api = API();
-        final fmovies = api.selectMovie(
-          User.uid,
-          title: _title != null ? _title : null,
-          genre: _genre != null ? _genre : null,
-          type: _type != null ? _type : null,
-          actor: _actor != null ? _actor : null,
-          director: _director != null ? _director : null,
-          minStartYear: _minStartYear != null ? _minStartYear : null,
-          maxStartYear: _minStartYear != null ? _maxStartYear : null,
-          minRating: _minRating != null ? _minRating : null,
-          maxRating: _minRating != null ? _maxRating : null,
-        );
+      onPressed: () {
+        List<ConditionValue> conditions = List<ConditionValue>();
+        if (_title != null) conditions.add(ConditionValue("title", _title));
+        if (_genre != null) conditions.add(ConditionValue("genre", _genre));
+        if (_type != null) conditions.add(ConditionValue("type", _type));
+        if (_actor != null) conditions.add(ConditionValue("actor", _actor));
+        if (_director != null)
+          conditions.add(ConditionValue("director", _director));
+        if (_minStartYear != null)
+          conditions
+              .add(ConditionValue("minStartYear", _minStartYear.toString()));
+        if (_maxStartYear != null)
+          conditions
+              .add(ConditionValue("maxStartYear", _maxStartYear.toString()));
+        if (_minRating != null)
+          conditions.add(ConditionValue("minRating", _minRating.toString()));
+        if (_maxRating != null)
+          conditions.add(ConditionValue("maxRating", _maxRating.toString()));
+        print(_title);
+        for (ConditionValue c in conditions) {
+          print(c.value);
+        }
+        widget.pageBloc.goToSearchPage(widget.pageBloc, conditions);
       },
     );
   }
@@ -103,7 +114,13 @@ class _DetailSearchFormState extends State<DetailSearchForm> {
       ),
       Flexible(child: MyTextFormField(
         (value) {
-          input = value;
+          setState(() {
+            if (input == _title) this._title = value;
+            if (input == _genre) this._genre = value;
+            if (input == _type) this._type = value;
+            if (input == _actor) this._actor = value;
+            if (input == _director) this._director = value;
+          });
         },
       )),
     ]);

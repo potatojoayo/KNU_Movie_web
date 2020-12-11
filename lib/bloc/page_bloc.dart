@@ -19,8 +19,8 @@ class PageBloc {
     _page.sink.add(LandingPage());
   }
 
-  goToSearchPage(value, pageBloc, List<ConditionValue> conditionValue) {
-    _page.sink.add(SearchPage(value, pageBloc, conditionValue));
+  goToSearchPage(pageBloc, List<ConditionValue> conditionValue) {
+    _page.sink.add(SearchPage(pageBloc, conditionValue));
   }
 
   goTOLoginPage(pageBloc) {
