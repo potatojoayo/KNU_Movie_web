@@ -8,11 +8,13 @@ import 'package:knu_movie_web/utils/responsive_layout.dart';
 import 'package:knu_movie_web/widget/my_container.dart';
 
 class SearchPage extends StatelessWidget {
-  SearchPage(this.title, this.pageBloc);
-  final PageBloc pageBloc;
+  SearchPage(this.title, this.pageBloc, this.condition);
   final title;
+  final PageBloc pageBloc;
+  final String condition;
   @override
   Widget build(BuildContext context) {
+    print(condition);
     bool isLarge = ResponsiveLayout.isLargeScreen(context);
     bool isMedium = ResponsiveLayout.isMediumScreen(context);
     var _rowItemCount = 5;

@@ -15,8 +15,8 @@ class PageBloc {
     _page.sink.add(LandingPage());
   }
 
-  goToSearchPage(title, pageBloc) {
-    _page.sink.add(SearchPage(title, pageBloc));
+  goToSearchPage(title, pageBloc, condition) {
+    _page.sink.add(SearchPage(title, pageBloc, condition));
   }
 
   goToMoviePage(movieId) async {

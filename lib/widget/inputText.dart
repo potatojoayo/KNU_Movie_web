@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 
 class InputText extends StatelessWidget {
+  static TextEditingController submit = TextEditingController();
+  //submit
+  //textFont
+  final redColor = Colors.red[200];
+
+  InputText(TextEditingController submitText) {
+    submit = submitText;
+  }
   @override
   Widget build(BuildContext context) {
-    final redColor = Colors.red[200];
     return Container(
       width: 200,
-      height: 30,
+      height: 35,
       child: TextField(
+        controller: submit,
         decoration: InputDecoration(
-            icon: Icon(
-              Icons.clear,
-              color: redColor,
-            ),
+            focusedBorder:
+                UnderlineInputBorder(borderSide: BorderSide(color: redColor)),
             enabledBorder:
                 UnderlineInputBorder(borderSide: BorderSide(color: redColor))),
       ),

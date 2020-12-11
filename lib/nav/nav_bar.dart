@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:knu_movie_web/api/API.dart';
 import 'package:knu_movie_web/bloc/page_bloc.dart';
+import 'package:knu_movie_web/main.dart';
 import 'package:knu_movie_web/model/item.dart';
 import 'package:knu_movie_web/utils/padding.dart';
-import 'package:knu_movie_web/widget/inputText.dart';
+import 'package:knu_movie_web/widget/movie_search_condition.dart';
 import '../utils/responsive_layout.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../utils/shadow.dart';
@@ -26,8 +27,6 @@ class _NavBarState extends State<NavBar> {
   final font = GoogleFonts.prompt();
 
   final api = API();
-
-  var isSearchOpen = false;
 
   final navLinks = [
     Icons.home_rounded,
@@ -111,57 +110,41 @@ class _NavBarState extends State<NavBar> {
               onTap: () {
                 widget.bloc.goToLandingPage();
               }),
-          if (!ResponsiveLayout.isSmallScreen(context))
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                AnimatedOpacity(
-                    opacity: isSearchOpen ? 1.0 : 0.0,
-                    duration: Duration(milliseconds: 500),
-                    child: InputText()),
-                InkWell(
-                    borderRadius: BorderRadius.circular(10.0),
-                    onTap: () {
-                      setState(() {
-                        isSearchOpen = !isSearchOpen;
-                      });
-                    },
-                    child: Icon(
-                      Icons.search_rounded,
-                      color: redColor,
-                      size: 30,
-                    )),
-                SizedBox(
-                  width: 10,
-                ),
-                ...navItem()
-              ],
-            )
-          else
-            DropdownButton<Item>(
-                value: selectedMenu,
-                iconEnabledColor: redColor,
-                onChanged: (Item choosen) {
-                  selectedMenu = choosen;
-                  if (selectedMenu.name == 'Home')
-                    widget.bloc.goToLandingPage();
-                },
-                items: naviMenu.map((Item menu) {
-                  return DropdownMenuItem<Item>(
-                      value: menu,
-                      child: Row(
-                        children: [
-                          menu.icon,
-                          SizedBox(width: 5),
-                          Text(menu.name,
-                              style: GoogleFonts.prompt(
-                                  textStyle: TextStyle(
-                                fontSize: 17,
-                                color: redColor,
-                              )))
-                        ],
-                      ));
-                }).toList())
+          !ResponsiveLayout.isSmallScreen(context)
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[SearchBar(pageBloc), ...navItem()],
+                )
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    SearchBar(pageBloc),
+                    DropdownButton<Item>(
+                        value: selectedMenu,
+                        iconEnabledColor: redColor,
+                        onChanged: (Item choosen) {
+                          selectedMenu = choosen;
+                          if (selectedMenu.name == 'Home')
+                            widget.bloc.goToLandingPage();
+                        },
+                        items: naviMenu.map((Item menu) {
+                          return DropdownMenuItem<Item>(
+                              value: menu,
+                              child: Row(
+                                children: [
+                                  menu.icon,
+                                  SizedBox(width: 5),
+                                  Text(menu.name,
+                                      style: GoogleFonts.prompt(
+                                          textStyle: TextStyle(
+                                        fontSize: 17,
+                                        color: redColor,
+                                      )))
+                                ],
+                              ));
+                        }).toList()),
+                  ],
+                )
         ],
       ),
     );
