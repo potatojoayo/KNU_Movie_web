@@ -108,6 +108,11 @@ class _SearchBarState extends State<SearchBar> {
             items: conditionMenu.map((Item menu) {
               return DropdownMenuItem<Item>(
                   value: menu,
+                  onTap: () {
+                    selectedMenu = menu;
+                    print(selectedMenu.name);
+                    setState(() {});
+                  },
                   child: Row(children: [
                     SizedBox(width: 5),
                     Text(menu.name,
