@@ -1,4 +1,5 @@
 import 'package:knu_movie_web/api/API.dart';
+import 'package:knu_movie_web/model/conditionValue.dart';
 import 'package:knu_movie_web/model/movie.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -14,8 +15,9 @@ class MovieBloc {
   Observable<List<Movie>> get classicList => _fetcherCS.stream;
   Observable<List<Movie>> get searchList => _fetcherSL.stream;
 
-  fetchSearchList(int uid, String title) async {
-    List<Movie> fetchedSearchList = await _api.selectMovie(uid, title: title);
+  fetchSearchList(int uid, List<ConditionValue> conditionValue) async {
+    List<Movie> fetchedSearchList =
+        await _api.selectMovie(uid, conditionValue: conditionValue);
     _fetcherSL.sink.add(fetchedSearchList);
   }
 

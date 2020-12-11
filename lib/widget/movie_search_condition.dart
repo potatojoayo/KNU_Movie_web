@@ -4,6 +4,7 @@ import 'package:knu_movie_web/bloc/menu_bloc.dart';
 import 'package:knu_movie_web/bloc/page_bloc.dart';
 import 'package:knu_movie_web/bloc/visiblilit_bloc.dart';
 import 'package:knu_movie_web/main.dart';
+import 'package:knu_movie_web/model/conditionValue.dart';
 import 'package:knu_movie_web/model/item.dart';
 import 'package:knu_movie_web/nav/nav_bar.dart';
 import 'package:knu_movie_web/utils/responsive_layout.dart';
@@ -56,10 +57,12 @@ class _SearchBarState extends State<SearchBar> {
         )),
   ];
   //selected Menu
-  String condition;
+  String condition = 'title';
+  String hintText = 'anything';
   //Animation effect var
   final VisibilityBloc visibilityBloc = VisibilityBloc();
   final submitText = TextEditingController();
+  List<ConditionValue> conditionValue = List<ConditionValue>();
   var isSearchOpen = false;
   //SearchBar Width for Layout
   var searchBarWidthstate;
@@ -106,16 +109,23 @@ class _SearchBarState extends State<SearchBar> {
                     selectedMenu = choosen;
                     menuBloc.changeItem(choosen);
                     //나중에 수정해야 함 DetailPage만들고..
-                    if (selectedMenu.name == 'Detail')
-                      widget.bloc.goToSearchPage('', pageBloc, condition: '');
-                    else if (selectedMenu.name == 'Type')
+                    if (selectedMenu.name == 'Detail') {
+                      widget.bloc.goToSearchPage('', pageBloc, conditionValue);
+                    } else if (selectedMenu.name == 'Title') {
+                      condition = 'title';
+                    } else if (selectedMenu.name == 'Type') {
                       condition = 'type';
-                    else if (selectedMenu.name == 'Genre')
+                      hintText = 'tvseries, movie, knuMovie';
+                    } else if (selectedMenu.name == 'Genre') {
                       condition = 'genre';
-                    else if (selectedMenu.name == 'Actor')
+                      hintText = 'tvSeries, movie, knuMovie';
+                    } else if (selectedMenu.name == 'Actor') {
                       condition = 'actor';
-                    else if (selectedMenu.name == 'Director')
+                      hintText = 'tvSeries, movie, knuMovie';
+                    } else if (selectedMenu.name == 'Director') {
                       condition = 'director';
+                      hintText = 'tvSeries, movie, knuMovie';
+                    }
 
                     setState(() {});
                   },
@@ -158,6 +168,8 @@ class _SearchBarState extends State<SearchBar> {
   }
 
   void handleSubmit(String value) {
-    widget.bloc.goToSearchPage(value, pageBloc, condition: condition);
+    conditionValue.add(ConditionValue(condition, value));
+    widget.bloc.goToSearchPage(value, pageBloc, conditionValue);
+    print(conditionValue[0].value);
   }
 }

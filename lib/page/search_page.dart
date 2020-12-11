@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:knu_movie_web/bloc/movie_bloc.dart';
 import 'package:knu_movie_web/bloc/page_bloc.dart';
 import 'package:knu_movie_web/model/User.dart';
+import 'package:knu_movie_web/model/conditionValue.dart';
 import 'package:knu_movie_web/model/movie.dart';
 import 'package:knu_movie_web/utils/padding.dart';
 import 'package:knu_movie_web/utils/responsive_layout.dart';
@@ -9,13 +10,12 @@ import 'package:knu_movie_web/widget/my_container.dart';
 import 'package:knu_movie_web/widget/texts.dart';
 
 class SearchPage extends StatelessWidget {
-  SearchPage(this.value, this.pageBloc, {this.condition});
+  SearchPage(this.value, this.pageBloc, this.conditionValue);
   final value;
   final PageBloc pageBloc;
-  final String condition;
+  final List<ConditionValue> conditionValue;
   @override
   Widget build(BuildContext context) {
-    print(condition);
     bool isLarge = ResponsiveLayout.isLargeScreen(context);
     bool isMedium = ResponsiveLayout.isMediumScreen(context);
     var _rowItemCount = 5;
@@ -27,7 +27,7 @@ class SearchPage extends StatelessWidget {
       _rowItemCount = 4;
     Size size = MediaQuery.of(context).size;
     final movieBloc = MovieBloc();
-    movieBloc.fetchSearchList(User.uid != null ? User.uid : 1, value);
+    movieBloc.fetchSearchList(User.uid != null ? User.uid : 1, conditionValue);
 
     return Padding(
         padding: EdgeInsets.only(

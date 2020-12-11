@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:knu_movie_web/model/conditionValue.dart';
 import 'package:knu_movie_web/model/director.dart';
 import 'package:knu_movie_web/model/movie.dart';
 import 'package:http/http.dart' as http;
@@ -83,28 +84,30 @@ class API {
     return compute(_parseMovie, response.body);
   }
 
-  Future<List<Movie>> selectMovie(int uid,
-      {String title,
-      String genre,
-      String type,
-      String region,
-      int runningTime,
-      int minRating,
-      int maxRating,
-      int minStartYear,
-      int maxStartYear,
-      int minEndYear,
-      int maxEndYear,
-      String actor,
-      String director,
-      String isAdmin,
-      List condition,
-      List value}) async {
+  Future<List<Movie>> selectMovie(
+    int uid, {
+    String title,
+    String genre,
+    String type,
+    String region,
+    int runningTime,
+    int minRating,
+    int maxRating,
+    int minStartYear,
+    int maxStartYear,
+    int minEndYear,
+    int maxEndYear,
+    String actor,
+    String director,
+    String isAdmin,
+    List<ConditionValue> conditionValue,
+  }) async {
     var movieURL = _baseURL + "movie?uid=" + uid.toString();
-    for (int i = 0; i < condition.length; i++) {
-      if (value[i] != null) {
-        movieURL += "&" + condition[i] + "=" + value[i];
+    if (conditionValue.isNotEmpty) {
+      for (ConditionValue c in conditionValue) {
+        movieURL += "&" + c.condition + "=" + c.value;
       }
+      conditionValue.clear();
     }
 
     /// uid는 필수로 입력
