@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:knu_movie_web/bloc/page_bloc.dart';
+import 'package:knu_movie_web/model/User.dart';
 import 'package:knu_movie_web/model/movie.dart';
 
 class MovieListView extends StatelessWidget {
@@ -25,6 +26,7 @@ class MovieListView extends StatelessWidget {
                 child: InkWell(
                   onHover: (value) {},
                   onTap: () {
+                    print(User.uid);
                     bloc.goToMoviePage(snapshot.data[index].movieId);
                   },
                   child: Card(
