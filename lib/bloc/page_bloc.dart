@@ -51,7 +51,7 @@ class PageBloc {
     _page.sink.add(MoviePage(movie, rating));
   }
 
-  goToAccountPage(movieId) async {
+  goToAccountPage() {
     _page.sink.add(AccountPage());
   }
 

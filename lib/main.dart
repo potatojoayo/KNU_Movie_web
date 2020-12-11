@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:knu_movie_web/bloc/page_bloc.dart';
+import 'package:knu_movie_web/page/detail_search_page.dart';
 import 'package:knu_movie_web/page/landing_page.dart';
+import 'package:knu_movie_web/page/login_page.dart';
 
 import 'nav/nav_bar.dart';
 

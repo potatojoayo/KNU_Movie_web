@@ -45,12 +45,14 @@ class _NavBarState extends State<NavBar> {
           Icons.home_rounded,
           color: NavBar.menuIconColor,
         )),
-    const Item(
-        'SignIn',
-        Icon(
-          Icons.login_outlined,
-          color: NavBar.menuIconColor,
-        )),
+    User.uid == null
+        ? const Item(
+            'SignIn',
+            Icon(
+              Icons.login_outlined,
+              color: NavBar.menuIconColor,
+            ))
+        : null,
     const Item(
         'Account',
         Icon(
@@ -115,7 +117,7 @@ class _NavBarState extends State<NavBar> {
                         ],
                       ),
                     )
-                  : null;
+                  : pageBloc.goToAccountPage();
             }
           },
           child: Icon(icon, color: whiteColor),
@@ -237,7 +239,7 @@ class _NavBarState extends State<NavBar> {
                                             ],
                                           ),
                                         )
-                                      : null;
+                                      : pageBloc.goToAccountPage();
                                 }
                               },
                               //
