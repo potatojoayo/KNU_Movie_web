@@ -210,7 +210,7 @@ class API {
 
     Future<List<Genre>> fgenres = compute(parseGenre, resGenre.body);
     var genres = await fgenres;
-    movie.genre = List<String>();
+    // movie.genre = List<String>();
     for (Genre g in genres) {
       movie.genre.add(g.genre);
     }
@@ -230,8 +230,8 @@ class API {
 
     Future<List<Actor>> factors = compute(parseActor, resActor.body);
     var actors = await factors;
-    movie.actor = List<String>();
-    movie.actorImage = List<String>();
+    // movie.actor = List<String>();
+    // movie.actorImage = List<String>();
     for (Actor a in actors) {
       movie.actor.add(a.name);
       movie.actorImage.add(a.profileImage);

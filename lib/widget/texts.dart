@@ -31,7 +31,31 @@ class MyText {
               color: Colors.red[200],
               fontWeight: FontWeight.normal,
               fontSize: fontSize == null
-                  ? (ResponsiveLayout.isSmallScreen(context) ? 10 : 20)
+                  ? (ResponsiveLayout.isSmallScreen(context) ? 13 : 20)
+                  : fontSize),
+        ));
+  }
+
+  Widget smallTextGrey(text, context, {fontSize}) {
+    return Text(text,
+        style: GoogleFonts.graduate(
+          textStyle: TextStyle(
+              color: Colors.grey[200],
+              fontWeight: FontWeight.normal,
+              fontSize: fontSize == null
+                  ? (ResponsiveLayout.isSmallScreen(context) ? 13 : 20)
+                  : fontSize),
+        ));
+  }
+
+  Widget smallTextSelectColor(text, context, color, {fontSize}) {
+    return Text(text,
+        style: GoogleFonts.graduate(
+          textStyle: TextStyle(
+              color: color,
+              fontWeight: FontWeight.normal,
+              fontSize: fontSize == null
+                  ? (ResponsiveLayout.isSmallScreen(context) ? 13 : 20)
                   : fontSize),
         ));
   }

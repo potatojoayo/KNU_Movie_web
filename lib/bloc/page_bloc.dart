@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:knu_movie_web/api/API.dart';
 import 'package:knu_movie_web/model/User.dart';
 import 'package:knu_movie_web/page/landing_page.dart';
+import 'package:knu_movie_web/page/login_page.dart';
 import 'package:knu_movie_web/page/movie_page.dart';
+import 'package:knu_movie_web/page/register_page.dart';
 import 'package:knu_movie_web/page/search_page.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -17,24 +19,31 @@ class PageBloc {
 
   goToSearchPage(title, pageBloc, condition) {
     _page.sink.add(SearchPage(title, pageBloc, condition));
-  }
+    goTOLoginPage(pageBloc) {
+      _page.sink.add(LoginPage(pageBloc));
+    }
 
-  goToMoviePage(movieId) async {
-    final api = API();
-    final fmovie = api.crudMovie(mid: movieId.toString());
-    final movie = await fmovie;
-    var rating;
-    if (User.email != null) {
-      final ratingLog =
-          await api.aMovieRating(mid: movie.movieId, email: User.email);
-      rating = ratingLog.rating;
-    } else
-      rating = 0;
+    goToSignupPage(pageBloc) {
+      _page.sink.add(RegisterPage(pageBloc));
+    }
 
-    _page.sink.add(MoviePage(movie, rating));
-  }
+    goToMoviePage(movieId) async {
+      final api = API();
+      final fmovie = api.crudMovie(mid: movieId.toString());
+      final movie = await fmovie;
+      var rating;
+      if (User.email != null) {
+        final ratingLog =
+            await api.aMovieRating(mid: movie.movieId, email: User.email);
+        rating = ratingLog.rating;
+      } else
+        rating = 0;
 
-  dispose() {
-    _page.close();
+      _page.sink.add(MoviePage(movie, rating));
+    }
+
+    dispose() {
+      _page.close();
+    }
   }
 }

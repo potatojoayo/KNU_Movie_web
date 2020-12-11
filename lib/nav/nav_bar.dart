@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:knu_movie_web/api/API.dart';
+import 'package:knu_movie_web/bloc/menu_bloc.dart';
 import 'package:knu_movie_web/bloc/page_bloc.dart';
 import 'package:knu_movie_web/main.dart';
 import 'package:knu_movie_web/model/item.dart';
@@ -11,9 +12,9 @@ import '../utils/shadow.dart';
 
 class NavBar extends StatefulWidget {
   static const Color menuIconColor = Color(0xFFEF9A9A);
-  final PageBloc bloc;
+  final PageBloc pageBloc;
 
-  NavBar(this.bloc);
+  NavBar(this.pageBloc);
 
   @override
   _NavBarState createState() => _NavBarState();
@@ -63,7 +64,10 @@ class _NavBarState extends State<NavBar> {
           elevation: 5,
           color: redColor,
           onPressed: () {
-            if (icon == Icons.home_rounded) widget.bloc.goToLandingPage();
+            if (icon == Icons.home_rounded)
+              widget.pageBloc.goToLandingPage();
+            else if (icon == Icons.login_outlined)
+              widget.pageBloc.goTOLoginPage(widget.pageBloc);
           },
           child: Icon(icon, color: whiteColor),
         ),
@@ -74,6 +78,7 @@ class _NavBarState extends State<NavBar> {
   @override
   Widget build(BuildContext context) {
     Item selectedMenu = naviMenu[0];
+    final menuBloc = MenuBloc();
     return Padding(
       padding: EdgeInsets.symmetric(
           horizontal: ResponsiveLayout.isLargeScreen(context)
@@ -108,7 +113,7 @@ class _NavBarState extends State<NavBar> {
               ),
               borderRadius: BorderRadius.circular(10.0),
               onTap: () {
-                widget.bloc.goToLandingPage();
+                widget.pageBloc.goToLandingPage();
               }),
           !ResponsiveLayout.isSmallScreen(context)
               ? Row(
@@ -125,7 +130,7 @@ class _NavBarState extends State<NavBar> {
                         onChanged: (Item choosen) {
                           selectedMenu = choosen;
                           if (selectedMenu.name == 'Home')
-                            widget.bloc.goToLandingPage();
+                            widget.pageBloc.goToLandingPage();
                         },
                         items: naviMenu.map((Item menu) {
                           return DropdownMenuItem<Item>(

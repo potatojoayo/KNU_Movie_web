@@ -6,6 +6,7 @@ import 'package:knu_movie_web/model/movie.dart';
 import 'package:knu_movie_web/utils/padding.dart';
 import 'package:knu_movie_web/utils/responsive_layout.dart';
 import 'package:knu_movie_web/widget/my_container.dart';
+import 'package:knu_movie_web/widget/texts.dart';
 
 class SearchPage extends StatelessWidget {
   SearchPage(this.title, this.pageBloc, this.condition);
@@ -44,39 +45,47 @@ class SearchPage extends StatelessWidget {
             initialData: <Movie>[],
             builder:
                 (BuildContext context, AsyncSnapshot<List<Movie>> snapshot) {
-              return Container(
-                child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: _rowItemCount,
-                      childAspectRatio: 2 / 3,
-                      mainAxisSpacing: 1.0,
-                      crossAxisSpacing: 1.0),
-                  itemCount: snapshot.data.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    String image = snapshot.data[index].postImage;
-                    return Padding(
-                      padding: const EdgeInsets.only(right: 5.0),
-                      child: InkWell(
-                        onHover: (value) {},
-                        onTap: () {
-                          pageBloc.goToMoviePage(snapshot.data[index].movieId);
-                        },
-                        child: Card(
-                          clipBehavior: Clip.antiAliasWithSaveLayer,
-                          elevation: 5.0,
-                          semanticContainer: true,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0)),
-                          child: Image.network(
-                            image,
-                            fit: BoxFit.fill,
+              if (snapshot.data.length == 0)
+                return Center(
+                  child: Container(
+                    child: MyText().subTitleBoldText("No Result", context),
+                  ),
+                );
+              else
+                return Container(
+                  child: GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: _rowItemCount,
+                        childAspectRatio: 2 / 3,
+                        mainAxisSpacing: 1.0,
+                        crossAxisSpacing: 1.0),
+                    itemCount: snapshot.data.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      String image = snapshot.data[index].postImage;
+                      return Padding(
+                        padding: const EdgeInsets.only(right: 5.0),
+                        child: InkWell(
+                          onHover: (value) {},
+                          onTap: () {
+                            pageBloc
+                                .goToMoviePage(snapshot.data[index].movieId);
+                          },
+                          child: Card(
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            elevation: 5.0,
+                            semanticContainer: true,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0)),
+                            child: Image.network(
+                              image,
+                              fit: BoxFit.fill,
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  },
-                ),
-              );
+                      );
+                    },
+                  ),
+                );
             },
           ),
           context: context,
