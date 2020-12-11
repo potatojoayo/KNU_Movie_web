@@ -38,7 +38,7 @@ class HomePage extends StatelessWidget {
             builder: (context, snapshot) {
               return SafeArea(
                 child: StreamBuilder<Widget>(
-                    initialData: LandingPage(),
+                    initialData: DetailSearchPage(pageBloc),
                     stream: pageBloc.page,
                     builder: (context, AsyncSnapshot<Widget> snapshot) {
                       return Column(
