@@ -7,7 +7,9 @@ class MyTextFormField extends StatefulWidget {
   final isPassword;
   final validator;
   final void Function(String) input;
-  MyTextFormField(this.input, {this.validator, this.isPassword = false});
+  final void Function(String) onSubmit;
+  MyTextFormField(this.input,
+      {this.validator, this.isPassword = false, this.onSubmit});
   @override
   _MyTextFormFieldState createState() => _MyTextFormFieldState();
 }
@@ -17,6 +19,7 @@ class _MyTextFormFieldState extends State<MyTextFormField> {
   Widget build(BuildContext context) {
     return TextFormField(
       cursorColor: MyColor.red,
+      onFieldSubmitted: widget.onSubmit,
       validator: widget.validator,
       cursorWidth: 3,
       obscureText: widget.isPassword,
@@ -28,6 +31,15 @@ class _MyTextFormFieldState extends State<MyTextFormField> {
       ),
       onSaved: widget.input,
       decoration: InputDecoration(
+        errorStyle: GoogleFonts.ubuntu(
+            textStyle: TextStyle(
+          fontSize: ResponsiveLayout.isSmallScreen(context) ? 7 : 13,
+          color: MyColor.red,
+        )),
+        focusedErrorBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: MyColor.red, width: 2)),
+        errorBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: MyColor.red, width: 1)),
         focusedBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: MyColor.red, width: 2)),
         enabledBorder: UnderlineInputBorder(

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:knu_movie_web/api/API.dart';
 import 'package:knu_movie_web/color/color.dart';
 import 'package:knu_movie_web/model/User.dart';
-import 'package:knu_movie_web/widget/my_text_field.dart';
+import 'package:knu_movie_web/utils/validation.dart';
+import 'package:knu_movie_web/widget/my_text_form_field.dart';
 import 'package:knu_movie_web/widget/texts.dart';
 
 class LoginForm extends StatefulWidget {
@@ -14,6 +15,8 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   final _loginFormKey = GlobalKey<FormState>();
+
+  final validator = ValidationMixin();
 
   String _email = '';
   String _password = '';
@@ -80,6 +83,9 @@ class _LoginFormState extends State<LoginForm> {
           _password = value;
         },
         isPassword: true,
+        validator: (value) {
+          validator.validatePassword(value);
+        },
       )),
     ]);
   }
@@ -90,9 +96,15 @@ class _LoginFormState extends State<LoginForm> {
       SizedBox(
         width: 15,
       ),
-      Flexible(child: MyTextFormField((value) {
-        _email = value;
-      })),
+      Flexible(
+          child: MyTextFormField(
+        (value) {
+          _email = value;
+        },
+        validator: (value) {
+          return validator.validateEmail(value);
+        },
+      )),
     ]);
   }
 }
