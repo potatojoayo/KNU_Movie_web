@@ -22,9 +22,11 @@ class _DetailSearchPageState extends State<DetailSearchPage> {
   @override
   Widget build(BuildContext context) {
     return FormPageForm(
-        pageBloc: widget.pageBloc,
-        mainText: "Detail Search",
-        icon: Icons.search,
-        form: DetailSearchForm(widget.pageBloc));
+      pageBloc: widget.pageBloc,
+      mainText: "Detail Search",
+      icon: Icons.search,
+      form: DetailSearchForm(widget.pageBloc),
+      mainButton: Container(),
+    );
   }
 }

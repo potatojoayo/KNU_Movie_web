@@ -78,22 +78,19 @@ class _DetailSearchFormState extends State<DetailSearchForm> {
       disabledColor: MyColor.red,
       color: MyColor.red,
       onPressed: () async {
-        if (_detailSearchFormKey.currentState.validate()) {
-          _detailSearchFormKey.currentState.save();
-          final api = API();
-          final fmovies = api.selectMovie(
-            User.uid,
-            title: _title != null ? _title : null,
-            genre: _genre != null ? _genre : null,
-            type: _type != null ? _type : null,
-            actor: _actor != null ? _actor : null,
-            director: _director != null ? _director : null,
-            minStartYear: _minStartYear != null ? _minStartYear : null,
-            maxStartYear: _minStartYear != null ? _maxStartYear : null,
-            minRating: _minRating != null ? _minRating : null,
-            maxRating: _minRating != null ? _maxRating : null,
-          );
-        }
+        final api = API();
+        final fmovies = api.selectMovie(
+          User.uid,
+          title: _title != null ? _title : null,
+          genre: _genre != null ? _genre : null,
+          type: _type != null ? _type : null,
+          actor: _actor != null ? _actor : null,
+          director: _director != null ? _director : null,
+          minStartYear: _minStartYear != null ? _minStartYear : null,
+          maxStartYear: _minStartYear != null ? _maxStartYear : null,
+          minRating: _minRating != null ? _minRating : null,
+          maxRating: _minRating != null ? _maxRating : null,
+        );
       },
     );
   }
