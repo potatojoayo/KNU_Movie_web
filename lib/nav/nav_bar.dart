@@ -73,8 +73,17 @@ class _NavBarState extends State<NavBar> {
               widget.pageBloc.goTOLoginPage(widget.pageBloc);
             else if (icon == Icons.account_box) {
               User.email == null
-                  ? visibilityBloc.makeInvisible('movieId')
-                  : visibilityBloc.makeVisible();
+                  ? AlertDialog(
+                      title: Text('로그인 하세요'),
+                      actions: <Widget>[
+                        TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('Cancel'))
+                      ],
+                    )
+                  : print('object');
             }
           },
           child: Icon(icon, color: whiteColor),
