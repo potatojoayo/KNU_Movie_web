@@ -32,12 +32,17 @@ class PageBloc {
   goToMoviePage(movieId) async {
     final api = API();
     final fmovie = api.crudMovie(mid: movieId.toString());
+
     final movie = await fmovie;
+
     var rating;
     if (User.email != null) {
       final ratingLog =
           await api.aMovieRating(mid: movie.movieId, email: User.email);
-      rating = ratingLog.rating;
+      if (ratingLog.rating != null)
+        rating = ratingLog.rating;
+      else
+        rating = 0;
     } else
       rating = 0;
 
