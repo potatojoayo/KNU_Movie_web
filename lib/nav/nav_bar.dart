@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:knu_movie_web/api/API.dart';
 import 'package:knu_movie_web/bloc/menu_bloc.dart';
 import 'package:knu_movie_web/bloc/page_bloc.dart';
+import 'package:knu_movie_web/model/User.dart';
 import 'package:knu_movie_web/model/item.dart';
 import 'package:knu_movie_web/utils/padding.dart';
 import '../utils/responsive_layout.dart';
@@ -42,12 +43,14 @@ class _NavBarState extends State<NavBar> {
           Icons.home_rounded,
           color: NavBar.menuIconColor,
         )),
-    const Item(
-        'SignIn',
-        Icon(
-          Icons.login_outlined,
-          color: NavBar.menuIconColor,
-        )),
+    User.uid == null
+        ? const Item(
+            'SignIn',
+            Icon(
+              Icons.login_outlined,
+              color: NavBar.menuIconColor,
+            ))
+        : null,
     const Item(
         'Account',
         Icon(

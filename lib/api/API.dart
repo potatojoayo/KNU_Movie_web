@@ -83,23 +83,26 @@ class API {
     return compute(_parseMovie, response.body);
   }
 
-  Future<List<Movie>> selectMovie(int uid,
-      {String title,
-      String genre,
-      String type,
-      String region,
-      int runningTime,
-      int minRating,
-      int maxRating,
-      int minStartYear,
-      int maxStartYear,
-      int minEndYear,
-      int maxEndYear,
-      String actor,
-      String director,
-      String isAdmin}) async {
+  Future<List<Movie>> selectMovie(
+    int uid, {
+    String title,
+    String genre,
+    String type,
+    String region,
+    int runningTime,
+    int minRating,
+    int maxRating,
+    int minStartYear,
+    int maxStartYear,
+    int minEndYear,
+    int maxEndYear,
+    String actor,
+    String director,
+    String isAdmin,
+  }) async {
     /// uid는 필수로 입력
     var movieURL = _baseURL + "movie?uid=" + uid.toString();
+
     if (title == null) {
       movieURL += "&title=any";
     } else {
