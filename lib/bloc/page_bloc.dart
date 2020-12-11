@@ -39,9 +39,9 @@ class PageBloc {
     var rating;
     if (User.email != null) {
       final ratingLog =
-          await api.aMovieRating(mid: movie.movieId, email: User.email);
-      if (ratingLog.rating != null)
-        rating = ratingLog.rating;
+          await api.aMovieRating(mid: movie.movieId, uid: User.uid);
+      if (ratingLog.rating != 0)
+        rating = ratingLog.rating / 2;
       else
         rating = 0;
     } else
