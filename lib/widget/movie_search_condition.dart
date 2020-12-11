@@ -110,7 +110,7 @@ class _SearchBarState extends State<SearchBar> {
                     menuBloc.changeItem(choosen);
                     //나중에 수정해야 함 DetailPage만들고..
                     if (selectedMenu.name == 'Detail') {
-                      widget.bloc.goToSearchPage(pageBloc, conditionValue);
+                      widget.bloc.goToDetailSearchPage(widget.bloc);
                     } else if (selectedMenu.name == 'Title') {
                       condition = 'title';
                     } else if (selectedMenu.name == 'Type') {

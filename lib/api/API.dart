@@ -107,6 +107,7 @@ class API {
       for (ConditionValue c in conditionValue) {
         movieURL += "&" + c.condition + "=" + c.value;
       }
+      print(movieURL);
       conditionValue.clear();
     }
 

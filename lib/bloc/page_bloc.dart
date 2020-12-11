@@ -3,6 +3,7 @@ import 'package:knu_movie_web/api/API.dart';
 import 'package:knu_movie_web/model/User.dart';
 import 'package:knu_movie_web/model/conditionValue.dart';
 import 'package:knu_movie_web/page/account_page.dart';
+import 'package:knu_movie_web/page/detail_search_page.dart';
 import 'package:knu_movie_web/page/landing_page.dart';
 import 'package:knu_movie_web/page/login_page.dart';
 import 'package:knu_movie_web/page/movie_page.dart';
@@ -25,6 +26,10 @@ class PageBloc {
 
   goTOLoginPage(pageBloc) {
     _page.sink.add(LoginPage(pageBloc));
+  }
+
+  goToDetailSearchPage(pageBloc) {
+    _page.sink.add(DetailSearchPage(pageBloc));
   }
 
   goToSignupPage(pageBloc) {

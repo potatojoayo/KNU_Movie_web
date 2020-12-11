@@ -20,7 +20,6 @@ class _DetailSearchFormState extends State<DetailSearchForm> {
   final _detailSearchFormKey = GlobalKey<FormState>();
 
   final validator = ValidationMixin();
-
   String _title;
   String _genre;
   String _type;
@@ -30,6 +29,12 @@ class _DetailSearchFormState extends State<DetailSearchForm> {
   String _director;
   int _minRating;
   int _maxRating;
+
+  final titleContorller = TextEditingController();
+  final genreController = TextEditingController();
+  final typeController = TextEditingController();
+  final actorController = TextEditingController();
+  final directorController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -47,11 +52,11 @@ class _DetailSearchFormState extends State<DetailSearchForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          inputRow("title : ", _title, context),
-          inputRow("genre : ", _genre, context),
-          inputRow("type : ", _type, context),
-          inputRow("actor : ", _actor, context),
-          inputRow("director : ", _director, context),
+          inputRow("title : ", "title", context, titleContorller),
+          inputRow("genre : ", "genre", context, genreController),
+          inputRow("type : ", "type", context, typeController),
+          inputRow("actor : ", "actor", context, actorController),
+          inputRow("director : ", "director", context, directorController),
           SizedBox(height: 10),
           numberPickerRow("min rating : ", _minRating, 0, 10,
               _minRating != null ? _minRating : 5, context),
@@ -80,12 +85,17 @@ class _DetailSearchFormState extends State<DetailSearchForm> {
       disabledColor: MyColor.red,
       color: MyColor.red,
       onPressed: () {
+        _title = titleContorller.text;
+        _genre = genreController.text;
+        _type = typeController.text;
+        _actor = actorController.text;
+        _director = directorController.text;
         List<ConditionValue> conditions = List<ConditionValue>();
-        if (_title != null) conditions.add(ConditionValue("title", _title));
-        if (_genre != null) conditions.add(ConditionValue("genre", _genre));
-        if (_type != null) conditions.add(ConditionValue("type", _type));
-        if (_actor != null) conditions.add(ConditionValue("actor", _actor));
-        if (_director != null)
+        if (_title != "") conditions.add(ConditionValue("title", _title));
+        if (_genre != "") conditions.add(ConditionValue("genre", _genre));
+        if (_type != "") conditions.add(ConditionValue("type", _type));
+        if (_actor != "") conditions.add(ConditionValue("actor", _actor));
+        if (_director != "")
           conditions.add(ConditionValue("director", _director));
         if (_minStartYear != null)
           conditions
@@ -106,22 +116,24 @@ class _DetailSearchFormState extends State<DetailSearchForm> {
     );
   }
 
-  Row inputRow(text, input, BuildContext context) {
+  Row inputRow(text, input, BuildContext context, controller) {
     return Row(children: [
       MyText().smallText(text, context),
       SizedBox(
         width: 15,
       ),
-      Flexible(child: MyTextFormField(
+      Flexible(
+          child: MyTextFormField(
         (value) {
           setState(() {
-            if (input == _title) this._title = value;
-            if (input == _genre) this._genre = value;
-            if (input == _type) this._type = value;
-            if (input == _actor) this._actor = value;
-            if (input == _director) this._director = value;
+            if (input == "title") _title = value;
+            if (input == "genre") _genre = value;
+            if (input == "type") _type = value;
+            if (input == "actor") _actor = value;
+            if (input == "director") _director = value;
           });
         },
+        controller: controller,
       )),
     ]);
   }
