@@ -4,7 +4,6 @@ import 'package:knu_movie_web/main.dart';
 import 'package:knu_movie_web/utils/padding.dart';
 import 'package:knu_movie_web/utils/responsive_layout.dart';
 import 'package:knu_movie_web/widget/my_container.dart';
-import 'package:knu_movie_web/widget/login_form.dart';
 import 'package:knu_movie_web/widget/signup_form.dart';
 import 'package:knu_movie_web/widget/texts.dart';
 

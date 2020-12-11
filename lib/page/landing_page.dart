@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:knu_movie_web/api/API.dart';
 import 'package:knu_movie_web/main.dart';
+import 'package:knu_movie_web/model/User.dart';
 import 'package:knu_movie_web/widget/my_container.dart';
 import 'package:knu_movie_web/utils/padding.dart';
 import 'package:knu_movie_web/utils/responsive_layout.dart';
@@ -12,10 +13,14 @@ class LandingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final api = API();
-    var highRatingListView = MovieListView(api.highRatings(1), pageBloc);
-    var hotInKoreaListView = MovieListView(api.hotInKorea(1), pageBloc);
-    var classicListView = MovieListView(api.classics(1), pageBloc);
-    var tvSeriesListView = MovieListView(api.tvSeries(1), pageBloc);
+    var highRatingListView = MovieListView(
+        api.highRatings(User.uid != null ? User.uid : 1), pageBloc);
+    var hotInKoreaListView = MovieListView(
+        api.hotInKorea(User.uid != null ? User.uid : 1), pageBloc);
+    var classicListView =
+        MovieListView(api.classics(User.uid != null ? User.uid : 1), pageBloc);
+    var tvSeriesListView =
+        MovieListView(api.tvSeries(User.uid != null ? User.uid : 1), pageBloc);
     final listView = [
       highRatingListView,
       hotInKoreaListView,

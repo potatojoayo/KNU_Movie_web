@@ -3,7 +3,7 @@ class Log {
       {this.movieId,
       this.originalTitle,
       this.datePart,
-      this.rating,
+      this.rating = 0,
       this.postImage});
 
   final int movieId;

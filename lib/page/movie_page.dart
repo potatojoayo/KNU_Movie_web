@@ -7,7 +7,6 @@ import 'package:knu_movie_web/utils/padding.dart';
 import 'package:knu_movie_web/utils/responsive_layout.dart';
 import 'package:knu_movie_web/widget/my_container.dart';
 import 'package:knu_movie_web/widget/texts.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 // ignore: must_be_immutable
 class MoviePage extends StatelessWidget {
@@ -164,17 +163,10 @@ class MoviePage extends StatelessWidget {
                                   Icon(Icons.star, color: Colors.amber),
                               onRatingUpdate: User.uid != null
                                   ? (rating) {
-                                      int _rating = (rating * 2).toInt();
-                                      if (User.email != null)
-                                        api.rating(
-                                            User.uid.toString(),
-                                            movie.movieId.toString(),
-                                            _rating.toString());
-                                      Fluttertoast.showToast(
-                                          msg: "Rated!",
-                                          backgroundColor: Colors.red[200],
-                                          textColor: Colors.grey[200],
-                                          webShowClose: true);
+                                      api.rating(
+                                          User.uid.toString(),
+                                          movie.movieId.toString(),
+                                          (rating * 2).toString());
                                     }
                                   : null),
                         ),

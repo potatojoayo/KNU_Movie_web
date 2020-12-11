@@ -210,6 +210,7 @@ class API {
 
     Future<List<Genre>> fgenres = compute(parseGenre, resGenre.body);
     var genres = await fgenres;
+    // ignore: deprecated_member_use
     movie.genre = List<String>();
     for (Genre g in genres) {
       movie.genre.add(g.genre);
@@ -230,7 +231,9 @@ class API {
 
     Future<List<Actor>> factors = compute(parseActor, resActor.body);
     var actors = await factors;
+    // ignore: deprecated_member_use
     movie.actor = List<String>();
+    // ignore: deprecated_member_use
     movie.actorImage = List<String>();
     for (Actor a in actors) {
       movie.actor.add(a.name);
@@ -434,22 +437,18 @@ class API {
     return compute(_parseLog, response.body);
   }
 
-  Future<Log> aMovieRating({String email, int mid}) async {
+  Future<Log> aMovieRating({int uid, int mid}) async {
     final updateURL = _baseURL + "account/rating/movie";
-    String emailAdd;
-    if (email != null)
-      emailAdd = email;
-    else
-      emailAdd = "";
+
     http.Response response = await http.post(
       updateURL,
       headers: <String, String>{
         'Content_Type': 'application/x-www-form-urlencoded',
       },
-      body: <String, String>{'email_add': emailAdd, 'mid': mid.toString()},
+      body: <String, String>{'uid': uid.toString(), 'mid': mid.toString()},
     );
     // Json 파싱해서 리스트로 저장
-    if (response.body.length > 2) {
+    if (response.body.length > 10) {
       final parsed = json.decode(response.body);
       final log = Log.fromJson(parsed);
       return log;

@@ -14,10 +14,9 @@ class SignUpForm extends StatefulWidget {
 }
 
 class _SignUpFormState extends State<SignUpForm> {
-  final _loginFormKey = GlobalKey<FormState>();
+  final _registerFormKey = GlobalKey<FormState>();
 
   final validator = ValidationMixin();
-  List<bool> _selections = List.generate(2, (_) => false);
   Color textColor1;
   Color textColor2;
 
@@ -25,12 +24,11 @@ class _SignUpFormState extends State<SignUpForm> {
   String _password = '';
   String _fname = '';
   String _lname = '';
-  String _sex = '';
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: _loginFormKey,
+      key: _registerFormKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
@@ -52,29 +50,31 @@ class _SignUpFormState extends State<SignUpForm> {
       child: MyText().smallTextGrey("submit", context),
       disabledColor: MyColor.red,
       color: MyColor.red,
-      onPressed: () {
-        if (_loginFormKey.currentState.validate()) {
-          _loginFormKey.currentState.save();
+      onPressed: () async {
+        if (_registerFormKey.currentState.validate()) {
+          _registerFormKey.currentState.save();
           final api = API();
-          api.signin(_email, _password).then((value) {
-            User.email = value.email;
-            if (User.email != null) {
-              User.uid = value.uid;
-              User.password = value.password;
-              User.lname = value.lastName;
-              User.fname = value.firstName;
-              User.sid = value.sid;
-              User.address = value.address;
-              User.birthday = value.birthday;
-              User.job = value.job;
-              User.phone = value.phone;
-              User.sex = value.sex;
-              Scaffold.of(context)
-                  // ignore: deprecated_member_use
-                  .showSnackBar(SnackBar(content: Text('Login success!')));
-              widget.pageBloc.goToLandingPage();
-            }
-          });
+
+          final faccount = api.signup(_email, _password, _fname, _lname);
+          final account = await faccount;
+
+          User.email = account.email;
+          if (User.email != null) {
+            User.uid = account.uid;
+            User.password = account.password;
+            User.lname = account.lastName;
+            User.fname = account.firstName;
+            User.sid = account.sid;
+            User.address = account.address;
+            User.birthday = account.birthday;
+            User.job = account.job;
+            User.phone = account.phone;
+            User.sex = account.sex;
+            Scaffold.of(context)
+                // ignore: deprecated_member_use
+                .showSnackBar(SnackBar(content: Text('Login success!')));
+            widget.pageBloc.goToLandingPage();
+          }
         }
       },
     );
