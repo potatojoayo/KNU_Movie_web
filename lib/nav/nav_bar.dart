@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:knu_movie_web/api/API.dart';
 import 'package:knu_movie_web/bloc/menu_bloc.dart';
 import 'package:knu_movie_web/bloc/page_bloc.dart';
+import 'package:knu_movie_web/bloc/visiblilit_bloc.dart';
 import 'package:knu_movie_web/main.dart';
+import 'package:knu_movie_web/model/User.dart';
 import 'package:knu_movie_web/model/item.dart';
 import 'package:knu_movie_web/utils/padding.dart';
 import 'package:knu_movie_web/widget/movie_search_condition.dart';
@@ -34,6 +36,7 @@ class _NavBarState extends State<NavBar> {
     Icons.login_outlined,
     Icons.account_box
   ];
+  VisibilityBloc visibilityBloc = VisibilityBloc();
 
   List<Item> naviMenu = <Item>[
     const Item(
@@ -68,6 +71,11 @@ class _NavBarState extends State<NavBar> {
               widget.pageBloc.goToLandingPage();
             else if (icon == Icons.login_outlined)
               widget.pageBloc.goTOLoginPage(widget.pageBloc);
+            else if (icon == Icons.account_box) {
+              User.email == null
+                  ? visibilityBloc.makeInvisible('movieId')
+                  : visibilityBloc.makeVisible();
+            }
           },
           child: Icon(icon, color: whiteColor),
         ),
@@ -131,7 +139,10 @@ class _NavBarState extends State<NavBar> {
                           selectedMenu = choosen;
                           if (selectedMenu.name == 'Home')
                             widget.pageBloc.goToLandingPage();
+                          if (selectedMenu.name == 'SignIn')
+                            widget.pageBloc.goTOLoginPage(pageBloc);
                         },
+                        //
                         items: naviMenu.map((Item menu) {
                           return DropdownMenuItem<Item>(
                               value: menu,

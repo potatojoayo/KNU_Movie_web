@@ -19,31 +19,32 @@ class PageBloc {
 
   goToSearchPage(title, pageBloc, condition) {
     _page.sink.add(SearchPage(title, pageBloc, condition));
-    goTOLoginPage(pageBloc) {
-      _page.sink.add(LoginPage(pageBloc));
-    }
+  }
 
-    goToSignupPage(pageBloc) {
-      _page.sink.add(RegisterPage(pageBloc));
-    }
+  goTOLoginPage(pageBloc) {
+    _page.sink.add(LoginPage(pageBloc));
+  }
 
-    goToMoviePage(movieId) async {
-      final api = API();
-      final fmovie = api.crudMovie(mid: movieId.toString());
-      final movie = await fmovie;
-      var rating;
-      if (User.email != null) {
-        final ratingLog =
-            await api.aMovieRating(mid: movie.movieId, email: User.email);
-        rating = ratingLog.rating;
-      } else
-        rating = 0;
+  goToSignupPage(pageBloc) {
+    _page.sink.add(RegisterPage(pageBloc));
+  }
 
-      _page.sink.add(MoviePage(movie, rating));
-    }
+  goToMoviePage(movieId) async {
+    final api = API();
+    final fmovie = api.crudMovie(mid: movieId.toString());
+    final movie = await fmovie;
+    var rating;
+    if (User.email != null) {
+      final ratingLog =
+          await api.aMovieRating(mid: movie.movieId, email: User.email);
+      rating = ratingLog.rating;
+    } else
+      rating = 0;
 
-    dispose() {
-      _page.close();
-    }
+    _page.sink.add(MoviePage(movie, rating));
+  }
+
+  dispose() {
+    _page.close();
   }
 }
