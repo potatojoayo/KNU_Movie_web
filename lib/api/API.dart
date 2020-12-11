@@ -210,7 +210,7 @@ class API {
 
     Future<List<Genre>> fgenres = compute(parseGenre, resGenre.body);
     var genres = await fgenres;
-    // movie.genre = List<String>();
+    movie.genre = List<String>();
     for (Genre g in genres) {
       movie.genre.add(g.genre);
     }
@@ -230,13 +230,14 @@ class API {
 
     Future<List<Actor>> factors = compute(parseActor, resActor.body);
     var actors = await factors;
-    // movie.actor = List<String>();
-    // movie.actorImage = List<String>();
+    movie.actor = List<String>();
+    movie.actorImage = List<String>();
     for (Actor a in actors) {
       movie.actor.add(a.name);
       movie.actorImage.add(a.profileImage);
     }
 
+    print("무비" + movie.originalTitle);
     return movie;
   }
 
@@ -448,9 +449,14 @@ class API {
       body: <String, String>{'email_add': emailAdd, 'mid': mid.toString()},
     );
     // Json 파싱해서 리스트로 저장
-    final parsed = json.decode(response.body);
-    final log = Log.fromJson(parsed);
-    return log;
+    if (response.body.length > 2) {
+      final parsed = json.decode(response.body);
+      final log = Log.fromJson(parsed);
+      return log;
+    } else {
+      final log = Log();
+      return log;
+    }
   }
 
   // 어드민 체크
