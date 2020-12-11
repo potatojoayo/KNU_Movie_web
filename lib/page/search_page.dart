@@ -9,8 +9,8 @@ import 'package:knu_movie_web/widget/my_container.dart';
 import 'package:knu_movie_web/widget/texts.dart';
 
 class SearchPage extends StatelessWidget {
-  SearchPage(this.title, this.pageBloc, this.condition);
-  final title;
+  SearchPage(this.value, this.pageBloc, {this.condition});
+  final value;
   final PageBloc pageBloc;
   final String condition;
   @override
@@ -27,7 +27,8 @@ class SearchPage extends StatelessWidget {
       _rowItemCount = 4;
     Size size = MediaQuery.of(context).size;
     final movieBloc = MovieBloc();
-    movieBloc.fetchSearchList(User.uid != null ? User.uid : 1, title);
+    movieBloc.fetchSearchList(User.uid != null ? User.uid : 1, value);
+
     return Padding(
         padding: EdgeInsets.only(
             left: isLarge

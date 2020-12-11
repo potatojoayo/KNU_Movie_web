@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:knu_movie_web/bloc/menu_bloc.dart';
 import 'package:knu_movie_web/bloc/page_bloc.dart';
 import 'package:knu_movie_web/bloc/visiblilit_bloc.dart';
 import 'package:knu_movie_web/main.dart';
@@ -18,7 +19,7 @@ class SearchBar extends StatefulWidget {
 class _SearchBarState extends State<SearchBar> {
   List<Item> conditionMenu = <Item>[
     const Item(
-        'All',
+        'Title',
         Icon(
           Icons.search,
           color: NavBar.menuIconColor,
@@ -55,7 +56,7 @@ class _SearchBarState extends State<SearchBar> {
         )),
   ];
   //selected Menu
-  String selectededMenu;
+  String condition;
   //Animation effect var
   final VisibilityBloc visibilityBloc = VisibilityBloc();
   final submitText = TextEditingController();
@@ -69,7 +70,7 @@ class _SearchBarState extends State<SearchBar> {
   Widget build(BuildContext context) {
     //initial conditionMenu
     Item selectedMenu = conditionMenu[0];
-
+    final menuBloc = MenuBloc();
     return Row(
       children: [
         StreamBuilder<bool>(
@@ -94,35 +95,49 @@ class _SearchBarState extends State<SearchBar> {
                     ),
                   ));
             }),
-        DropdownButton<Item>(
-            value: selectedMenu,
-            iconEnabledColor: redColor,
-            onChanged: (Item choosen) {
-              selectedMenu = choosen;
-              selectededMenu = selectedMenu.name;
-              //나중에 수정해야 함 DetailPage만들고..
-              if (selectedMenu.name == 'Detail')
-                widget.bloc.goToSearchPage('', pageBloc, '');
-              setState(() {});
-            },
-            items: conditionMenu.map((Item menu) {
-              return DropdownMenuItem<Item>(
-                  value: menu,
-                  onTap: () {
-                    selectedMenu = menu;
-                    print(selectedMenu.name);
+        StreamBuilder<Item>(
+            stream: menuBloc.selectedMenu,
+            initialData: selectedMenu,
+            builder: (context, snapshot) {
+              return DropdownButton<Item>(
+                  value: snapshot.data,
+                  iconEnabledColor: redColor,
+                  onChanged: (Item choosen) {
+                    selectedMenu = choosen;
+                    menuBloc.changeItem(choosen);
+                    //나중에 수정해야 함 DetailPage만들고..
+                    if (selectedMenu.name == 'Detail')
+                      widget.bloc.goToSearchPage('', pageBloc, condition: '');
+                    else if (selectedMenu.name == 'Type')
+                      condition = 'type';
+                    else if (selectedMenu.name == 'Genre')
+                      condition = 'genre';
+                    else if (selectedMenu.name == 'Actor')
+                      condition = 'actor';
+                    else if (selectedMenu.name == 'Director')
+                      condition = 'director';
+
                     setState(() {});
                   },
-                  child: Row(children: [
-                    SizedBox(width: 5),
-                    Text(menu.name,
-                        style: GoogleFonts.prompt(
-                            textStyle: TextStyle(
-                          fontSize: 17,
-                          color: redColor,
-                        )))
-                  ]));
-            }).toList()),
+                  items: conditionMenu.map((Item menu) {
+                    return DropdownMenuItem<Item>(
+                        value: menu,
+                        onTap: () {
+                          selectedMenu = menu;
+                          print(selectedMenu.name);
+                          setState(() {});
+                        },
+                        child: Row(children: [
+                          SizedBox(width: 5),
+                          Text(menu.name,
+                              style: GoogleFonts.prompt(
+                                  textStyle: TextStyle(
+                                fontSize: 17,
+                                color: redColor,
+                              )))
+                        ]));
+                  }).toList());
+            }),
         InkWell(
             borderRadius: BorderRadius.circular(10.0),
             onTap: () {
@@ -143,6 +158,6 @@ class _SearchBarState extends State<SearchBar> {
   }
 
   void handleSubmit(String value) {
-    widget.bloc.goToSearchPage(value, pageBloc, selectededMenu);
+    widget.bloc.goToSearchPage(value, pageBloc, condition: condition);
   }
 }

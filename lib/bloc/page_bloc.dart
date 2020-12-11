@@ -18,8 +18,8 @@ class PageBloc {
     _page.sink.add(LandingPage());
   }
 
-  goToSearchPage(title, pageBloc, condition) {
-    _page.sink.add(SearchPage(title, pageBloc, condition));
+  goToSearchPage(value, pageBloc, {condition}) {
+    _page.sink.add(SearchPage(value, pageBloc, condition: condition));
   }
 
   goTOLoginPage(pageBloc) {

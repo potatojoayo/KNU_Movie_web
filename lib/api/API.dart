@@ -97,9 +97,17 @@ class API {
       int maxEndYear,
       String actor,
       String director,
-      String isAdmin}) async {
-    /// uid는 필수로 입력
+      String isAdmin,
+      List condition,
+      List value}) async {
     var movieURL = _baseURL + "movie?uid=" + uid.toString();
+    for (int i = 0; i < condition.length; i++) {
+      if (value[i] != null) {
+        movieURL += "&" + condition[i] + "=" + value[i];
+      }
+    }
+
+    /// uid는 필수로 입력
     if (title == null) {
       movieURL += "&title=any";
     } else {

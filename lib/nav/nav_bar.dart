@@ -70,7 +70,28 @@ class _NavBarState extends State<NavBar> {
             if (icon == Icons.home_rounded)
               widget.pageBloc.goToLandingPage();
             else if (icon == Icons.login_outlined)
-              widget.pageBloc.goTOLoginPage(widget.pageBloc);
+              User.email != null
+                  ? showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (context) => AlertDialog(
+                        title: Text('이미 로그인 하셨습니다'),
+                        content: SingleChildScrollView(
+                          child: ListBody(
+                            children: <Widget>[Text('이미 함')],
+                          ),
+                        ),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('Cancel'),
+                          )
+                        ],
+                      ),
+                    )
+                  : widget.pageBloc.goTOLoginPage(widget.pageBloc);
             else if (icon == Icons.account_box) {
               User.email == null
                   ? showDialog(
@@ -152,33 +173,91 @@ class _NavBarState extends State<NavBar> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     SearchBar(pageBloc),
-                    DropdownButton<Item>(
-                        value: selectedMenu,
-                        iconEnabledColor: redColor,
-                        onChanged: (Item choosen) {
-                          selectedMenu = choosen;
-                          if (selectedMenu.name == 'Home')
-                            widget.pageBloc.goToLandingPage();
-                          if (selectedMenu.name == 'SignIn')
-                            widget.pageBloc.goTOLoginPage(pageBloc);
-                        },
-                        //
-                        items: naviMenu.map((Item menu) {
-                          return DropdownMenuItem<Item>(
-                              value: menu,
-                              child: Row(
-                                children: [
-                                  menu.icon,
-                                  SizedBox(width: 5),
-                                  Text(menu.name,
-                                      style: GoogleFonts.prompt(
-                                          textStyle: TextStyle(
-                                        fontSize: 17,
-                                        color: redColor,
-                                      )))
-                                ],
-                              ));
-                        }).toList()),
+                    StreamBuilder<Item>(
+                        stream: menuBloc.selectedMenu,
+                        initialData: selectedMenu,
+                        builder: (context, snapshot) {
+                          return DropdownButton<Item>(
+                              value: snapshot.data,
+                              iconEnabledColor: redColor,
+                              onChanged: (Item choosen) {
+                                selectedMenu = choosen;
+                                menuBloc.changeItem(choosen);
+                                if (selectedMenu.name == 'Home')
+                                  widget.pageBloc.goToLandingPage();
+                                else if (selectedMenu.name == 'SignIn')
+                                  User.email != null
+                                      ? showDialog(
+                                          context: context,
+                                          barrierDismissible: false,
+                                          builder: (context) => AlertDialog(
+                                            title: Text('이미 로그인 하셨습니다'),
+                                            content: SingleChildScrollView(
+                                              child: ListBody(
+                                                children: <Widget>[
+                                                  Text('이미 함')
+                                                ],
+                                              ),
+                                            ),
+                                            actions: <Widget>[
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                                child: Text('Cancel'),
+                                              )
+                                            ],
+                                          ),
+                                        )
+                                      : widget.pageBloc
+                                          .goTOLoginPage(widget.pageBloc);
+                                else if (selectedMenu.name == 'Account') {
+                                  User.email == null
+                                      ? showDialog(
+                                          context: context,
+                                          barrierDismissible: false,
+                                          builder: (context) => AlertDialog(
+                                            title: Text('로그인하세요'),
+                                            content: SingleChildScrollView(
+                                              child: ListBody(
+                                                children: <Widget>[
+                                                  Text('안하면 안됨')
+                                                ],
+                                              ),
+                                            ),
+                                            actions: <Widget>[
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                  widget.pageBloc
+                                                      .goTOLoginPage(pageBloc);
+                                                },
+                                                child: Text('Cancel'),
+                                              )
+                                            ],
+                                          ),
+                                        )
+                                      : null;
+                                }
+                              },
+                              //
+                              items: naviMenu.map((Item menu) {
+                                return DropdownMenuItem<Item>(
+                                    value: menu,
+                                    child: Row(
+                                      children: [
+                                        menu.icon,
+                                        SizedBox(width: 5),
+                                        Text(menu.name,
+                                            style: GoogleFonts.prompt(
+                                                textStyle: TextStyle(
+                                              fontSize: 17,
+                                              color: redColor,
+                                            )))
+                                      ],
+                                    ));
+                              }).toList());
+                        }),
                   ],
                 )
         ],
