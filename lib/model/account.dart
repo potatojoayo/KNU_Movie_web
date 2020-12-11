@@ -37,7 +37,7 @@ class Account {
         birthday: json['birthday'] as String,
         password: json['password'] as String,
         phone: json['phone'] as String,
-        uid: json['Account_id'] as int,
+        uid: json['account_id'] as int,
         job: json['job'] as String);
   }
 }
