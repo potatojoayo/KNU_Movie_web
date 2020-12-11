@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:knu_movie_web/api/API.dart';
 import 'package:knu_movie_web/model/User.dart';
+import 'package:knu_movie_web/page/account_page.dart';
 import 'package:knu_movie_web/page/landing_page.dart';
 import 'package:knu_movie_web/page/login_page.dart';
 import 'package:knu_movie_web/page/movie_page.dart';
@@ -47,6 +48,10 @@ class PageBloc {
       rating = 0;
 
     _page.sink.add(MoviePage(movie, rating));
+  }
+
+  goToAccountPage(movieId) async {
+    _page.sink.add(AccountPage());
   }
 
   dispose() {

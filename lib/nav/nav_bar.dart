@@ -73,17 +73,28 @@ class _NavBarState extends State<NavBar> {
               widget.pageBloc.goTOLoginPage(widget.pageBloc);
             else if (icon == Icons.account_box) {
               User.email == null
-                  ? AlertDialog(
-                      title: Text('로그인 하세요'),
-                      actions: <Widget>[
-                        TextButton(
+                  ? showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (context) => AlertDialog(
+                        title: Text('로그인하세요'),
+                        content: SingleChildScrollView(
+                          child: ListBody(
+                            children: <Widget>[Text('안하면 안됨')],
+                          ),
+                        ),
+                        actions: <Widget>[
+                          TextButton(
                             onPressed: () {
                               Navigator.of(context).pop();
+                              widget.pageBloc.goTOLoginPage(pageBloc);
                             },
-                            child: Text('Cancel'))
-                      ],
+                            child: Text('Cancel'),
+                          )
+                        ],
+                      ),
                     )
-                  : print('object');
+                  : null;
             }
           },
           child: Icon(icon, color: whiteColor),
