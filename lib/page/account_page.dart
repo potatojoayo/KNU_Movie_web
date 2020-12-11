@@ -7,7 +7,7 @@ class AccountPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: SkeltonWidget(
+      child: SkeletonWidget(
         child: Column(
           children: <Widget>[
             //AccountNavBar
