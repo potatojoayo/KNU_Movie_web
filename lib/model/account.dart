@@ -2,6 +2,7 @@ class Account {
   Account(
       {this.email,
       this.sid,
+      this.uid,
       this.lastName,
       this.sex,
       this.password,
@@ -13,6 +14,7 @@ class Account {
       this.isAdmin});
 
   final int sid;
+  final int uid;
   final String lastName;
   final String firstName;
   final String sex;
@@ -35,6 +37,7 @@ class Account {
         birthday: json['birthday'] as String,
         password: json['password'] as String,
         phone: json['phone'] as String,
+        uid: json['Account_id'] as int,
         job: json['job'] as String);
   }
 }

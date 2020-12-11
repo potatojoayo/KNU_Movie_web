@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:knu_movie_web/api/API.dart';
-import 'package:knu_movie_web/bloc/visiblilit_bloc.dart';
 import 'package:knu_movie_web/model/User.dart';
 import 'package:knu_movie_web/model/movie.dart';
 import 'package:knu_movie_web/utils/padding.dart';
 import 'package:knu_movie_web/utils/responsive_layout.dart';
 import 'package:knu_movie_web/widget/my_container.dart';
 import 'package:knu_movie_web/widget/texts.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 // ignore: must_be_immutable
 class MoviePage extends StatelessWidget {
@@ -20,7 +20,6 @@ class MoviePage extends StatelessWidget {
     bool isLarge = ResponsiveLayout.isLargeScreen(context);
     Size size = MediaQuery.of(context).size;
     final api = API();
-    final visibilityBloc = VisibilityBloc();
     final genres = movie.genre
         .map((genre) => MyText().smallText(genre + ", ", context))
         .toList();
@@ -165,27 +164,25 @@ class MoviePage extends StatelessWidget {
                                   Icon(Icons.star, color: Colors.amber),
                               onRatingUpdate: User.uid != null
                                   ? (rating) {
-                                      _rating = rating;
+                                      int _rating = (rating * 2).toInt();
                                       if (User.email != null)
                                         api.rating(
                                             User.uid.toString(),
                                             movie.movieId.toString(),
                                             _rating.toString());
+                                      Fluttertoast.showToast(
+                                          msg: "Rated!",
+                                          backgroundColor: Colors.red[200],
+                                          textColor: Colors.grey[200],
+                                          webShowClose: true);
                                     }
                                   : null),
                         ),
                         SizedBox(
                           height: 10,
                         ),
-                        StreamBuilder<bool>(
-                            initialData: true,
-                            stream: visibilityBloc.visiblity,
-                            builder: (context, snapshot) {
-                              return Visibility(
-                                  visible: snapshot.data,
-                                  child: MyText().smallText(
-                                      "(Please login to rate)", context));
-                            })
+                        if (User.uid == null)
+                          MyText().smallText("(Please login to rate)", context)
                       ],
                     ),
                   )

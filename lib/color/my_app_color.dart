@@ -6,7 +6,7 @@ class Pallette {
   static const Color primary = Colors.red;
 }
 
-class MyColor {
+class MyAppColor {
   MaterialColor generateMaterialColor(Color color) {
     return MaterialColor(color.value, {
       50: tintColor(color, 0.9),
