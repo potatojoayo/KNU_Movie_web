@@ -44,7 +44,7 @@ class _UpdateAccountFormState extends State<UpdateAccountForm> {
   String _phone3;
   String _sex;
   DateTime _birthday;
-  int _sid;
+  int _sid = User.sid;
 
   final memList = ['basic', 'premium', 'prime'];
 
@@ -128,7 +128,7 @@ class _UpdateAccountFormState extends State<UpdateAccountForm> {
           if (_phone != null) cvs.add(ConditionValue('phone', _phone));
           if (_sex != null) cvs.add(ConditionValue('sex', _sex));
           if (_sid != null) cvs.add(ConditionValue('sid', _sid.toString()));
-          if (_bdate != null) cvs.add(ConditionValue('birthday', _birthday));
+          if (_bdate != null) cvs.add(ConditionValue('birthday', _bdate));
 
           Account account;
 
