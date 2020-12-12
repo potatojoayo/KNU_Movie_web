@@ -3,6 +3,7 @@ import 'package:knu_movie_web/api/API.dart';
 import 'package:knu_movie_web/main.dart';
 import 'package:knu_movie_web/model/User.dart';
 import 'package:knu_movie_web/model/conditionValue.dart';
+import 'package:knu_movie_web/model/item.dart';
 import 'package:knu_movie_web/page/account_page.dart';
 import 'package:knu_movie_web/page/detail_search_page.dart';
 import 'package:knu_movie_web/page/landing_page.dart';
@@ -12,20 +13,28 @@ import 'package:knu_movie_web/page/register_page.dart';
 import 'package:knu_movie_web/page/search_page.dart';
 import 'package:rxdart/rxdart.dart';
 
+import 'blocs.dart';
+
 class PageBloc {
   final _page = PublishSubject<Widget>();
 
-  Observable<Widget> get page => _page.stream;
+  Stream<Widget> get page => _page.stream;
 
   goToLandingPage() {
+    Blocs.menuBloc.changeItem(Item.conditionMenu[0]);
+
     _page.sink.add(LandingPage());
   }
 
   goToSearchPage(pageBloc, List<ConditionValue> conditionValue) {
+    Blocs.menuBloc.changeItem(Item.conditionMenu[0]);
+
     _page.sink.add(SearchPage(pageBloc, conditionValue));
   }
 
   goToLoginPage(pageBloc) {
+    Blocs.menuBloc.changeItem(Item.conditionMenu[0]);
+
     _page.sink.add(LoginPage(pageBloc));
   }
 
@@ -34,10 +43,14 @@ class PageBloc {
   }
 
   goToSignupPage(pageBloc) {
+    Blocs.menuBloc.changeItem(Item.conditionMenu[0]);
+
     _page.sink.add(RegisterPage(pageBloc));
   }
 
   goToMoviePage(movieId) async {
+    Blocs.menuBloc.changeItem(Item.conditionMenu[0]);
+
     final api = API();
     final fmovie = api.crudMovie(mid: movieId.toString());
 
@@ -58,6 +71,8 @@ class PageBloc {
   }
 
   goToAccountPage() {
+    Blocs.menuBloc.changeItem(Item.conditionMenu[0]);
+
     _page.sink.add(AccountPage(pageBloc));
   }
 

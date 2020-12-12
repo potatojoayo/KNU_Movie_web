@@ -9,10 +9,10 @@ class Director {
 
   factory Director.fromJson(Map<String, dynamic> json) {
     return Director(
-        name: json['name'] as String,
+        name: json['director_name'] as String,
         did: json['director_id'] as int,
-        birthDay: json['birth_day'] as int,
-        passedDay: json['passed_day'] as int,
+        birthDay: json['birth_day'] as String,
+        passedDay: json['passed_day'] as String,
         profileImage: json['profile_image'] as String);
   }
 }

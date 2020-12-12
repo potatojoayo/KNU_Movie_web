@@ -10,10 +10,10 @@ class MovieBloc {
   final _fetcherCS = PublishSubject<List<Movie>>();
   final _fetcherSL = PublishSubject<List<Movie>>();
 
-  Observable<List<Movie>> get highRatingList => _fetcherHR.stream;
-  Observable<List<Movie>> get hotKoreaList => _fetcherKR.stream;
-  Observable<List<Movie>> get classicList => _fetcherCS.stream;
-  Observable<List<Movie>> get searchList => _fetcherSL.stream;
+  Stream<List<Movie>> get highRatingList => _fetcherHR.stream;
+  Stream<List<Movie>> get hotKoreaList => _fetcherKR.stream;
+  Stream<List<Movie>> get classicList => _fetcherCS.stream;
+  Stream<List<Movie>> get searchList => _fetcherSL.stream;
 
   fetchSearchList(int uid, List<ConditionValue> conditionValue) async {
     List<Movie> fetchedSearchList =

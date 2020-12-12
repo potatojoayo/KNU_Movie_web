@@ -45,25 +45,29 @@ class FormPageForm extends StatelessWidget {
                       : size.width / 15),
               child: Row(
                 children: [
-                  Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(icon,
-                            size: ResponsiveLayout.isSmallScreen(context)
-                                ? 100
-                                : 150,
-                            color: MyColor.red),
-                        SizedBox(
-                            height: ResponsiveLayout.isSmallScreen(context)
-                                ? 20
-                                : 50),
-                        MyText().subTitleText(mainText, context),
-                        SizedBox(
-                            height: ResponsiveLayout.isSmallScreen(context)
-                                ? 20
-                                : 50),
-                        mainButton
-                      ]),
+                  ResponsiveLayout.isSmallScreen(context)
+                      ? Container()
+                      : Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                              Icon(icon,
+                                  size: ResponsiveLayout.isSmallScreen(context)
+                                      ? 100
+                                      : 150,
+                                  color: MyColor.red),
+                              SizedBox(
+                                  height:
+                                      ResponsiveLayout.isSmallScreen(context)
+                                          ? 20
+                                          : 50),
+                              MyText().subTitleText(mainText, context),
+                              SizedBox(
+                                  height:
+                                      ResponsiveLayout.isSmallScreen(context)
+                                          ? 20
+                                          : 50),
+                              mainButton
+                            ]),
                   SizedBox(
                     width: ResponsiveLayout.isLargeScreen(context)
                         ? size.width / 10

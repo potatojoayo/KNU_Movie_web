@@ -3,7 +3,7 @@ import 'package:rxdart/rxdart.dart';
 class VisibilityBloc {
   final _visibility = PublishSubject<bool>();
 
-  Observable<bool> get visiblity => _visibility.stream;
+  Stream<bool> get visiblity => _visibility.stream;
 
   makeVisible() {
     _visibility.sink.add(true);

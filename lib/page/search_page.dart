@@ -1,6 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:knu_movie_web/bloc/movie_bloc.dart';
 import 'package:knu_movie_web/bloc/page_bloc.dart';
+import 'package:knu_movie_web/bloc/widget_bloc.dart';
+import 'package:knu_movie_web/color/color.dart';
 import 'package:knu_movie_web/model/User.dart';
 import 'package:knu_movie_web/model/conditionValue.dart';
 import 'package:knu_movie_web/model/movie.dart';
@@ -15,6 +19,8 @@ class SearchPage extends StatelessWidget {
   final List<ConditionValue> conditionValue;
   @override
   Widget build(BuildContext context) {
+    final widgetBloc = WidgetBloc();
+
     bool isLarge = ResponsiveLayout.isLargeScreen(context);
     bool isMedium = ResponsiveLayout.isMediumScreen(context);
     var _rowItemCount = 5;
@@ -45,13 +51,23 @@ class SearchPage extends StatelessWidget {
             initialData: <Movie>[],
             builder:
                 (BuildContext context, AsyncSnapshot<List<Movie>> snapshot) {
-              if (snapshot.data.length == 0)
+              if (snapshot.data.isEmpty) {
                 return Center(
-                  child: Container(
-                    child: MyText().subTitleBoldText("No Result", context),
-                  ),
+                  child: StreamBuilder<Widget>(
+                      stream: widgetBloc.widget,
+                      initialData: CircularProgressIndicator(
+                        backgroundColor: MyColor.grey,
+                        valueColor: AlwaysStoppedAnimation(MyColor.red),
+                      ),
+                      builder: (widgetContext, widgetSnapshot) {
+                        Future.delayed(Duration(seconds: 3), () {
+                          widgetBloc.setWidget(
+                              MyText().subTitleBoldText("No Result", context));
+                        });
+                        return Container(child: widgetSnapshot.data);
+                      }),
                 );
-              else
+              } else
                 return Container(
                   child: GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

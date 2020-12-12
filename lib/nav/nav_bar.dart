@@ -8,6 +8,7 @@ import 'package:knu_movie_web/model/User.dart';
 import 'package:knu_movie_web/model/item.dart';
 import 'package:knu_movie_web/utils/padding.dart';
 import 'package:knu_movie_web/widget/movie_search_condition.dart';
+import 'package:knu_movie_web/widget/texts.dart';
 import '../utils/responsive_layout.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../utils/shadow.dart';
@@ -39,21 +40,21 @@ class _NavBarState extends State<NavBar> {
   VisibilityBloc visibilityBloc = VisibilityBloc();
 
   List<Item> naviMenu = <Item>[
-    const Item(
+    Item(
         'Home',
         Icon(
           Icons.home_rounded,
           color: NavBar.menuIconColor,
         )),
     User.uid == null
-        ? const Item(
+        ? Item(
             'SignIn',
             Icon(
               Icons.login_outlined,
               color: NavBar.menuIconColor,
             ))
         : null,
-    const Item(
+    Item(
         'Account',
         Icon(
           Icons.account_box,
@@ -69,54 +70,36 @@ class _NavBarState extends State<NavBar> {
           elevation: 5,
           color: redColor,
           onPressed: () {
-            if (icon == Icons.home_rounded)
+            if (icon == Icons.home_rounded) {
               widget.pageBloc.goToLandingPage();
-            else if (icon == Icons.login_outlined)
+            } else if (icon == Icons.login_outlined)
               User.email != null
-                  ? showDialog(
-                      context: context,
-                      barrierDismissible: false,
-                      builder: (context) => AlertDialog(
-                        title: Text('이미 로그인 하셨습니다'),
-                        content: SingleChildScrollView(
-                          child: ListBody(
-                            children: <Widget>[Text('이미 함')],
-                          ),
-                        ),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: Text('Cancel'),
-                          )
-                        ],
-                      ),
-                    )
+                  ? showMyDialog("Already logged in", [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text('Cancel'),
+                      )
+                    ])
                   : widget.pageBloc.goToLoginPage(widget.pageBloc);
             else if (icon == Icons.account_box) {
               User.email == null
-                  ? showDialog(
-                      context: context,
-                      barrierDismissible: false,
-                      builder: (context) => AlertDialog(
-                        title: Text('로그인하세요'),
-                        content: SingleChildScrollView(
-                          child: ListBody(
-                            children: <Widget>[Text('안하면 안됨')],
-                          ),
-                        ),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                              widget.pageBloc.goToLoginPage(pageBloc);
-                            },
-                            child: Text('Cancel'),
-                          )
-                        ],
+                  ? showMyDialog("please login", [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          widget.pageBloc.goToLoginPage(pageBloc);
+                        },
+                        child: Text('Ok'),
                       ),
-                    )
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text('Cancel'),
+                      )
+                    ])
                   : pageBloc.goToAccountPage();
             }
           },
@@ -185,61 +168,39 @@ class _NavBarState extends State<NavBar> {
                               onChanged: (Item choosen) {
                                 selectedMenu = choosen;
                                 menuBloc.changeItem(choosen);
-                                if (selectedMenu.name == 'Home')
+                                if (selectedMenu.name == 'Home') {
                                   widget.pageBloc.goToLandingPage();
-                                else if (selectedMenu.name == 'SignIn')
+                                } else if (selectedMenu.name == "SignIn")
                                   User.email != null
-                                      ? showDialog(
-                                          context: context,
-                                          barrierDismissible: false,
-                                          builder: (context) => AlertDialog(
-                                            title: Text('이미 로그인 하셨습니다'),
-                                            content: SingleChildScrollView(
-                                              child: ListBody(
-                                                children: <Widget>[
-                                                  Text('이미 함')
-                                                ],
-                                              ),
-                                            ),
-                                            actions: <Widget>[
-                                              TextButton(
-                                                onPressed: () {
-                                                  Navigator.of(context).pop();
-                                                },
-                                                child: Text('Cancel'),
-                                              )
-                                            ],
-                                          ),
-                                        )
+                                      ? showMyDialog("Already logged in", [
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Text('Cancel'),
+                                          )
+                                        ])
                                       : widget.pageBloc
                                           .goToLoginPage(widget.pageBloc);
-                                else if (selectedMenu.name == 'Account') {
-                                  // User.email == null
-                                  //     ? showDialog(
-                                  //         context: context,
-                                  //         barrierDismissible: false,
-                                  //         builder: (context) => AlertDialog(
-                                  //           title: Text('로그인하세요'),
-                                  //           content: SingleChildScrollView(
-                                  //             child: ListBody(
-                                  //               children: <Widget>[
-                                  //                 Text('안하면 안됨')
-                                  //               ],
-                                  //             ),
-                                  //           ),
-                                  //           actions: <Widget>[
-                                  //             TextButton(
-                                  //               onPressed: () {
-                                  //                 Navigator.of(context).pop();
-                                  //                 widget.pageBloc
-                                  //                     .goToLoginPage(pageBloc);
-                                  //               },
-                                  //               child: Text('Cancel'),
-                                  //             )
-                                  //           ],
-                                  //         ),
-                                  //       )
-                                  pageBloc.goToAccountPage();
+                                else if (selectedMenu.name == "Account") {
+                                  User.email == null
+                                      ? showMyDialog("please login", [
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                              widget.pageBloc
+                                                  .goToLoginPage(pageBloc);
+                                            },
+                                            child: Text('Ok'),
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Text('Cancel'),
+                                          )
+                                        ])
+                                      : pageBloc.goToAccountPage();
                                 }
                               },
                               //
@@ -263,6 +224,22 @@ class _NavBarState extends State<NavBar> {
                   ],
                 )
         ],
+      ),
+    );
+  }
+
+  Future showMyDialog(title, actionWidgets) {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        title: MyText().smallText(title, context),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[],
+          ),
+        ),
+        actions: <Widget>[...actionWidgets],
       ),
     );
   }

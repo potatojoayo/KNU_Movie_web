@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:knu_movie_web/bloc/menu_bloc.dart';
+import 'package:knu_movie_web/bloc/blocs.dart';
 import 'package:knu_movie_web/bloc/page_bloc.dart';
 import 'package:knu_movie_web/bloc/visiblilit_bloc.dart';
 import 'package:knu_movie_web/main.dart';
 import 'package:knu_movie_web/model/conditionValue.dart';
 import 'package:knu_movie_web/model/item.dart';
-import 'package:knu_movie_web/nav/nav_bar.dart';
+import 'package:knu_movie_web/model/search_parameters.dart';
 import 'package:knu_movie_web/utils/responsive_layout.dart';
 
 class SearchBar extends StatefulWidget {
@@ -18,44 +18,6 @@ class SearchBar extends StatefulWidget {
 }
 
 class _SearchBarState extends State<SearchBar> {
-  List<Item> conditionMenu = <Item>[
-    const Item(
-        'Title',
-        Icon(
-          Icons.search,
-          color: NavBar.menuIconColor,
-        )),
-    const Item(
-        'Type',
-        Icon(
-          Icons.movie_filter,
-          color: NavBar.menuIconColor,
-        )),
-    const Item(
-        'Genre',
-        Icon(
-          Icons.ac_unit,
-          color: NavBar.menuIconColor,
-        )),
-    const Item(
-        'Actor',
-        Icon(
-          Icons.recent_actors,
-          color: NavBar.menuIconColor,
-        )),
-    const Item(
-        'Director',
-        Icon(
-          Icons.recent_actors_sharp,
-          color: NavBar.menuIconColor,
-        )),
-    const Item(
-        'Detail',
-        Icon(
-          Icons.details,
-          color: NavBar.menuIconColor,
-        )),
-  ];
   //selected Menu
   String condition = 'title';
   String hintText = 'anything';
@@ -73,8 +35,8 @@ class _SearchBarState extends State<SearchBar> {
   @override
   Widget build(BuildContext context) {
     //initial conditionMenu
-    Item selectedMenu = conditionMenu[0];
-    final menuBloc = MenuBloc();
+    Item selectedMenu = Item.conditionMenu[0];
+    // final menuBloc = MenuBloc();
     return Row(
       children: [
         StreamBuilder<bool>(
@@ -91,7 +53,12 @@ class _SearchBarState extends State<SearchBar> {
                     child: TextField(
                       controller: submitText,
                       onSubmitted: handleSubmit,
+                      cursorColor: redColor,
+                      cursorWidth: 2,
+                      style: GoogleFonts.ubuntu(
+                          textStyle: TextStyle(color: redColor)),
                       decoration: InputDecoration(
+                          contentPadding: EdgeInsets.fromLTRB(5, 0, 0, 15),
                           focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: redColor)),
                           enabledBorder: UnderlineInputBorder(
@@ -100,7 +67,7 @@ class _SearchBarState extends State<SearchBar> {
                   ));
             }),
         StreamBuilder<Item>(
-            stream: menuBloc.selectedMenu,
+            stream: Blocs.menuBloc.selectedMenu,
             initialData: selectedMenu,
             builder: (context, snapshot) {
               return DropdownButton<Item>(
@@ -108,8 +75,9 @@ class _SearchBarState extends State<SearchBar> {
                   iconEnabledColor: redColor,
                   onChanged: (Item choosen) {
                     selectedMenu = choosen;
-                    menuBloc.changeItem(choosen);
+                    Blocs.menuBloc.changeItem(choosen);
                     if (selectedMenu.name == 'Detail') {
+                      SearchParameters.clearParams();
                       widget.bloc.goToDetailSearchPage(widget.bloc);
                     } else if (selectedMenu.name == 'Title') {
                       condition = 'title';
@@ -129,7 +97,7 @@ class _SearchBarState extends State<SearchBar> {
 
                     setState(() {});
                   },
-                  items: conditionMenu.map((Item menu) {
+                  items: Item.conditionMenu.map((Item menu) {
                     return DropdownMenuItem<Item>(
                         value: menu,
                         onTap: () {
