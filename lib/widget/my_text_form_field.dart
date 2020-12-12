@@ -9,11 +9,13 @@ class MyTextFormField extends StatefulWidget {
   final void Function(String) input;
   final void Function(String) onSubmit;
   final controller;
+  final initValue;
   MyTextFormField(this.input,
       {this.validator,
       this.isPassword = false,
       this.onSubmit,
-      this.controller});
+      this.controller,
+      this.initValue});
   @override
   _MyTextFormFieldState createState() => _MyTextFormFieldState();
 }
@@ -22,7 +24,7 @@ class _MyTextFormFieldState extends State<MyTextFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      initialValue: null,
+      initialValue: widget.initValue ?? null,
       controller: widget.controller,
       cursorColor: MyColor.red,
       onFieldSubmitted: widget.onSubmit,

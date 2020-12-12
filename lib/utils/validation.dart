@@ -12,4 +12,11 @@ class ValidationMixin {
     }
     return null;
   }
+
+  String validateEmpty(String value) {
+    if (value.isEmpty)
+      return 'Please fill out';
+    else
+      return null;
+  }
 }
