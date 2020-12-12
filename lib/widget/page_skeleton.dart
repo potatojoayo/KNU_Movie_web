@@ -22,13 +22,12 @@ class SkeletonWidget extends StatelessWidget {
                 : MyPadding.normalHorizontal,
             bottom: MediaQuery.of(context).size.height / 10),
         child: MyContainer(
-            width: size.width,
+            width: size.width / 1,
             height: size.height / 1.2,
             child: Padding(
                 padding: EdgeInsets.symmetric(
-                    horizontal: ResponsiveLayout.isLargeScreen(context)
-                        ? size.width / 10
-                        : size.width / 15),
+                    horizontal:
+                        ResponsiveLayout.isLargeScreen(context) ? 0 : 0),
                 child: child),
             context: context));
   }

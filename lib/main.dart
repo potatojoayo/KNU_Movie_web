@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:knu_movie_web/bloc/page_bloc.dart';
+import 'package:knu_movie_web/page/account_page.dart';
 import 'package:knu_movie_web/page/landing_page.dart';
 
 import 'api/API.dart';
@@ -58,7 +59,7 @@ class HomePage extends StatelessWidget {
             builder: (context, snapshot) {
               return SafeArea(
                 child: StreamBuilder<Widget>(
-                    initialData: LandingPage(),
+                    initialData: AccountPage(pageBloc),
                     stream: pageBloc.page,
                     builder: (context, AsyncSnapshot<Widget> snapshot) {
                       return Column(

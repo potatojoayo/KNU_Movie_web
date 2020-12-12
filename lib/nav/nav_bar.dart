@@ -183,24 +183,25 @@ class _NavBarState extends State<NavBar> {
                                       : widget.pageBloc
                                           .goToLoginPage(widget.pageBloc);
                                 else if (selectedMenu.name == "Account") {
-                                  User.email == null
-                                      ? showMyDialog("please login", [
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                              widget.pageBloc
-                                                  .goToLoginPage(pageBloc);
-                                            },
-                                            child: Text('Ok'),
-                                          ),
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: Text('Cancel'),
-                                          )
-                                        ])
-                                      : pageBloc.goToAccountPage();
+                                  // User.email == null
+                                  //     ? showMyDialog("please login", [
+                                  //         TextButton(
+                                  //           onPressed: () {
+                                  //             Navigator.of(context).pop();
+                                  //             widget.pageBloc
+                                  //                 .goToLoginPage(pageBloc);
+                                  //           },
+                                  //           child: Text('Ok'),
+                                  //         ),
+                                  //         TextButton(
+                                  //           onPressed: () {
+                                  //             Navigator.of(context).pop();
+                                  //           },
+                                  //           child: Text('Cancel'),
+                                  //         )
+                                  //       ])
+                                  //     :
+                                  pageBloc.goToAccountPage();
                                 }
                               },
                               //
