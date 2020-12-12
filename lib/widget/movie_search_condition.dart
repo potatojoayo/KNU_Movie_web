@@ -62,6 +62,7 @@ class _SearchBarState extends State<SearchBar> {
   //Animation effect var
   final VisibilityBloc visibilityBloc = VisibilityBloc();
   final submitText = TextEditingController();
+  // ignore: deprecated_member_use
   List<ConditionValue> conditionValue = List<ConditionValue>();
   var isSearchOpen = false;
   //SearchBar Width for Layout

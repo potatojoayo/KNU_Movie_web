@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:knu_movie_web/api/API.dart';
 import 'package:knu_movie_web/bloc/page_bloc.dart';
 import 'package:knu_movie_web/color/color.dart';
-import 'package:knu_movie_web/model/User.dart';
 import 'package:knu_movie_web/model/conditionValue.dart';
 import 'package:knu_movie_web/utils/validation.dart';
 import 'package:knu_movie_web/widget/my_text_form_field.dart';
@@ -90,6 +88,7 @@ class _DetailSearchFormState extends State<DetailSearchForm> {
         _type = typeController.text;
         _actor = actorController.text;
         _director = directorController.text;
+        // ignore: deprecated_member_use
         List<ConditionValue> conditions = List<ConditionValue>();
         if (_title != "") conditions.add(ConditionValue("title", _title));
         if (_genre != "") conditions.add(ConditionValue("genre", _genre));

@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:knu_movie_web/bloc/page_bloc.dart';
 import 'package:knu_movie_web/model/item.dart';
