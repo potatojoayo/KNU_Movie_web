@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:knu_movie_web/bloc/page_bloc.dart';
+import 'package:knu_movie_web/model/User.dart';
 import 'package:knu_movie_web/widget/form_page_form_widget.dart';
+import 'package:knu_movie_web/widget/my_button.dart';
+import 'package:knu_movie_web/widget/texts.dart';
 import 'package:knu_movie_web/widget/update_account_form.dart';
 
 class UpdateAccountPage extends StatelessWidget {
@@ -8,14 +12,23 @@ class UpdateAccountPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: FormPageForm(
-        pageBloc: pageBloc,
-        mainText: "update",
-        form: UpdateAccountForm(pageBloc),
-        icon: Icons.update,
-        mainButton: Container(),
+    return FormPageForm(
+      pageBloc: pageBloc,
+      mainText: "update",
+      form: Flexible(
+        child: SingleChildScrollView(
+          child: UpdateAccountForm(pageBloc),
+        ),
       ),
+      icon: Icons.update,
+      mainButton: MyButton(
+          child: MyText().smallText('log out', context),
+          context: context,
+          onPressed: () {
+            User.logout();
+
+            pageBloc.goToLandingPage();
+          }),
     );
   }
 }

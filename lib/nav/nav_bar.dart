@@ -6,9 +6,9 @@ import 'package:knu_movie_web/bloc/visiblilit_bloc.dart';
 import 'package:knu_movie_web/main.dart';
 import 'package:knu_movie_web/model/User.dart';
 import 'package:knu_movie_web/model/item.dart';
+import 'package:knu_movie_web/utils/dialog.dart';
 import 'package:knu_movie_web/utils/padding.dart';
 import 'package:knu_movie_web/widget/movie_search_condition.dart';
-import 'package:knu_movie_web/widget/texts.dart';
 import '../utils/responsive_layout.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../utils/shadow.dart';
@@ -74,32 +74,38 @@ class _NavBarState extends State<NavBar> {
               widget.pageBloc.goToLandingPage();
             } else if (icon == Icons.login_outlined)
               User.email != null
-                  ? showMyDialog("Already logged in", [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Text('Cancel'),
-                      )
-                    ])
+                  ? MyDialog.showMyDialog(
+                      "Already logged in",
+                      [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Text('Cancel'),
+                        )
+                      ],
+                      context)
                   : widget.pageBloc.goToLoginPage(widget.pageBloc);
             else if (icon == Icons.account_box) {
               User.email == null
-                  ? showMyDialog("please login", [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                          widget.pageBloc.goToLoginPage(pageBloc);
-                        },
-                        child: Text('Ok'),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Text('Cancel'),
-                      )
-                    ])
+                  ? MyDialog.showMyDialog(
+                      "please login",
+                      [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            widget.pageBloc.goToLoginPage(pageBloc);
+                          },
+                          child: Text('Ok'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Text('Cancel'),
+                        )
+                      ],
+                      context)
                   : pageBloc.goToUpdateAccountPage();
             }
           },
@@ -172,34 +178,40 @@ class _NavBarState extends State<NavBar> {
                                   widget.pageBloc.goToLandingPage();
                                 } else if (selectedMenu.name == "SignIn")
                                   User.email != null
-                                      ? showMyDialog("Already logged in", [
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: Text('Cancel'),
-                                          )
-                                        ])
+                                      ? MyDialog.showMyDialog(
+                                          "Already logged in",
+                                          [
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: Text('Cancel'),
+                                            )
+                                          ],
+                                          context)
                                       : widget.pageBloc
                                           .goToLoginPage(widget.pageBloc);
                                 else if (selectedMenu.name == "Account") {
                                   User.email == null
-                                      ? showMyDialog("please login", [
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                              widget.pageBloc
-                                                  .goToLoginPage(pageBloc);
-                                            },
-                                            child: Text('Ok'),
-                                          ),
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: Text('Cancel'),
-                                          )
-                                        ])
+                                      ? MyDialog.showMyDialog(
+                                          "please login",
+                                          [
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                                widget.pageBloc
+                                                    .goToLoginPage(pageBloc);
+                                              },
+                                              child: Text('Ok'),
+                                            ),
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: Text('Cancel'),
+                                            )
+                                          ],
+                                          context)
                                       : pageBloc.goToAccountPage();
                                 }
                               },
@@ -224,22 +236,6 @@ class _NavBarState extends State<NavBar> {
                   ],
                 )
         ],
-      ),
-    );
-  }
-
-  Future showMyDialog(title, actionWidgets) {
-    return showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => AlertDialog(
-        title: MyText().smallText(title, context),
-        content: SingleChildScrollView(
-          child: ListBody(
-            children: <Widget>[],
-          ),
-        ),
-        actions: <Widget>[...actionWidgets],
       ),
     );
   }

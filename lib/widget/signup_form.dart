@@ -34,8 +34,8 @@ class _SignUpFormState extends State<SignUpForm> {
         children: [
           emailRow(context),
           passwordRow(context),
-          inputRow("first name : ", _fname, context),
-          inputRow("last name : ", _lname, context),
+          inputRow("first name : ", context),
+          inputRow("last name : ", context),
           SizedBox(
             height: 30,
           ),
@@ -117,17 +117,26 @@ class _SignUpFormState extends State<SignUpForm> {
     ]);
   }
 
-  Row inputRow(text, input, BuildContext context) {
+  Row inputRow(String text, BuildContext context) {
     return Row(children: [
       MyText().smallText(text, context),
       SizedBox(
         width: 15,
       ),
-      Flexible(child: MyTextFormField(
-        (value) {
-          input = value;
-        },
-      )),
+      Flexible(
+        child: MyTextFormField(
+          (value) {
+            if (text.contains('first')) {
+              _fname = value;
+            } else {
+              _lname = value;
+            }
+          },
+          validator: (value) {
+            return validator.validateEmpty(value);
+          },
+        ),
+      ),
     ]);
   }
 }

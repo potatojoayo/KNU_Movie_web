@@ -11,4 +11,8 @@ class User {
   static String job;
   static int sid;
   static bool isAdmin;
+  static void logout() {
+    email = password = fname = lname =
+        uid = sex = birthday = phone = address = job = sid = isAdmin = null;
+  }
 }
