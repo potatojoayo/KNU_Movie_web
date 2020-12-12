@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:knu_movie_web/color/color.dart';
 
 class MyButton extends StatelessWidget {
-  const MyButton(
+  MyButton(
       {Key key,
       @required this.child,
       @required this.context,
@@ -18,8 +17,7 @@ class MyButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
-        disabledColor: buttonColor ?? MyColor.grey,
-        color: buttonColor ?? MyColor.grey,
+        color: buttonColor,
         onPressed: () {
           onPressed();
         },

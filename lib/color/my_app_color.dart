@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class Pallette {
-  static const Color primary = Colors.red;
+  static const Color primary = Colors.grey;
 }
 
 class MyAppColor {

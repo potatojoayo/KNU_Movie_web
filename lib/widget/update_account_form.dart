@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:knu_movie_web/api/API.dart';
 import 'package:knu_movie_web/color/color.dart';
 import 'package:knu_movie_web/model/User.dart';
+import 'package:knu_movie_web/model/account.dart';
 import 'package:knu_movie_web/model/conditionValue.dart';
 import 'package:knu_movie_web/utils/responsive_layout.dart';
 import 'package:knu_movie_web/utils/validation.dart';
@@ -53,6 +55,22 @@ class _UpdateAccountFormState extends State<UpdateAccountForm> {
 
   @override
   Widget build(BuildContext context) {
+    if (_sex == 'male') {
+      maleTextColor = MyColor.grey;
+      maleButtonColor = MyColor.red;
+      femaleTextColor = MyColor.red;
+      femaleButtonColor = MyColor.grey;
+    } else if (_sex == 'female') {
+      femaleTextColor = MyColor.grey;
+      femaleButtonColor = MyColor.red;
+      maleTextColor = MyColor.red;
+      maleButtonColor = MyColor.grey;
+    } else {
+      maleTextColor = MyColor.red;
+      maleButtonColor = MyColor.grey;
+      femaleTextColor = MyColor.red;
+      femaleButtonColor = MyColor.grey;
+    }
     return Form(
       key: _updateFormKey,
       child: Column(
@@ -63,11 +81,16 @@ class _UpdateAccountFormState extends State<UpdateAccountForm> {
               "first name : ", User.fname, validator.validateEmpty, context),
           updateInputRow(
               "last name : ", User.lname, validator.validateEmpty, context),
+          SizedBox(height: 15),
           genderRow("sex : ", context),
+          SizedBox(height: 10),
           phoneRow("phone : ", User.phone, context),
+          SizedBox(height: 15),
           datePickerRow("birthday : ", context),
+          SizedBox(height: 10),
           updateInputRow("address : ", User.address, null, context),
           updateInputRow("job : ", User.job, null, context),
+          SizedBox(height: 10),
           selectRow(memList, context),
           SizedBox(
             height: 30,
@@ -90,13 +113,31 @@ class _UpdateAccountFormState extends State<UpdateAccountForm> {
 
           List<ConditionValue> cvs = [];
 
+          if (_phone1 != null && _phone2 != null && _phone3 != null)
+            _phone = _phone1 + "-" + _phone2 + "-" + _phone3;
+
+          String _bdate;
+          if (_birthday != null)
+            _bdate = DateFormat('yyyy-MM-dd').format(_birthday);
+
           if (_password != null) cvs.add(ConditionValue('password', _password));
+          if (_fname != null) cvs.add(ConditionValue('first_name', _fname));
+          if (_lname != null) cvs.add(ConditionValue('last_name', _lname));
+          if (_address != null) cvs.add(ConditionValue('address', _address));
+          if (_job != null) cvs.add(ConditionValue('job', _job));
+          if (_phone != null) cvs.add(ConditionValue('phone', _phone));
+          if (_sex != null) cvs.add(ConditionValue('sex', _sex));
+          if (_sid != null) cvs.add(ConditionValue('sid', _sid.toString()));
+          if (_bdate != null) cvs.add(ConditionValue('birthday', _birthday));
 
-          final faccount = api.updateAccount();
-          final account = await faccount;
+          Account account;
 
-          User.email = account.email;
-          if (User.email != null) {
+          for (ConditionValue c in cvs) {
+            account = await api.updateAccount(User.email, c.condition, c.value);
+          }
+
+          if (account != null) {
+            User.email = account.email;
             User.uid = account.uid;
             User.password = account.password;
             User.lname = account.lastName;
@@ -109,8 +150,9 @@ class _UpdateAccountFormState extends State<UpdateAccountForm> {
             User.sex = account.sex;
             Scaffold.of(context)
                 // ignore: deprecated_member_use
-                .showSnackBar(SnackBar(content: Text('Login success!')));
-            widget.pageBloc.goToLandingPage();
+                .showSnackBar(SnackBar(content: Text('Updated!')));
+            //TODO
+            // widget.pageBloc.goToLandingPage();
           }
         }
       },
@@ -126,7 +168,7 @@ class _UpdateAccountFormState extends State<UpdateAccountForm> {
       Flexible(
           child: MyTextFormField(
         (value) {
-          _password = value;
+          if (value.isNotEmpty) _password = value;
         },
         isPassword: true,
         validator: (value) {
@@ -170,19 +212,23 @@ class _UpdateAccountFormState extends State<UpdateAccountForm> {
         width: 15,
       ),
       Flexible(
-          child: MyTextFormField((value) {
-        _phone1 = value;
-      }, initValue: initValue.substring(0, 2) ?? null)),
-      MyText().smallText(' - ', context),
+        child: MyTextFormField(
+          (value) {
+            _phone1 = value;
+          },
+          initValue: initValue != null ? initValue.substring(0, 3) : null,
+        ),
+      ),
+      MyText().smallText('   -   ', context),
       Flexible(
           child: MyTextFormField((value) {
         _phone2 = value;
-      }, initValue: initValue.substring(4, 7) ?? null)),
-      MyText().smallText(' - ', context),
+      }, initValue: initValue != null ? initValue.substring(4, 8) : null)),
+      MyText().smallText('   -   ', context),
       Flexible(
           child: MyTextFormField((value) {
         _phone3 = value;
-      }, initValue: initValue.substring(9, 12) ?? null)),
+      }, initValue: initValue != null ? initValue.substring(9, 13) : null)),
     ]);
   }
 
@@ -197,19 +243,22 @@ class _UpdateAccountFormState extends State<UpdateAccountForm> {
         context: context,
         onPressed: () {
           if (maleButtonColor == MyColor.red) {
-            maleButtonColor = MyColor.grey;
-            maleTextColor = MyColor.red;
+            // maleButtonColor = MyColor.grey;
+            // maleTextColor = MyColor.red;
             _sex = null;
           } else {
             _sex = 'male';
-            maleButtonColor = MyColor.red;
-            maleTextColor = MyColor.grey;
-            femaleButtonColor = MyColor.grey;
-            femaleTextColor = MyColor.red;
+            // maleButtonColor = MyColor.red;
+            // maleTextColor = MyColor.grey;
+            // femaleButtonColor = MyColor.grey;
+            // femaleTextColor = MyColor.red;
           }
           setState(() {});
         },
         buttonColor: maleButtonColor,
+      ),
+      SizedBox(
+        width: 10,
       ),
       MyButton(
         child:
@@ -217,15 +266,15 @@ class _UpdateAccountFormState extends State<UpdateAccountForm> {
         context: context,
         onPressed: () {
           if (femaleButtonColor == MyColor.red) {
-            femaleButtonColor = MyColor.grey;
-            femaleTextColor = MyColor.red;
+            // femaleButtonColor = MyColor.grey;
+            // femaleTextColor = MyColor.red;
             _sex = null;
           } else {
             _sex = 'female';
-            femaleButtonColor = MyColor.red;
-            femaleTextColor = MyColor.grey;
-            maleButtonColor = MyColor.grey;
-            maleTextColor = MyColor.red;
+            // femaleButtonColor = MyColor.red;
+            // femaleTextColor = MyColor.grey;
+            // maleButtonColor = MyColor.grey;
+            // maleTextColor = MyColor.red;
           }
           setState(() {});
         },
@@ -241,7 +290,11 @@ class _UpdateAccountFormState extends State<UpdateAccountForm> {
         width: 15,
       ),
       MyButton(
-          child: MyText().smallText(_birthday.toString() ?? 'select', context),
+          child: MyText().smallText(
+              _birthday != null
+                  ? DateFormat('yyyy-MM-dd').format(_birthday)
+                  : 'select',
+              context),
           context: context,
           onPressed: () {
             Future<DateTime> selectedDate = showDatePicker(
