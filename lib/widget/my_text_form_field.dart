@@ -9,11 +9,15 @@ class MyTextFormField extends StatefulWidget {
   final void Function(String) input;
   final void Function(String) onSubmit;
   final controller;
+  final initValue;
+  final contentPadding;
   MyTextFormField(this.input,
       {this.validator,
       this.isPassword = false,
       this.onSubmit,
-      this.controller});
+      this.controller,
+      this.initValue,
+      this.contentPadding});
   @override
   _MyTextFormFieldState createState() => _MyTextFormFieldState();
 }
@@ -22,7 +26,7 @@ class _MyTextFormFieldState extends State<MyTextFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      initialValue: null,
+      initialValue: widget.initValue ?? null,
       controller: widget.controller,
       cursorColor: MyColor.red,
       onFieldSubmitted: widget.onSubmit,
@@ -37,6 +41,7 @@ class _MyTextFormFieldState extends State<MyTextFormField> {
       ),
       onSaved: widget.input,
       decoration: InputDecoration(
+        contentPadding: widget.contentPadding,
         errorStyle: GoogleFonts.ubuntu(
             textStyle: TextStyle(
           fontSize: ResponsiveLayout.isSmallScreen(context) ? 7 : 13,

@@ -100,7 +100,7 @@ class _NavBarState extends State<NavBar> {
                         child: Text('Cancel'),
                       )
                     ])
-                  : pageBloc.goToAccountPage();
+                  : pageBloc.goToUpdateAccountPage();
             }
           },
           child: Icon(icon, color: whiteColor),

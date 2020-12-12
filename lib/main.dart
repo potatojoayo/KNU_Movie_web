@@ -41,6 +41,7 @@ class KnuMovieWeb extends StatelessWidget {
         title: 'Knu Movie Web',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
+          buttonColor: Color(0xFFEEEEE),
           primarySwatch: Colors.grey,
         ),
         home: HomePage());
