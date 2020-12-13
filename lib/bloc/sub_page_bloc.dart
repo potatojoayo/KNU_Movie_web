@@ -5,6 +5,7 @@ import 'package:knu_movie_web/page/landing_page.dart';
 import 'package:knu_movie_web/page/user_log_page.dart';
 import 'package:knu_movie_web/widget/add_movie_form.dart';
 import 'package:knu_movie_web/widget/update_account_form.dart';
+import 'package:knu_movie_web/widget/update_movie_form.dart';
 import 'package:rxdart/rxdart.dart';
 
 class SubPageBloc {
@@ -25,6 +26,10 @@ class SubPageBloc {
     final api = API();
     final myMovieList = await api.ratingLog(email: User.email);
     _subPage.sink.add(UserLogPage(myMovieList));
+  }
+
+  goToUpdateMovieForm(pageBloc) {
+    _subPage.sink.add(UpdateMovieForm(pageBloc));
   }
 
   dispose() {
