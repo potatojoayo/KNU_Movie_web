@@ -12,6 +12,7 @@ import 'package:knu_movie_web/page/movie_page.dart';
 import 'package:knu_movie_web/page/register_page.dart';
 import 'package:knu_movie_web/page/search_page.dart';
 import 'package:knu_movie_web/page/update_account_page.dart';
+import 'package:knu_movie_web/page/user_log_page.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'blocs.dart';
@@ -31,6 +32,14 @@ class PageBloc {
     Blocs.menuBloc.changeItem(Item.conditionMenu[0]);
 
     _page.sink.add(SearchPage(pageBloc, conditionValue));
+  }
+
+  goToUserLogPage() async {
+    Blocs.menuBloc.changeItem(Item.conditionMenu[0]);
+    final api = API();
+    final logList = await api.ratingLog(email: "knu@knu.ac.kr");
+
+    _page.sink.add(UserLogPage(logList));
   }
 
   goToUpdateAccountPage() {

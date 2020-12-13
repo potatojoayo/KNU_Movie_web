@@ -18,17 +18,17 @@ void main() async {
   final directors = await api.selectDirector();
   for (Director d in directors) {
     Lists.directors.add(d.name);
+    Lists.directorWithDids.add(DirectorList(d.name, d.did));
   }
   final actors = await api.selectActor();
   for (Actor a in actors) {
     Lists.actors.add(a.name);
+    Lists.actorsWithAids.add(ActorList(a.name, a.aid));
   }
   final genres = await api.selectGenre();
   for (Genre g in genres) {
     Lists.genres.add(g.genre);
   }
-
-  print(Lists.genres[0]);
 
   runApp(KnuMovieWeb());
 }
