@@ -30,9 +30,7 @@ class SubPageBloc {
   }
 
   goToUserLogForm() async {
-    final api = API();
-    final myMovieList = await api.ratingLog(email: User.email);
-    _subPage.sink.add(LogListView(myMovieList));
+    _subPage.sink.add(LogListView(User.myLogs));
   }
 
   goToUpdateMovieForm(pageBloc) {

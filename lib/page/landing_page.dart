@@ -12,6 +12,7 @@ class LandingPage extends StatelessWidget {
   const LandingPage({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    bool isMore = false;
     final api = API();
     var highRatingListView = MovieListView(
         api.highRatings(User.uid != null ? User.uid : 1), pageBloc);
@@ -21,12 +22,31 @@ class LandingPage extends StatelessWidget {
         MovieListView(api.classics(User.uid != null ? User.uid : 1), pageBloc);
     var tvSeriesListView =
         MovieListView(api.tvSeries(User.uid != null ? User.uid : 1), pageBloc);
+
     final listView = [
       highRatingListView,
       hotInKoreaListView,
       classicListView,
       tvSeriesListView
     ];
+
+    if (User.myLogs != null) {
+      if (User.myLogs.isNotEmpty) {
+        final recGenreListView =
+            MovieListView(api.recommendGenre(User.uid), pageBloc);
+        final recActorListView =
+            MovieListView(api.recommendActor(User.uid), pageBloc);
+        final recDirectorListView =
+            MovieListView(api.recommendDirector(User.uid), pageBloc);
+
+        listView.insert(0, recDirectorListView);
+        listView.insert(0, recActorListView);
+        listView.insert(0, recGenreListView);
+
+        isMore = true;
+      }
+    }
+
     final myText = MyText();
     bool isLarge = ResponsiveLayout.isLargeScreen(context);
     Size size = MediaQuery.of(context).size;
@@ -46,7 +66,8 @@ class LandingPage extends StatelessWidget {
               SizedBox(
                 width: 10,
               ),
-              myText.subTitleText("High ratings  ", context)
+              myText.subTitleText(
+                  isMore ? "genres you like  " : "High ratings  ", context)
             ]),
             verticalSizedBox(),
             MyContainer(
@@ -59,7 +80,8 @@ class LandingPage extends StatelessWidget {
               SizedBox(
                 width: 10,
               ),
-              myText.subTitleText("Hot in Korea  ", context)
+              myText.subTitleText(
+                  isMore ? "actors you like  " : "Hot in Korea  ", context)
             ]),
             verticalSizedBox(),
             MyContainer(
@@ -72,7 +94,8 @@ class LandingPage extends StatelessWidget {
               SizedBox(
                 width: 10,
               ),
-              myText.subTitleText("Classics  ", context)
+              myText.subTitleText(
+                  isMore ? "directors you like  " : "Classics  ", context)
             ]),
             verticalSizedBox(),
             MyContainer(
@@ -85,7 +108,7 @@ class LandingPage extends StatelessWidget {
               SizedBox(
                 width: 10,
               ),
-              myText.subTitleText("TvSeries  ", context)
+              myText.subTitleText("high ratings  ", context)
             ]),
             verticalSizedBox(),
             MyContainer(
@@ -93,6 +116,48 @@ class LandingPage extends StatelessWidget {
                 height: size.height / 4,
                 child: listView[3],
                 context: context),
+            verticalSizedBox(),
+            if (isMore)
+              Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                SizedBox(
+                  width: 10,
+                ),
+                myText.subTitleText("hot in korea  ", context)
+              ]),
+            if (isMore)
+              MyContainer(
+                  width: size.width,
+                  height: size.height / 4,
+                  child: listView[4],
+                  context: context),
+            verticalSizedBox(),
+            if (isMore)
+              Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                SizedBox(
+                  width: 10,
+                ),
+                myText.subTitleText("classics  ", context)
+              ]),
+            if (isMore)
+              MyContainer(
+                  width: size.width,
+                  height: size.height / 4,
+                  child: listView[5],
+                  context: context),
+            verticalSizedBox(),
+            if (isMore)
+              Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                SizedBox(
+                  width: 10,
+                ),
+                myText.subTitleText("TvSeries  ", context)
+              ]),
+            if (isMore)
+              MyContainer(
+                  width: size.width,
+                  height: size.height / 4,
+                  child: listView[6],
+                  context: context),
             verticalSizedBox(),
             verticalSizedBox(),
             verticalSizedBox(),

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:knu_movie_web/model/User.dart';
 import 'package:knu_movie_web/model/conditionValue.dart';
 import 'package:knu_movie_web/model/director.dart';
 import 'package:knu_movie_web/model/movie.dart';
@@ -20,6 +21,34 @@ class API {
   //
   //
   // 영화 제목으로 db에서 fetch
+
+  Future<List<Movie>> recommendActor(int uid) async {
+    final url = _baseURL + 'movie/recommend/actor';
+    final response = await http.post(url, headers: <String, String>{
+      'Content_Type': 'application/x-www-form-urlencoded',
+    }, body: <String, String>{
+      'uid': uid.toString()
+    });
+  }
+
+  Future<List<Movie>> recommendDirector(int uid) async {
+    final url = _baseURL + 'movie/recommend/director';
+    final response = await http.post(url, headers: <String, String>{
+      'Content_Type': 'application/x-www-form-urlencoded',
+    }, body: <String, String>{
+      'uid': uid.toString()
+    });
+  }
+
+  Future<List<Movie>> recommendGenre(int uid) async {
+    final url = _baseURL + 'movie/recommend/genre';
+    final response = await http.post(url, headers: <String, String>{
+      'Content_Type': 'application/x-www-form-urlencoded',
+    }, body: <String, String>{
+      'uid': uid.toString()
+    });
+  }
+
   Future<List<Movie>> tvSeries(int uid) async {
     final url = _baseURL + 'movie/popular_tv_series';
     final response = await http.post(url, headers: <String, String>{
@@ -325,6 +354,19 @@ class API {
 //
 //
 
+  Future<bool> isAdmin(int uid) async {
+    final adminURL = _baseURL + "admin";
+    final response = await http.post(
+      adminURL,
+      headers: <String, String>{
+        'Content_Type': 'application/x-www-form-urlencoded',
+      },
+      body: <String, String>{'uid': uid.toString()},
+    );
+    bool isAdmin = response.body == "True" ? true : false;
+    return isAdmin;
+  }
+
   //회원가입
   Future<Account> signup(
       String email, String password, String fname, String lname) async {
@@ -350,6 +392,7 @@ class API {
       if (response.body.length > 2)
         account = new Account.fromJson(jsonResponse[0]);
       account.isAdmin = await isAdmin(account.uid);
+      User.myLogs = await ratingLog(email: account.email);
       return account;
     }
   }
@@ -371,6 +414,7 @@ class API {
     else
       return Account(email: 'invalid');
     account.isAdmin = await isAdmin(account.uid);
+    User.myLogs = await ratingLog(email: account.email);
     return account;
   }
 
@@ -472,19 +516,5 @@ class API {
       final log = Log();
       return log;
     }
-  }
-
-  // 어드민 체크
-  Future<bool> isAdmin(int uid) async {
-    final adminURL = _baseURL + "admin";
-    final response = await http.post(
-      adminURL,
-      headers: <String, String>{
-        'Content_Type': 'application/x-www-form-urlencoded',
-      },
-      body: <String, String>{'uid': uid.toString()},
-    );
-    bool isAdmin = response.body == "True" ? true : false;
-    return isAdmin;
   }
 }

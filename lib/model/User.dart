@@ -1,3 +1,5 @@
+import 'log.dart';
+
 class User {
   static String email;
   static String password;
@@ -11,6 +13,7 @@ class User {
   static String job;
   static int sid;
   static bool isAdmin;
+  static List<Log> myLogs;
   static void logout() {
     email = password = fname = lname =
         uid = sex = birthday = phone = address = job = sid = isAdmin = null;
