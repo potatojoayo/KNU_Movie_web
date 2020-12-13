@@ -26,7 +26,7 @@ class AccountPage extends StatelessWidget {
                     child: MyText().smallText('MyMovies', context),
                     context: context,
                     onPressed: () {
-                      Blocs.subPageBloc.goToUpdateAccountForm(pageBloc);
+                      Blocs.subPageBloc.goToUserLogPage(pageBloc);
                     }),
                 SizedBox(
                   height: 10,
@@ -44,7 +44,7 @@ class AccountPage extends StatelessWidget {
                     child: MyText().smallText('AdminRe', context),
                     context: context,
                     onPressed: () {
-                      Blocs.subPageBloc.goToUpdateAccountForm(pageBloc);
+                      Blocs.subPageBloc.goToAddMovieForm(pageBloc);
                     }),
                 SizedBox(
                   height: 10,

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:knu_movie_web/page/landing_page.dart';
+import 'package:knu_movie_web/page/user_log_page.dart';
+import 'package:knu_movie_web/widget/add_movie_form.dart';
 import 'package:knu_movie_web/widget/update_account_form.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -12,8 +14,12 @@ class SubPageBloc {
     _subPage.sink.add(UpdateAccountForm(pageBloc));
   }
 
-  goToLandingPage() {
-    _subPage.sink.add(LandingPage());
+  goToAddMovieForm(pageBloc) {
+    _subPage.sink.add(AddMovieForm(pageBloc));
+  }
+
+  goToUserLogPage(myMovieList) {
+    _subPage.sink.add(UserLogPage(myMovieList));
   }
 
   dispose() {
