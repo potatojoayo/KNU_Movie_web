@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:knu_movie_web/api/API.dart';
 import 'package:knu_movie_web/color/color.dart';
+import 'package:knu_movie_web/main.dart';
 import 'package:knu_movie_web/model/User.dart';
 
 import 'package:knu_movie_web/model/log.dart';
@@ -26,7 +27,11 @@ class LogListView extends StatelessWidget {
                 SizedBox(
                     width: 150,
                     height: 225,
-                    child: MyPhotoCard(image: e.postImage)),
+                    child: InkWell(
+                        onTap: () {
+                          return pageBloc.goToMoviePage(e.movieId);
+                        },
+                        child: MyPhotoCard(image: e.postImage))),
                 SizedBox(
                   width: 15,
                 ),

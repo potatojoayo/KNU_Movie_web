@@ -106,7 +106,7 @@ class _NavBarState extends State<NavBar> {
                         )
                       ],
                       context)
-                  : pageBloc.goToUpdateAccountPage();
+                  : pageBloc.goToAccountPage();
             }
           },
           child: Icon(icon, color: whiteColor),

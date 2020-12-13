@@ -20,11 +20,11 @@ class AccountPage extends StatelessWidget {
           //AccountNavBar
           Flexible(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 MyButton(
-                    child: MyText().smallText('MyMovies', context),
+                    child: MyText().subTitleText('MyMovies', context),
                     context: context,
                     onPressed: () {
                       Blocs.subPageBloc.goToUserLogForm();
@@ -33,7 +33,7 @@ class AccountPage extends StatelessWidget {
                   height: 10,
                 ),
                 MyButton(
-                    child: MyText().smallText('U-Profile', context),
+                    child: MyText().subTitleText('UpdateAccount', context),
                     context: context,
                     onPressed: () {
                       Blocs.subPageBloc.goToUpdateAccountForm(pageBloc);
@@ -42,7 +42,7 @@ class AccountPage extends StatelessWidget {
                   height: 10,
                 ),
                 MyButton(
-                    child: MyText().smallText('AdminRe', context),
+                    child: MyText().subTitleText('AddMovie', context),
                     context: context,
                     onPressed: () {
                       Blocs.subPageBloc.goToAddMovieForm(pageBloc);
@@ -51,16 +51,7 @@ class AccountPage extends StatelessWidget {
                   height: 10,
                 ),
                 MyButton(
-                    child: MyText().smallText('AdminUp', context),
-                    context: context,
-                    onPressed: () {
-                      Blocs.subPageBloc.goToUpdateAccountForm(pageBloc);
-                    }),
-                SizedBox(
-                  height: 10,
-                ),
-                MyButton(
-                    child: MyText().smallText('AdminRa', context),
+                    child: MyText().subTitleText('LogConfirm', context),
                     context: context,
                     onPressed: () {
                       Blocs.subPageBloc.goToUpdateAccountForm(pageBloc);

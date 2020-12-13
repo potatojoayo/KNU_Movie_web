@@ -11,7 +11,6 @@ import 'package:knu_movie_web/page/login_page.dart';
 import 'package:knu_movie_web/page/movie_page.dart';
 import 'package:knu_movie_web/page/register_page.dart';
 import 'package:knu_movie_web/page/search_page.dart';
-import 'package:knu_movie_web/page/update_account_page.dart';
 import 'package:knu_movie_web/page/update_movie_page.dart';
 import 'package:knu_movie_web/page/user_log_page.dart';
 import 'package:rxdart/rxdart.dart';
@@ -47,11 +46,6 @@ class PageBloc {
     final logList = await api.ratingLog(email: "knu@knu.ac.kr");
 
     _page.sink.add(UserLogPage(logList));
-  }
-
-  goToUpdateAccountPage() {
-    Blocs.menuBloc.changeItem(Item.conditionMenu[0]);
-    _page.sink.add(UpdateAccountPage(pageBloc));
   }
 
   goToLoginPage(pageBloc) {
