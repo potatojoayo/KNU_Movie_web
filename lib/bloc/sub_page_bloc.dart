@@ -3,6 +3,7 @@ import 'package:knu_movie_web/api/API.dart';
 import 'package:knu_movie_web/model/User.dart';
 import 'package:knu_movie_web/page/landing_page.dart';
 import 'package:knu_movie_web/widget/add_movie_form.dart';
+import 'package:knu_movie_web/widget/all_log_list_view.dart';
 import 'package:knu_movie_web/widget/update_account_form.dart';
 import 'package:knu_movie_web/widget/update_movie_form.dart';
 import 'package:knu_movie_web/widget/user_log_list_view.dart';
@@ -20,6 +21,12 @@ class SubPageBloc {
 
   goToAddMovieForm(pageBloc) {
     _subPage.sink.add(SingleChildScrollView(child: AddMovieForm(pageBloc)));
+  }
+
+  goToAllLogListView(pageBloc) async {
+    final api = API();
+    final myMovieList = await api.ratingLog();
+    _subPage.sink.add(AllLogListView(myMovieList));
   }
 
   goToUserLogForm() async {

@@ -44,9 +44,6 @@ class PageBloc {
   //   final api = API();
   //   final logList = await api.ratingLog(email: "knu@knu.ac.kr");
 
-  //   _page.sink.add(UserLogPage(logList));
-  // }
-
   goToLoginPage(pageBloc) {
     Blocs.menuBloc.changeItem(Item.conditionMenu[0]);
 

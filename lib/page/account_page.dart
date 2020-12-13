@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:knu_movie_web/bloc/blocs.dart';
 import 'package:knu_movie_web/bloc/page_bloc.dart';
 import 'package:knu_movie_web/bloc/sub_page_bloc.dart';
+import 'package:knu_movie_web/model/User.dart';
 import 'package:knu_movie_web/widget/my_button.dart';
 import 'package:knu_movie_web/widget/page_skeleton.dart';
 import 'package:knu_movie_web/widget/texts.dart';
@@ -20,11 +21,11 @@ class AccountPage extends StatelessWidget {
           //AccountNavBar
           Flexible(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 MyButton(
-                    child: MyText().smallText('My Movies', context),
+                    child: MyText().subTitleText('My Movies', context),
                     context: context,
                     onPressed: () {
                       Blocs.subPageBloc.goToUserLogForm();
@@ -33,7 +34,7 @@ class AccountPage extends StatelessWidget {
                   height: 10,
                 ),
                 MyButton(
-                    child: MyText().smallText('U-Profile', context),
+                    child: MyText().subTitleText('Update Account', context),
                     context: context,
                     onPressed: () {
                       Blocs.subPageBloc.goToUpdateAccountForm(pageBloc);
@@ -41,29 +42,36 @@ class AccountPage extends StatelessWidget {
                 SizedBox(
                   height: 10,
                 ),
-                MyButton(
-                    child: MyText().smallText('AdminRe', context),
-                    context: context,
-                    onPressed: () {
-                      Blocs.subPageBloc.goToAddMovieForm(pageBloc);
-                    }),
+                Visibility(
+                  visible: User.isAdmin != null ? User.isAdmin : false,
+                  child: MyButton(
+                      child: MyText().subTitleText('Add Movie', context),
+                      context: context,
+                      onPressed: () {
+                        Blocs.subPageBloc.goToAddMovieForm(pageBloc);
+                      }),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Visibility(
+                  visible: User.isAdmin != null ? User.isAdmin : false,
+                  child: MyButton(
+                      child: MyText().subTitleText('Rating logs', context),
+                      context: context,
+                      onPressed: () {
+                        Blocs.subPageBloc.goToAllLogListView(pageBloc);
+                      }),
+                ),
                 SizedBox(
                   height: 10,
                 ),
                 MyButton(
-                    child: MyText().smallText('AdminUp', context),
+                    child: MyText().subTitleText('Log out', context),
                     context: context,
                     onPressed: () {
-                      Blocs.subPageBloc.goToUpdateAccountForm(pageBloc);
-                    }),
-                SizedBox(
-                  height: 10,
-                ),
-                MyButton(
-                    child: MyText().smallText('AdminRa', context),
-                    context: context,
-                    onPressed: () {
-                      Blocs.subPageBloc.goToUpdateAccountForm(pageBloc);
+                      User.logout();
+                      pageBloc.goToLandingPage();
                     }),
               ],
             ),

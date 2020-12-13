@@ -97,28 +97,25 @@ class _LoginFormState extends State<LoginForm> {
 
       if (account.email != 'invalid') {
         User.email = account.email;
-        if (User.email != null) {
-          User.uid = account.uid;
-          User.password = account.password;
-          User.lname = account.lastName;
-          User.fname = account.firstName;
-          User.sid = account.sid;
-          User.address = account.address;
-          User.birthday = account.birthday;
-          User.job = account.job;
-          User.phone = account.phone;
-          User.sex = account.sex;
-          User.isAdmin = account.isAdmin;
-          Scaffold.of(context)
-              // ignore: deprecated_member_use
-              .showSnackBar(SnackBar(content: Text('Login success!')));
-          widget.pageBloc.goToLandingPage();
-        }
+        User.uid = account.uid;
+        User.password = account.password;
+        User.lname = account.lastName;
+        User.fname = account.firstName;
+        User.sid = account.sid;
+        User.address = account.address;
+        User.birthday = account.birthday;
+        User.job = account.job;
+        User.phone = account.phone;
+        User.sex = account.sex;
+        User.isAdmin = account.isAdmin;
+        Scaffold.of(context)
+            // ignore: deprecated_member_use
+            .showSnackBar(SnackBar(content: Text('Login success!')));
+        widget.pageBloc.goToLandingPage();
       } else {
         Scaffold.of(context)
             // ignore: deprecated_member_use
             .showSnackBar(SnackBar(content: Text('Invalid email or password')));
-        widget.pageBloc.goToLandingPage();
       }
     }
   }
