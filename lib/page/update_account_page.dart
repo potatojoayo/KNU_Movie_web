@@ -5,6 +5,7 @@ import 'package:knu_movie_web/widget/form_page_form_widget.dart';
 import 'package:knu_movie_web/widget/my_button.dart';
 import 'package:knu_movie_web/widget/texts.dart';
 import 'package:knu_movie_web/widget/update_account_form.dart';
+import 'package:knu_movie_web/widget/update_movie_form.dart';
 
 class UpdateAccountPage extends StatelessWidget {
   const UpdateAccountPage(this.pageBloc, {Key key}) : super(key: key);
@@ -18,7 +19,7 @@ class UpdateAccountPage extends StatelessWidget {
       form: Flexible(
         child: SingleChildScrollView(
           //TODO
-          child: AddMovieForm(pageBloc),
+          child: UpdateMovieForm(pageBloc),
         ),
       ),
       icon: Icons.update,
