@@ -4,9 +4,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:knu_movie_web/api/API.dart';
 import 'package:knu_movie_web/color/color.dart';
+import 'package:knu_movie_web/main.dart';
 import 'package:knu_movie_web/model/User.dart';
 import 'package:knu_movie_web/model/account.dart';
 import 'package:knu_movie_web/model/conditionValue.dart';
+import 'package:knu_movie_web/utils/dialog.dart';
 import 'package:knu_movie_web/utils/responsive_layout.dart';
 import 'package:knu_movie_web/utils/validation.dart';
 import 'package:knu_movie_web/widget/my_button.dart';
@@ -44,7 +46,7 @@ class _UpdateAccountFormState extends State<UpdateAccountForm> {
   String _phone3;
   String _sex;
   DateTime _birthday;
-  int _sid;
+  int _sid = User.sid;
 
   final memList = ['basic', 'premium', 'prime'];
 
@@ -95,10 +97,46 @@ class _UpdateAccountFormState extends State<UpdateAccountForm> {
           SizedBox(
             height: 30,
           ),
-          submitButton(context)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              withdrawButton(context),
+              submitButton(context),
+            ],
+          )
         ],
       ),
     );
+  }
+
+  MyButton withdrawButton(BuildContext context) {
+    return MyButton(
+        buttonColor: MyColor.red,
+        child: MyText().smallTextGrey('withdraw', context),
+        context: context,
+        onPressed: () {
+          MyDialog.showMyDialog(
+              "Do you really want to withdraw?",
+              [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    final api = API();
+                    api.withdraw(User.email);
+                    User.logout();
+                    pageBloc.goToLandingPage();
+                  },
+                  child: Text('Ok'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Cancel'),
+                )
+              ],
+              context);
+        });
   }
 
   RaisedButton submitButton(BuildContext context) {
@@ -128,7 +166,7 @@ class _UpdateAccountFormState extends State<UpdateAccountForm> {
           if (_phone != null) cvs.add(ConditionValue('phone', _phone));
           if (_sex != null) cvs.add(ConditionValue('sex', _sex));
           if (_sid != null) cvs.add(ConditionValue('sid', _sid.toString()));
-          if (_bdate != null) cvs.add(ConditionValue('birthday', _birthday));
+          if (_bdate != null) cvs.add(ConditionValue('birthday', _bdate));
 
           Account account;
 
