@@ -21,9 +21,10 @@ class PageBloc {
 
   Stream<Widget> get page => _page.stream;
 
-  goToLandingPage() {
+  goToLandingPage() async {
     Blocs.menuBloc.changeItem(Item.conditionMenu[0]);
-
+    final api = API();
+    User.myLogs = await api.ratingLog(email: User.email);
     _page.sink.add(LandingPage());
   }
 
@@ -44,7 +45,7 @@ class PageBloc {
   //   final api = API();
   //   final logList = await api.ratingLog(email: "knu@knu.ac.kr");
 
-  goToLoginPage(pageBloc) {
+  goToLoginPage(pageBloc) async {
     Blocs.menuBloc.changeItem(Item.conditionMenu[0]);
 
     _page.sink.add(LoginPage(pageBloc));

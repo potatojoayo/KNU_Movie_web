@@ -29,6 +29,12 @@ class API {
     }, body: <String, String>{
       'uid': uid.toString()
     });
+    List<Movie> _parseMovie(String responseBody) {
+      final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+      return parsed.map<Movie>((json) => Movie.fromJson(json)).toList();
+    }
+
+    return compute(_parseMovie, response.body);
   }
 
   Future<List<Movie>> recommendDirector(int uid) async {
@@ -38,6 +44,12 @@ class API {
     }, body: <String, String>{
       'uid': uid.toString()
     });
+    List<Movie> _parseMovie(String responseBody) {
+      final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+      return parsed.map<Movie>((json) => Movie.fromJson(json)).toList();
+    }
+
+    return compute(_parseMovie, response.body);
   }
 
   Future<List<Movie>> recommendGenre(int uid) async {
@@ -47,6 +59,12 @@ class API {
     }, body: <String, String>{
       'uid': uid.toString()
     });
+    List<Movie> _parseMovie(String responseBody) {
+      final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+      return parsed.map<Movie>((json) => Movie.fromJson(json)).toList();
+    }
+
+    return compute(_parseMovie, response.body);
   }
 
   Future<List<Movie>> tvSeries(int uid) async {
@@ -392,7 +410,7 @@ class API {
       if (response.body.length > 2)
         account = new Account.fromJson(jsonResponse[0]);
       account.isAdmin = await isAdmin(account.uid);
-      User.myLogs = await ratingLog(email: account.email);
+
       return account;
     }
   }
@@ -414,7 +432,7 @@ class API {
     else
       return Account(email: 'invalid');
     account.isAdmin = await isAdmin(account.uid);
-    User.myLogs = await ratingLog(email: account.email);
+
     return account;
   }
 

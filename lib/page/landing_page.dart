@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:knu_movie_web/api/API.dart';
 import 'package:knu_movie_web/main.dart';
 import 'package:knu_movie_web/model/User.dart';
+import 'package:knu_movie_web/model/movie.dart';
 import 'package:knu_movie_web/widget/my_container.dart';
 import 'package:knu_movie_web/utils/padding.dart';
 import 'package:knu_movie_web/utils/responsive_layout.dart';
@@ -23,7 +24,7 @@ class LandingPage extends StatelessWidget {
     var tvSeriesListView =
         MovieListView(api.tvSeries(User.uid != null ? User.uid : 1), pageBloc);
 
-    final listView = [
+    var listView = [
       highRatingListView,
       hotInKoreaListView,
       classicListView,
@@ -32,11 +33,11 @@ class LandingPage extends StatelessWidget {
 
     if (User.myLogs != null) {
       if (User.myLogs.isNotEmpty) {
-        final recGenreListView =
+        var recGenreListView =
             MovieListView(api.recommendGenre(User.uid), pageBloc);
-        final recActorListView =
+        var recActorListView =
             MovieListView(api.recommendActor(User.uid), pageBloc);
-        final recDirectorListView =
+        var recDirectorListView =
             MovieListView(api.recommendDirector(User.uid), pageBloc);
 
         listView.insert(0, recDirectorListView);
@@ -124,6 +125,7 @@ class LandingPage extends StatelessWidget {
                 ),
                 myText.subTitleText("hot in korea  ", context)
               ]),
+            verticalSizedBox(),
             if (isMore)
               MyContainer(
                   width: size.width,
@@ -138,6 +140,7 @@ class LandingPage extends StatelessWidget {
                 ),
                 myText.subTitleText("classics  ", context)
               ]),
+            verticalSizedBox(),
             if (isMore)
               MyContainer(
                   width: size.width,
@@ -152,6 +155,7 @@ class LandingPage extends StatelessWidget {
                 ),
                 myText.subTitleText("TvSeries  ", context)
               ]),
+            verticalSizedBox(),
             if (isMore)
               MyContainer(
                   width: size.width,

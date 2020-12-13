@@ -30,6 +30,8 @@ class SubPageBloc {
   }
 
   goToUserLogForm() async {
+    final api = API();
+    User.myLogs = await api.ratingLog(email: User.email);
     _subPage.sink.add(LogListView(User.myLogs));
   }
 

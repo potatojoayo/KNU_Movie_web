@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:knu_movie_web/bloc/blocs.dart';
 import 'package:knu_movie_web/bloc/page_bloc.dart';
 import 'package:knu_movie_web/bloc/sub_page_bloc.dart';
+import 'package:knu_movie_web/color/color.dart';
 import 'package:knu_movie_web/model/User.dart';
 import 'package:knu_movie_web/widget/my_button.dart';
 import 'package:knu_movie_web/widget/page_skeleton.dart';
@@ -24,8 +25,10 @@ class AccountPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+                SizedBox(height: 50),
                 MyButton(
-                    child: MyText().subTitleText('My Movies', context),
+                    buttonColor: MyColor.red,
+                    child: MyText().subTitleTextGrey('My Movies', context),
                     context: context,
                     onPressed: () {
                       Blocs.subPageBloc.goToUserLogForm();
@@ -34,7 +37,8 @@ class AccountPage extends StatelessWidget {
                   height: 10,
                 ),
                 MyButton(
-                    child: MyText().subTitleText('Update Account', context),
+                    buttonColor: MyColor.red,
+                    child: MyText().subTitleTextGrey('Update Account', context),
                     context: context,
                     onPressed: () {
                       Blocs.subPageBloc.goToUpdateAccountForm(pageBloc);
@@ -45,7 +49,8 @@ class AccountPage extends StatelessWidget {
                 Visibility(
                   visible: User.isAdmin != null ? User.isAdmin : false,
                   child: MyButton(
-                      child: MyText().subTitleText('Add Movie', context),
+                      buttonColor: MyColor.red,
+                      child: MyText().subTitleTextGrey('Add Movie', context),
                       context: context,
                       onPressed: () {
                         Blocs.subPageBloc.goToAddMovieForm(pageBloc);
@@ -57,7 +62,8 @@ class AccountPage extends StatelessWidget {
                 Visibility(
                   visible: User.isAdmin != null ? User.isAdmin : false,
                   child: MyButton(
-                      child: MyText().subTitleText('Rating logs', context),
+                      buttonColor: MyColor.red,
+                      child: MyText().subTitleTextGrey('Rating logs', context),
                       context: context,
                       onPressed: () {
                         Blocs.subPageBloc.goToAllLogListView(pageBloc);
@@ -67,12 +73,14 @@ class AccountPage extends StatelessWidget {
                   height: 10,
                 ),
                 MyButton(
-                    child: MyText().subTitleText('Log out', context),
+                    buttonColor: MyColor.red,
+                    child: MyText().subTitleTextGrey('Log out', context),
                     context: context,
                     onPressed: () {
                       User.logout();
                       pageBloc.goToLandingPage();
                     }),
+                SizedBox(height: 50),
               ],
             ),
           ),

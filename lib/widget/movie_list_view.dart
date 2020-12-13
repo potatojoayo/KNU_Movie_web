@@ -3,7 +3,7 @@ import 'package:knu_movie_web/bloc/page_bloc.dart';
 import 'package:knu_movie_web/model/movie.dart';
 
 class MovieListView extends StatelessWidget {
-  final list;
+  final Future<List<Movie>> list;
   final PageBloc bloc;
   const MovieListView(this.list, this.bloc, {Key key}) : super(key: key);
 

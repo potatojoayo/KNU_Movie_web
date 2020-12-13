@@ -14,6 +14,16 @@ class MyText {
         ));
   }
 
+  Widget subTitleTextGrey(text, context) {
+    return Text(text,
+        style: GoogleFonts.graduate(
+          textStyle: TextStyle(
+              color: Colors.grey[300],
+              fontWeight: FontWeight.normal,
+              fontSize: ResponsiveLayout.isSmallScreen(context) ? 16 : 30),
+        ));
+  }
+
   Widget subTitleBoldText(text, context) {
     return Text(text,
         style: GoogleFonts.graduate(
