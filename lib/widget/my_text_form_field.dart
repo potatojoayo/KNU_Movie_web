@@ -26,7 +26,7 @@ class _MyTextFormFieldState extends State<MyTextFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      initialValue: widget.initValue ?? null,
+      initialValue: widget.initValue != null ? widget.initValue : null,
       controller: widget.controller,
       cursorColor: MyColor.red,
       onFieldSubmitted: widget.onSubmit,

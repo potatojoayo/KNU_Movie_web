@@ -10,9 +10,9 @@ import 'package:knu_movie_web/utils/responsive_layout.dart';
 
 import 'package:knu_movie_web/widget/texts.dart';
 
-class UserLogPage extends StatelessWidget {
+class LogListView extends StatelessWidget {
   final List<Log> logList;
-  UserLogPage(this.logList);
+  LogListView(this.logList);
   final api = API();
 
   @override

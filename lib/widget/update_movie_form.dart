@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:knu_movie_web/api/API.dart';
 import 'package:knu_movie_web/bloc/page_bloc.dart';
 import 'package:knu_movie_web/color/color.dart';
+import 'package:knu_movie_web/main.dart';
 import 'package:knu_movie_web/model/Lists.dart';
 import 'package:knu_movie_web/model/movie_to_update.dart';
 import 'package:knu_movie_web/utils/responsive_layout.dart';
@@ -30,26 +31,25 @@ class _UpdateMovieFormState extends State<UpdateMovieForm> {
 
   final types = ['movie', 'tv series', 'knu original'];
 
-  final titleContorller = TextEditingController();
-  final genreController = TextEditingController();
-  final actorController = TextEditingController();
+  final titleController = TextEditingController();
   final imageController = TextEditingController();
-  final directorController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    titleController.text = MovieToUpdate.title;
+    imageController.text = MovieToUpdate.image;
+    print('타이틀: ' + MovieToUpdate.title);
     return Form(
       key: _detailSearchFormKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           inputRow("title : ", "title", MovieToUpdate.title, context,
-              titleContorller),
+              titleController),
           SizedBox(height: 10),
           selectRow('type : ', "type", types, MovieToUpdate.type, context),
           SizedBox(height: 10),
-          selectRow(
-              'genre : ', "genre", Lists.genres, MovieToUpdate.genre, context),
+          genreRow('genre : ', context),
           SizedBox(height: 10),
           actorRow('actor : ', context),
           SizedBox(height: 10),
@@ -84,7 +84,6 @@ class _UpdateMovieFormState extends State<UpdateMovieForm> {
       Flexible(
           child: MyTextFormField(
         (value) {},
-        initValue: init ?? null,
         controller: controller,
       )),
     ]);
@@ -173,60 +172,63 @@ class _UpdateMovieFormState extends State<UpdateMovieForm> {
       final api = API();
       searchParam = selected;
       if (label == "type") MovieToUpdate.type = selected;
+      if (label == 'director') MovieToUpdate.director = selected;
       if (label == 'add actor') {
-        MovieToUpdate.actor.add(selected);
-        final aid = Lists.actorsWithAids
-            .firstWhere((element) => element.name == selected)
-            .id;
-        api.crudMovie(
-            mode: 'add_actor', aid: aid, mid: MovieToUpdate.mid.toString());
+        if (!MovieToUpdate.actor.contains(selected)) {
+          final aid = Lists.actorsWithAids
+              .firstWhere((element) => element.name == selected)
+              .id;
+          api.crudMovie(
+              mode: 'add_actor',
+              aid: aid.toString(),
+              mid: MovieToUpdate.mid.toString());
+          MovieToUpdate.actor.add(selected);
+        }
       }
       if (label == 'delete actor') {
-        final aid = Lists.actorsWithAids
-            .firstWhere((element) => element.name == selected)
-            .id;
+        if (MovieToUpdate.actor.length > 1) {
+          final aid = Lists.actorsWithAids
+              .firstWhere((element) => element.name == selected)
+              .id;
 
-        MovieToUpdate.actor.removeWhere((element) => element == selected);
+          MovieToUpdate.actor.removeWhere((element) => element == selected);
 
-        api.crudMovie(
-            mode: 'delete_actor', aid: aid, mid: MovieToUpdate.mid.toString());
+          api.crudMovie(
+              mode: 'delete_actor',
+              aid: aid.toString(),
+              mid: MovieToUpdate.mid.toString());
+        } else
+          Scaffold.of(context)
+              // ignore: deprecated_member_use
+              .showSnackBar(SnackBar(
+                  content: Text('At least one actor should be assigned')));
       }
-      // if (label == 'add director') {
-      //   MovieToUpdate.director.add(selected);
-      //   final did = Lists.directorWithDids
-      //       .firstWhere((element) => element.name == selected)
-      //       .id;
-      //   api.crudMovie(
-      //       mode: 'add_director', did: did, mid: MovieToUpdate.mid.toString());
-      // }
-      // if (label == 'delete director') {
-      //   final did = Lists.directorWithDids
-      //       .firstWhere((element) => element.name == selected)
-      //       .id;
-      //   MovieToUpdate.director.removeWhere((element) => element == selected);
-
-      //   api.crudMovie(
-      //       mode: 'delete_director',
-      //       did: did,
-      //       mid: MovieToUpdate.mid.toString());
-      // }
 
       if (label == 'add genre') {
-        MovieToUpdate.genre.add(selected);
-        final gen = genreToGen(selected);
+        if (!MovieToUpdate.genre.contains(selected)) {
+          MovieToUpdate.genre.add(selected);
+          final gen = genreToGen(selected);
+          print(MovieToUpdate.genre.last + ": " + gen.toString());
 
-        api.crudMovie(
-            mode: 'add_genre',
-            gen: gen.toString(),
-            mid: MovieToUpdate.mid.toString());
+          api.crudMovie(
+              mode: 'add_genre',
+              gen: gen.toString(),
+              mid: MovieToUpdate.mid.toString());
+        }
       }
       if (label == 'delete genre') {
-        final gen = genreToGen(selected);
-        MovieToUpdate.genre.removeWhere((element) => element == selected);
-        api.crudMovie(
-            mode: 'delete_genre',
-            gen: gen.toString(),
-            mid: MovieToUpdate.mid.toString());
+        if (MovieToUpdate.genre.length > 1) {
+          final gen = genreToGen(selected);
+          MovieToUpdate.genre.removeWhere((element) => element == selected);
+          api.crudMovie(
+              mode: 'delete_genre',
+              gen: gen.toString(),
+              mid: MovieToUpdate.mid.toString());
+        } else
+          Scaffold.of(context)
+              // ignore: deprecated_member_use
+              .showSnackBar(SnackBar(
+                  content: Text('At least one genre should be assigned.')));
       }
 
       setState(() {
@@ -278,9 +280,9 @@ class _UpdateMovieFormState extends State<UpdateMovieForm> {
     });
   }
 
-  int genreToGen(genre) {
+  int genreToGen(String genre) {
     int gen = 0;
-    switch (genre) {
+    switch (genre.toLowerCase()) {
       case 'action':
         gen = 1;
         break;
@@ -397,8 +399,8 @@ class _UpdateMovieFormState extends State<UpdateMovieForm> {
       disabledColor: MyColor.red,
       color: MyColor.red,
       onPressed: () async {
-        if (titleContorller.text.isNotEmpty)
-          MovieToUpdate.title = titleContorller.text;
+        if (titleController.text.isNotEmpty)
+          MovieToUpdate.title = titleController.text;
         // if (genreController.text.isNotEmpty)
         //   MovieToUpdate.genre = genreController.text;
         if (MovieToUpdate.type != null)
@@ -417,11 +419,9 @@ class _UpdateMovieFormState extends State<UpdateMovieForm> {
 
         final api = API();
         final insertedMovie = await api.crudMovie(
-          mode: 'register',
-          title: MovieToUpdate.title,
-          type: MovieToUpdate.type,
-          isAdult: 'false',
-        );
+            title: MovieToUpdate.title,
+            type: MovieToUpdate.type,
+            mid: MovieToUpdate.mid.toString());
 
         // if (MovieToUpdate.genre != null) {
         //   int _gen = genreToGen();
@@ -446,10 +446,11 @@ class _UpdateMovieFormState extends State<UpdateMovieForm> {
         if (MovieToUpdate.director != null) {
           int index = Lists.directorWithDids
               .indexWhere((element) => element.name == MovieToUpdate.director);
+          print("인덱스" + index.toString());
           api.crudMovie(
               mode: 'add_director',
-              aid: Lists.directorWithDids[index].id.toString(),
-              mid: insertedMovie.movieId.toString());
+              did: Lists.directorWithDids[index].id.toString(),
+              mid: MovieToUpdate.mid.toString());
         }
 
         if (MovieToUpdate.startYear != null)
@@ -480,6 +481,10 @@ class _UpdateMovieFormState extends State<UpdateMovieForm> {
 
         print(MovieToUpdate.image);
 
+        Scaffold.of(context)
+            // ignore: deprecated_member_use
+            .showSnackBar(SnackBar(content: Text('Updated!')));
+        pageBloc.goToMoviePage(MovieToUpdate.mid);
         MovieToUpdate.clearMovieToUpdate();
       },
     );

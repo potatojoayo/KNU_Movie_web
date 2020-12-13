@@ -4,6 +4,7 @@ import 'package:knu_movie_web/api/API.dart';
 import 'package:knu_movie_web/main.dart';
 import 'package:knu_movie_web/model/User.dart';
 import 'package:knu_movie_web/model/movie.dart';
+import 'package:knu_movie_web/model/movie_to_update.dart';
 import 'package:knu_movie_web/utils/padding.dart';
 import 'package:knu_movie_web/utils/responsive_layout.dart';
 import 'package:knu_movie_web/widget/my_button.dart';
@@ -177,14 +178,13 @@ class MoviePage extends StatelessWidget {
                         ),
                         if (User.uid == null)
                           MyText().smallText("(Please login to rate)", context),
-                        if (User.isAdmin)
+                        if (User.isAdmin != null || User.isAdmin == true)
                           MyButton(
                               child: MyText().smallText("update", context),
                               context: context,
                               onPressed: () {
-                                //TODO
-
-                                pageBloc.goToUpdateAccountPage();
+                                MovieToUpdate.setMovieToUpdate(movie);
+                                pageBloc.goToUpdateMoviePage(pageBloc);
                               })
                       ],
                     ),

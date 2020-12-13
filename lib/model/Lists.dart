@@ -13,7 +13,7 @@ class ActorList {
 }
 
 class DirectorList {
-  final name;
+  final String name;
   final id;
   DirectorList(this.name, this.id);
 }

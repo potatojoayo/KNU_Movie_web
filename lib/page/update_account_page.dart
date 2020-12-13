@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:knu_movie_web/model/User.dart';
+import 'package:knu_movie_web/page/account_page.dart';
 import 'package:knu_movie_web/widget/form_page_form_widget.dart';
 import 'package:knu_movie_web/widget/my_button.dart';
 import 'package:knu_movie_web/widget/texts.dart';
@@ -16,8 +17,7 @@ class UpdateAccountPage extends StatelessWidget {
       mainText: "update",
       form: Flexible(
         child: SingleChildScrollView(
-          //TODO
-          child: UpdateMovieForm(pageBloc),
+          child: AccountPage(pageBloc),
         ),
       ),
       icon: Icons.update,

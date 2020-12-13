@@ -16,17 +16,23 @@ class MovieToUpdate {
   static String image;
 
   static void setMovieToUpdate(Movie movie) {
+    genre = [];
+    actor = [];
+
     title = movie.originalTitle;
-    for (String g in movie.genre) {
-      genre.add(g);
-    }
+    if (movie.genre.isNotEmpty)
+      for (String g in movie.genre) {
+        genre.add(g);
+      }
     type = movie.type;
     startYear = DateFormat('yyyy-MM-dd').parse(movie.startYear);
-    endYear = DateFormat('yyyy-MM-dd').parse(movie.endYear);
-    for (String a in movie.actor) {
-      actor.add(a);
-    }
-    director = movie.director;
+    if (movie.endYear != null)
+      endYear = DateFormat('yyyy-MM-dd').parse(movie.endYear);
+    if (movie.actor.isNotEmpty)
+      for (String a in movie.actor) {
+        actor.add(a);
+      }
+    if (director != null) director = movie.director;
     runningTime = movie.runningTime;
     mid = movie.movieId;
     image = movie.postImage;
