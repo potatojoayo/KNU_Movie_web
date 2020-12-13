@@ -8,17 +8,16 @@ import 'package:knu_movie_web/model/log.dart';
 import 'package:knu_movie_web/page/movie_page.dart';
 import 'package:knu_movie_web/utils/responsive_layout.dart';
 
-import 'package:knu_movie_web/widget/page_skeleton.dart';
 import 'package:knu_movie_web/widget/texts.dart';
 
 class UserLogPage extends StatelessWidget {
-  final List<Log> movieList;
-  UserLogPage(this.movieList);
+  final List<Log> logList;
+  UserLogPage(this.logList);
   final api = API();
 
   @override
   Widget build(BuildContext context) {
-    final lists = movieList
+    final lists = logList
         .map((e) => Card(
               color: MyColor.grey,
               elevation: 0,
