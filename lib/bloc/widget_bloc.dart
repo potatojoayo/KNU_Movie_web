@@ -7,6 +7,7 @@ class WidgetBloc {
   Stream<Widget> get widget => _widget.stream;
 
   setWidget(Widget widget) {
+    print(widget);
     _widget.sink.add(widget);
   }
 
