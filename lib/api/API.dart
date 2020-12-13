@@ -196,7 +196,7 @@ class API {
         'mid': mid,
         'running_time': runningTime,
         'region': region,
-        'post_image': image,
+        'image': image,
         'did': did
       },
     );

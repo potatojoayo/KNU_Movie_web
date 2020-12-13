@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:knu_movie_web/api/API.dart';
+import 'package:knu_movie_web/main.dart';
 import 'package:knu_movie_web/model/User.dart';
 import 'package:knu_movie_web/model/movie.dart';
+import 'package:knu_movie_web/model/new_movie.dart';
 import 'package:knu_movie_web/utils/padding.dart';
 import 'package:knu_movie_web/utils/responsive_layout.dart';
+import 'package:knu_movie_web/widget/my_button.dart';
 import 'package:knu_movie_web/widget/my_container.dart';
 import 'package:knu_movie_web/widget/texts.dart';
 
@@ -174,7 +177,15 @@ class MoviePage extends StatelessWidget {
                           height: 10,
                         ),
                         if (User.uid == null)
-                          MyText().smallText("(Please login to rate)", context)
+                          MyText().smallText("(Please login to rate)", context),
+                        if (User.isAdmin)
+                          MyButton(
+                              child: MyText().smallText("update", context),
+                              context: context,
+                              onPressed: () {
+                                //TODO
+                                pageBloc.goToUpdateAccountPage();
+                              })
                       ],
                     ),
                   )
