@@ -24,7 +24,7 @@ Github URL: https://github.com/potatojoayo/KNU_Movie_web.git
 
 Github Build: https://potatojoayo.github.io/KNU_Movie_web
 
-Github Build Click! 
+Click Github Build! 
 
 ---
 
