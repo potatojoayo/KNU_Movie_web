@@ -24,7 +24,7 @@ class Account {
   final String job;
   final String phone;
   final String email;
-  final bool isAdmin;
+  bool isAdmin;
 
   factory Account.fromJson(Map<String, dynamic> json) {
     return Account(

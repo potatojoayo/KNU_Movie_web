@@ -107,6 +107,7 @@ class _LoginFormState extends State<LoginForm> {
         User.job = account.job;
         User.phone = account.phone;
         User.sex = account.sex;
+        User.isAdmin = account.isAdmin;
         Scaffold.of(context)
             // ignore: deprecated_member_use
             .showSnackBar(SnackBar(content: Text('Login success!')));
