@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:knu_movie_web/api/API.dart';
+import 'package:knu_movie_web/model/User.dart';
 import 'package:knu_movie_web/page/landing_page.dart';
 import 'package:knu_movie_web/page/user_log_page.dart';
 import 'package:knu_movie_web/widget/add_movie_form.dart';
@@ -11,14 +13,17 @@ class SubPageBloc {
   Stream<Widget> get subPage => _subPage.stream;
 
   goToUpdateAccountForm(pageBloc) {
-    _subPage.sink.add(UpdateAccountForm(pageBloc));
+    _subPage.sink
+        .add(SingleChildScrollView(child: UpdateAccountForm(pageBloc)));
   }
 
   goToAddMovieForm(pageBloc) {
-    _subPage.sink.add(AddMovieForm(pageBloc));
+    _subPage.sink.add(SingleChildScrollView(child: AddMovieForm(pageBloc)));
   }
 
-  goToUserLogPage(myMovieList) {
+  goToUserLogForm() async {
+    final api = API();
+    final myMovieList = await api.ratingLog(email: User.email);
     _subPage.sink.add(UserLogPage(myMovieList));
   }
 

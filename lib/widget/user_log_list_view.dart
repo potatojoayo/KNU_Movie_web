@@ -65,6 +65,7 @@ class UserLogPage extends StatelessWidget {
         .toList();
 
     return ListView(
+      primary: false,
       children: [...lists],
     );
   }

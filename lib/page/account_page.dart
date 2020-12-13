@@ -10,6 +10,7 @@ class AccountPage extends StatelessWidget {
   AccountPage(this.pageBloc, {Key key}) : super(key: key);
   final PageBloc pageBloc;
   final SubPageBloc subPageBloc = SubPageBloc();
+
   @override
   Widget build(BuildContext context) {
     return SkeletonWidget(
@@ -26,7 +27,7 @@ class AccountPage extends StatelessWidget {
                     child: MyText().smallText('MyMovies', context),
                     context: context,
                     onPressed: () {
-                      Blocs.subPageBloc.goToUserLogPage(pageBloc);
+                      Blocs.subPageBloc.goToUserLogForm();
                     }),
                 SizedBox(
                   height: 10,
@@ -78,7 +79,7 @@ class AccountPage extends StatelessWidget {
                       stream: Blocs.subPageBloc.subPage,
                       initialData: Container(),
                       builder: (context, snapshot) {
-                        return SingleChildScrollView(child: snapshot.data);
+                        return snapshot.data;
                       }),
                 )
               ],
