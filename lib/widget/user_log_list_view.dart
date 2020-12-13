@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:knu_movie_web/api/API.dart';
 import 'package:knu_movie_web/color/color.dart';
+import 'package:knu_movie_web/main.dart';
 import 'package:knu_movie_web/model/User.dart';
 
 import 'package:knu_movie_web/model/log.dart';
@@ -23,10 +24,13 @@ class LogListView extends StatelessWidget {
               elevation: 0,
               child:
                   Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                SizedBox(
-                    width: 150,
-                    height: 225,
-                    child: MyPhotoCard(image: e.postImage)),
+                InkWell(
+                  onTap: pageBloc.goToMoviePage(e.movieId),
+                  child: SizedBox(
+                      width: 150,
+                      height: 225,
+                      child: MyPhotoCard(image: e.postImage)),
+                ),
                 SizedBox(
                   width: 15,
                 ),
@@ -54,10 +58,7 @@ class LogListView extends StatelessWidget {
                         itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
                         itemBuilder: (context, _) =>
                             Icon(Icons.star, color: Colors.amber),
-                        onRatingUpdate: (rating) {
-                          api.rating(User.uid.toString(), e.movieId.toString(),
-                              (rating * 2).toString());
-                        }),
+                        onRatingUpdate: null),
                   ],
                 ))
               ]),

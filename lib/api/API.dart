@@ -368,6 +368,8 @@ class API {
     Account account;
     if (response.body.length > 2)
       account = new Account.fromJson(jsonResponse[0]);
+    else
+      return Account(email: 'invaild');
     account.isAdmin = await isAdmin(account.uid);
     return account;
   }

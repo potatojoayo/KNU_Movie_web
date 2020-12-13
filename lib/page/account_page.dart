@@ -24,7 +24,7 @@ class AccountPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 MyButton(
-                    child: MyText().smallText('MyMovies', context),
+                    child: MyText().smallText('My Movies', context),
                     context: context,
                     onPressed: () {
                       Blocs.subPageBloc.goToUserLogForm();
