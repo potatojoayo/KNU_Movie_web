@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:knu_movie_web/api/API.dart';
 import 'package:knu_movie_web/main.dart';
 import 'package:knu_movie_web/model/User.dart';
-import 'package:knu_movie_web/model/movie.dart';
 import 'package:knu_movie_web/widget/my_container.dart';
 import 'package:knu_movie_web/utils/padding.dart';
 import 'package:knu_movie_web/utils/responsive_layout.dart';

@@ -189,8 +189,6 @@ class _UpdateAccountFormState extends State<UpdateAccountForm> {
             Scaffold.of(context)
                 // ignore: deprecated_member_use
                 .showSnackBar(SnackBar(content: Text('Updated!')));
-            //TODO
-            // widget.pageBloc.goToLandingPage();
           }
         }
       },

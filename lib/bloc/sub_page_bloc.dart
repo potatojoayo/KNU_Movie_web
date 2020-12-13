@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:knu_movie_web/api/API.dart';
 import 'package:knu_movie_web/model/User.dart';
-import 'package:knu_movie_web/page/landing_page.dart';
 import 'package:knu_movie_web/widget/add_movie_form.dart';
 import 'package:knu_movie_web/widget/all_log_list_view.dart';
 import 'package:knu_movie_web/widget/update_account_form.dart';

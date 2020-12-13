@@ -64,7 +64,7 @@ class UserLogPage extends StatelessWidget {
               ]),
             ))
         .toList();
-    ;
+
     return SkeletonWidget(
         child: Row(
       children: [
