@@ -5,7 +5,6 @@ import 'package:knu_movie_web/api/API.dart';
 import 'package:knu_movie_web/bloc/page_bloc.dart';
 import 'package:knu_movie_web/color/color.dart';
 import 'package:knu_movie_web/model/Lists.dart';
-import 'package:knu_movie_web/model/conditionValue.dart';
 import 'package:knu_movie_web/model/new_movie.dart';
 import 'package:knu_movie_web/utils/responsive_layout.dart';
 import 'package:knu_movie_web/utils/validation.dart';
