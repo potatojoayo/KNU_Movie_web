@@ -22,9 +22,13 @@ Language| Dart (Flutter) | sdk >=2.7.0 <3.0.0
 
 Github URL: https://github.com/potatojoayo/KNU_Movie_web.git
 
-Github Build: https://potatojoayo.github.io/web
+web: https://potatojoayo.github.io/web
 
 Click Github Build! 
+
+--admin account<br/>
+ID: knu@knu.ac.kr<br/>
+pwd: knu
 
 ---
 
