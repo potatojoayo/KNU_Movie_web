@@ -26,6 +26,9 @@ class PageBloc {
     final api = API();
     if (User.email != null)
       User.myLogs = await api.ratingLog(email: User.email);
+    else {
+      User.myLogs = null;
+    }
     _page.sink.add(LandingPage());
   }
 
