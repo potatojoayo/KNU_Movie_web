@@ -481,9 +481,9 @@ class _UpdateMovieFormState extends State<UpdateMovieForm> {
 
         print(MovieToUpdate.image);
 
-        Scaffold.of(context)
-            // ignore: deprecated_member_use
-            .showSnackBar(SnackBar(content: Text('Updated!')));
+        // ignore: deprecated_member_use
+        Scaffold.of(context).showSnackBar(
+            SnackBar(content: MyText().smallText("MOVIE UPDATED!", context)));
         pageBloc.goToMoviePage(MovieToUpdate.mid);
         MovieToUpdate.clearMovieToUpdate();
       },

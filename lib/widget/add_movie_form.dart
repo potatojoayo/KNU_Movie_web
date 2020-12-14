@@ -377,6 +377,10 @@ class _AddMovieFormState extends State<AddMovieForm> {
 
         print(NewMovie.image);
 
+        // ignore: deprecated_member_use
+        Scaffold.of(context).showSnackBar(
+            SnackBar(content: MyText().smallText("MOVIE ADDED!", context)));
+
         NewMovie.clearNewMovie();
       },
     );
