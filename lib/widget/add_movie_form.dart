@@ -382,6 +382,7 @@ class _AddMovieFormState extends State<AddMovieForm> {
             SnackBar(content: MyText().smallText("MOVIE ADDED!", context)));
 
         NewMovie.clearNewMovie();
+        setState(() {});
       },
     );
   }

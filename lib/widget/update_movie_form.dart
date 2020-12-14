@@ -486,6 +486,7 @@ class _UpdateMovieFormState extends State<UpdateMovieForm> {
             SnackBar(content: MyText().smallText("MOVIE UPDATED!", context)));
         pageBloc.goToMoviePage(MovieToUpdate.mid);
         MovieToUpdate.clearMovieToUpdate();
+        setState(() {});
       },
     );
   }
