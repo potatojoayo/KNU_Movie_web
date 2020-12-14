@@ -3,8 +3,8 @@
 > 2020-2 Database team 12 project phase4
 >
 > KNU_Movie_Web
-
-Movie Database Web Application
+>
+> Movie Database Web Application
 
 ---
 
