@@ -4,6 +4,8 @@
 >
 > KNU_Movie_Web
 
+Movie Database Web Application
+
 ---
 
 ## Environment
