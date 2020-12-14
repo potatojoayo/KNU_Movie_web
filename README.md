@@ -26,8 +26,8 @@ web: https://potatojoayo.github.io/web
 
 Click Github Build! 
 
---admin account
-ID: knu@knu.ac.kr
+--admin account<br/>
+ID: knu@knu.ac.kr<br/>
 pwd: knu
 
 ---
