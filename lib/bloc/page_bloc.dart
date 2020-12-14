@@ -24,7 +24,8 @@ class PageBloc {
   goToLandingPage() async {
     Blocs.menuBloc.changeItem(Item.conditionMenu[0]);
     final api = API();
-    User.myLogs = await api.ratingLog(email: User.email);
+    if (User.email != null)
+      User.myLogs = await api.ratingLog(email: User.email);
     _page.sink.add(LandingPage());
   }
 
