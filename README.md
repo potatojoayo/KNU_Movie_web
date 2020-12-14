@@ -32,6 +32,13 @@ pwd: knu
 
 ---
 
+## Notice
+
+  DMLs are placed in 'server api' folder as apis.
+  To build, dart and flutter SDK should be installed.
+  It can easily built with VS Code or Android Studio.
+  Along with in OS, flutter and dart plugins should be installed in either ide.
+
 # knu_movie_web
 
 A new Flutter project.
