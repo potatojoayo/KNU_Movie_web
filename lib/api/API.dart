@@ -13,7 +13,7 @@ import '../model/log.dart';
 
 class API {
   // 기본 세팅
-  static const _baseURL = 'http://3.35.27.29:3000/';
+  static const _baseURL = 'https://3.35.27.29:3000/';
   http.Client _client = http.Client();
 
   /* 영화 겸색 ===================================================================== */
