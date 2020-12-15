@@ -22,9 +22,18 @@ Language| Dart (Flutter) | sdk >=2.7.0 <3.0.0
 
 ## How to Use
 
+
+
 web: https://potatojoayo.github.io/web
 
-Click Web! 
+Click Web! <br/>
+But before,<br/>
+Because of certification issue,<br/>
+https://3.35.27.29:3000/<br/>
+should be visit just for the first time and allow connection <br/>
+It would be fixed soon
+
+
 
 --admin account<br/>
 ID: knu@knu.ac.kr<br/>
