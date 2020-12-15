@@ -23,7 +23,7 @@ Language| Dart (Flutter) | sdk >=2.7.0 <3.0.0
 ## Functions
 
 
- 1. Recommendation
+ 1. Recommendation<br/>
  1-1) Without login or any rating history
 > 1. Order by average rating desc.
 > 2. Movies playedn in Korea order by average rating desc.
