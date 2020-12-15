@@ -30,7 +30,7 @@ Language| Dart (Flutter) | sdk >=2.7.0 <3.0.0
 > 3. Movies of which start year is before 1980 order by avearge rating desc.
 > 4. Tv series order by avg rating desc
 
- ### 1-2) With more than one rating history
+ 1-2) With more than one rating history
 > 1. Movies of thre genres that a user recommended most.
 > 2. Movies of three actors that a user recommended most.
 > 3. Movies of three directors that a user recommended most.<br/>
