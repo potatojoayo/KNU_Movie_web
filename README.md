@@ -28,7 +28,7 @@ Language| Dart (Flutter) | sdk >=2.7.0 <3.0.0
 
 Click Web! <br/>
 But before,<br/>
-Because of certification issue,<br/>
+Because of a certification issue,<br/>
 ## https://3.35.27.29:3000/<br/>
 (api server, https without public authorization)<br/>
 should be visit just for the first time and 'allow unsafe connection' <br/>
