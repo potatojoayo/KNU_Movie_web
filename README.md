@@ -12,7 +12,7 @@
 
 Environment| Name | Version 
 :---: | :---: | :---: 
-Os | Window & Mac (Linux for DB) | 10, catalina
+OS | Window & Mac (Linux for DB) | 10, catalina
 DBMS | PostgreSQL | 12.4  
 Server | AWS EC2(Flask) | -  
 IDE | VSCode | 1.47
