@@ -62,7 +62,7 @@ Because of a certification issue,<br/>
 ## https://3.35.27.29:3000/<br/>
 (api server, https without public authorization)<br/>
 should be visit just for the first time and 'allow unsafe connection' <br/>
-> It's perfectly safe. (unless, my name is hyobeom Han)<br/>
+> It's perfectly safe. (unless, my name is hyobeom Han) <br/>
 It would be fixed soon<br/>
 And for dependencies, use chrome browser please.<br/>
 For some reason, it doesn't work on mobile. It would be fixed too soon.
