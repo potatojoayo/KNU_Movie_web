@@ -32,7 +32,8 @@ Because of certification issue,<br/>
 ## https://3.35.27.29:3000/<br/>
 should be visit just for the first time and 'allow unsafe connection' <br/>
 It would be fixed soon<br/>
-And for dependencies, use chrome browser please.
+And for dependencies, use chrome browser please.<br/>
+For some reason, it doesn't work on mobile. It would be fixed too soon.
 
 
 
