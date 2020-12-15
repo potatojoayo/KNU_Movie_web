@@ -33,7 +33,7 @@ Language| Dart (Flutter) | sdk >=2.7.0 <3.0.0
  1-2) With more than one rating history
 > 1. Movies of thre genres that a user recommended most.
 > 2. Movies of three actors that a user recommended most.
-> 3. Movies of three directors that a user recommended most.
+> 3. Movies of three directors that a user recommended most.<br/>
 > ... plus above four recommendations
 
 
