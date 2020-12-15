@@ -29,8 +29,8 @@ web: https://potatojoayo.github.io/web
 Click Web! <br/>
 But before,<br/>
 Because of certification issue,<br/>
-https://3.35.27.29:3000/<br/>
-should be visit just for the first time and allow connection <br/>
+## https://3.35.27.29:3000/<br/>
+## should be visit just for the first time and 'allow unsafe connection' <br/>
 It would be fixed soon
 
 
