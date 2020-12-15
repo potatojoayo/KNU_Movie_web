@@ -23,28 +23,28 @@ Language| Dart (Flutter) | sdk >=2.7.0 <3.0.0
 ## Functions
 
 
- 1. Recommendation<br/>
+ ### 1. Recommendation<br/>
  1-1) Without login or any rating history
 > 1. Order by average rating desc.
 > 2. Movies playedn in Korea order by average rating desc.
 > 3. Movies of which start year is before 1980 order by avearge rating desc.
 > 4. Tv series order by avg rating desc
 
- 1-2) With more than one rating history
+ ### 1-2) With more than one rating history
 > 1. Movies of thre genres that a user recommended most.
 > 2. Movies of three actors that a user recommended most.
 > 3. Movies of three directors that a user recommended most.<br/>
 > ... plus above four recommendations
 
 
- 3. Searching movies
+ ### 3. Searching movies
  Detail search function provide multiple combinations of conditions including title, genre, actor, type, start/end year, director ... </br>
  By clicking card of a result shows detail features of a movie including those conditions.
 
- 4. Rating and its log
+ ### 4. Rating and its log
 In Account page shows a log of an user's rating history.
 
- 5. Adding and modifying movie in DB (only admin)
+ ### 5. Adding and modifying movie in DB (only admin)
  
  ### caution: On press 'Back Button' immediately route the page out of the application.
 
