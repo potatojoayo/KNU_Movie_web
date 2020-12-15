@@ -89,6 +89,8 @@ pwd: knu
   Either of these functions doesn't affect any other user using DB; any duplication is restricted at DB level.<br/>
   Any other functions is select instruction that no problem concerning transaction there will be.<br/>
   
+  ### line count = 7997
+  
  
 
 # knu_movie_web
