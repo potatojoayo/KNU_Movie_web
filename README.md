@@ -46,7 +46,7 @@ In Account page shows a log of an user's rating history.
 
  5. Adding and modifying movie in DB (only admin)
  
- # On press 'Back Button' immediately route the page to escape from the application.
+ ## On press 'Back Button' immediately route the page to escape from the application.
 
 
 ## How to Use
@@ -58,10 +58,11 @@ In Account page shows a log of an user's rating history.
 Click Web! <br/>
 But before,<br/>
 Because of a certification issue,<br/>
-## IMPORTANT--
+# == IMPORTANT == 
 ## https://3.35.27.29:3000/<br/>
 (api server, https without public authorization)<br/>
 should be visit just for the first time and 'allow unsafe connection' <br/>
+> It's perfectly safe. (unless, my name is hyobeom Han)
 It would be fixed soon<br/>
 And for dependencies, use chrome browser please.<br/>
 For some reason, it doesn't work on mobile. It would be fixed too soon.
