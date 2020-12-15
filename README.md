@@ -30,6 +30,7 @@ Click Web! <br/>
 But before,<br/>
 Because of certification issue,<br/>
 ## https://3.35.27.29:3000/<br/>
+(api server, https without public authorization)<br/>
 should be visit just for the first time and 'allow unsafe connection' <br/>
 It would be fixed soon<br/>
 And for dependencies, use chrome browser please.<br/>
@@ -50,7 +51,7 @@ pwd: knu
   It can easily built with VS Code or Android Studio.<br/>
   Along with in OS, flutter and dart plugins should be installed in either ide.<br/>
   <br/>
-  The server is alway on by aws ec2 via flask, a python web frame work.<br/>
+  The server, aws ec2, is alway on via flask, a python web frame work.<br/>
   <br/>
   Transaction controll was not considered since there will be minor problems which are hardly noticable.<br/>
   There are only two function that user can write on DB, register and rating.<br/>
