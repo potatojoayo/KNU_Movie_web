@@ -46,7 +46,7 @@ In Account page shows a log of an user's rating history.
 
  5. Adding and modifying movie in DB (only admin)
  
- ### On press 'Back Button' immediately route the page out of the application.
+ ### caution: On press 'Back Button' immediately route the page out of the application.
 
 
 ## How to Use
