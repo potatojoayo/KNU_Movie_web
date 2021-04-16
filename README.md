@@ -49,29 +49,6 @@ In Account page shows a log of an user's rating history.
  ### caution: On press 'Back Button' immediately route the page out of the application.
 
 
-## How to Use
-
-
-
-## web: https://potatojoayo.github.io/web
-
-Click Web! <br/>
-But before,<br/>
-Because of a certification issue,<br/>
-# == IMPORTANT == 
-## https://3.35.27.29:3000/<br/>
-(api server, https without public authorization)<br/>
-should be visit just for the first time and 'allow unsafe connection' <br/>
-> It's perfectly safe. (unless, my name is hyobeom Han) <br/>
-It would be fixed soon<br/>
-And for dependencies, use chrome browser please.<br/>
-For some reason, it doesn't work on mobile. It would be fixed too soon.
-
-
-
---admin account<br/>
-ID: knu@knu.ac.kr<br/>
-pwd: knu
 
 ---
 
